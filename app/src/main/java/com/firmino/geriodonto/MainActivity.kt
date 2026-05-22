@@ -1,31 +1,33 @@
 package com.firmino.geriodonto
 
-import android.R
-import android.graphics.Paint
 import android.os.Bundle
-import android.text.Layout
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsDraggedAsState
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -42,14 +44,16 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderColors
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.SliderState
 import androidx.compose.material3.SuggestionChip
@@ -58,12 +62,12 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.VerticalFloatingToolbar
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.material3.rememberSliderState
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -71,18 +75,29 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.ColorPainter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
+import com.firmino.geriodonto.companions.rememberAppVersion
 import com.firmino.geriodonto.ui.theme.GeriOdontoTheme
+import com.firmino.geriodonto.ui.theme.fontFamilyBaumans
+import com.firmino.geriodonto.ui.theme.fontFamilyPoiret
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -91,32 +106,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GeriOdontoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Content(innerPadding)
-                }
+                Content()
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun Content(padding: PaddingValues) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+fun Content() {
+    val sheetState = rememberBottomSheetState(initialValue = SheetValue.Hidden, enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded))
     val scope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
-    Scaffold(
-        modifier = Modifier.padding(padding),
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Text("Novo") },
-                icon = { MaterialSymbol("medication") },
-                onClick = { showBottomSheet = true },
-            )
-        },
-    ) { contentPadding ->
+    Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
-            Menu()
+            Menu(onAddClick = {showBottomSheet = true})
         }
 
         if (showBottomSheet) {
@@ -124,7 +128,6 @@ fun Content(padding: PaddingValues) {
                 onDismissRequest = { showBottomSheet = false },
                 sheetState = sheetState,
             ) {
-
                 Exam {
                     scope.launch { sheetState.hide() }.invokeOnCompletion {
                         if (!sheetState.isVisible) {
@@ -138,9 +141,172 @@ fun Content(padding: PaddingValues) {
     }
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun Menu() {
+fun Menu(onAddClick: () -> Unit) {
+    val gradientBrush = Brush.linearGradient(colors = listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.onSecondary))
+    val appVersion = rememberAppVersion()
 
+    val rotationAngle by rememberInfiniteTransition(label = "InfiniteRotationTransition").animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 20000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart,
+        ),
+        label = "RotationAngleAnimation",
+    )
+
+    Box(Modifier.fillMaxSize()) {
+
+        Image(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = (-400).dp, x = 400.dp)
+                .requiredSize(800.dp)
+                .alpha(.1f)
+                .rotate(rotationAngle)
+                .clip(MaterialShapes.Cookie6Sided.toShape()),
+            painter = ColorPainter(MaterialTheme.colorScheme.primary),
+            contentDescription = null,
+        )
+
+        Image(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = (-300).dp, x = 300.dp)
+                .requiredSize(600.dp)
+                .alpha(.1f)
+                .rotate(rotationAngle)
+                .clip(MaterialShapes.Cookie7Sided.toShape()),
+            painter = ColorPainter(MaterialTheme.colorScheme.primary),
+            contentDescription = null,
+        )
+
+
+        Image(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = (-150).dp, x = 150.dp)
+                .requiredSize(300.dp)
+                .alpha(.1f)
+                .rotate(rotationAngle)
+                .clip(MaterialShapes.Cookie9Sided.toShape()),
+            painter = ColorPainter(MaterialTheme.colorScheme.primary),
+            contentDescription = null,
+        )
+
+        Image(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = (-200).dp, x = 200.dp)
+                .requiredSize(400.dp)
+                .alpha(.1f)
+                .rotate(rotationAngle)
+                .clip(MaterialShapes.Cookie12Sided.toShape()),
+            painter = ColorPainter(MaterialTheme.colorScheme.primary),
+            contentDescription = null,
+        )
+
+
+
+
+
+
+        Image(
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .offset(y = 400.dp, x = (-400).dp)
+                .requiredSize(800.dp)
+                .alpha(.1f)
+                .rotate(rotationAngle)
+                .clip(MaterialShapes.Cookie6Sided.toShape()),
+            painter = ColorPainter(MaterialTheme.colorScheme.primary),
+            contentDescription = null,
+        )
+
+        Image(
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .offset(y = 300.dp, x = (-300).dp)
+                .requiredSize(600.dp)
+                .alpha(.1f)
+                .rotate(rotationAngle)
+                .clip(MaterialShapes.Cookie7Sided.toShape()),
+            painter = ColorPainter(MaterialTheme.colorScheme.primary),
+            contentDescription = null,
+        )
+
+
+        Image(
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .offset(y = 150.dp, x = (-150).dp)
+                .requiredSize(300.dp)
+                .alpha(.1f)
+                .rotate(rotationAngle)
+                .clip(MaterialShapes.Cookie9Sided.toShape()),
+            painter = ColorPainter(MaterialTheme.colorScheme.primary),
+            contentDescription = null,
+        )
+
+        Image(
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .offset(y = 200.dp, x = (-200).dp)
+                .requiredSize(400.dp)
+                .alpha(.1f)
+                .rotate(rotationAngle)
+                .clip(MaterialShapes.Cookie12Sided.toShape()),
+            painter = ColorPainter(MaterialTheme.colorScheme.primary),
+            contentDescription = null,
+        )
+
+        Column(
+            modifier = Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Image(
+                modifier = Modifier
+                    .size(128.dp)
+                    .graphicsLayer(alpha = 0.99f)
+                    .drawWithContent {
+                        drawContent()
+                        drawRect(brush = gradientBrush, blendMode = BlendMode.SrcIn)
+                    },
+                imageVector = ImageVector.vectorResource(R.drawable.ic_icon),
+                contentDescription = null,
+            )
+            Row {
+                Text(text = "Geri", fontFamily = fontFamilyBaumans, style = MaterialTheme.typography.displayLarge)
+                Text(text = "Odonto", fontFamily = fontFamilyPoiret, style = MaterialTheme.typography.displayLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Text(text = "Prescrição Segura em Odontogeriatria", style = MaterialTheme.typography.labelMedium)
+            Spacer(Modifier.height(128.dp))
+        }
+
+
+        VerticalFloatingToolbar(
+            modifier = Modifier.align(Alignment.BottomEnd),
+            expanded = true,
+            floatingActionButton = {
+                FloatingActionButton(onClick = onAddClick) {
+                    MaterialSymbol(iconName = "add")
+                }
+            }
+        ) {
+            IconButton(onClick = {}) { MaterialSymbol(iconName = "info") }
+            IconButton(onClick = {}) { MaterialSymbol(iconName = "policy") }
+        }
+
+        Text(
+            modifier = Modifier.padding(horizontal = 18.dp).align(Alignment.BottomStart),
+            text = appVersion,
+            color = MaterialTheme.colorScheme.onPrimary,
+            style = MaterialTheme.typography.labelMediumEmphasized,
+        )
+
+    }
 }
 
 enum class ExamPages(val text: String, val symbolName: String) {
@@ -166,11 +332,15 @@ fun Exam(onDismiss: () -> Unit) {
     var hasFragile by remember { mutableStateOf(false) }
 
     Column(
-        modifier = Modifier.fillMaxSize().pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } },
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } },
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Row(
-            Modifier.fillMaxWidth().padding(12.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -187,7 +357,11 @@ fun Exam(onDismiss: () -> Unit) {
         HorizontalPager(state = pagerState, userScrollEnabled = false) { index ->
             when (index) {
                 ExamPages.PAGE_PERSONAL.ordinal -> {
-                    Column(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
                         ExamText(
                             label = "Nome",
                             symbolName = "person_edit",
@@ -195,12 +369,15 @@ fun Exam(onDismiss: () -> Unit) {
                         )
 
                         ExamText(
-                            label = "Gênero", symbolName = "person_pin", text = genre, suggestions = listOf(
+                            label = "Gênero",
+                            symbolName = "person_pin",
+                            text = genre,
+                            suggestions = listOf(
                                 Pair("Masculino", "male"),
                                 Pair("Feminino", "female"),
                                 Pair("Transgênero", "transgender"),
                                 Pair("Agênero", "agender"),
-                            )
+                            ),
                         )
 
                         ExamSlider(
@@ -306,7 +483,9 @@ fun ExamChecker(
         modifier = Modifier.background(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.extraLarge)
     ) {
         Row(
-            modifier = Modifier.padding(vertical = 8.dp, horizontal = 12.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(vertical = 8.dp, horizontal = 12.dp)
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
@@ -317,7 +496,9 @@ fun ExamChecker(
             }
         }
         Switch(
-            modifier = Modifier.align(Alignment.CenterEnd).padding(horizontal = 12.dp),
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(horizontal = 12.dp),
             checked = value,
             onCheckedChange = onValueChange,
         )
@@ -351,7 +532,9 @@ fun ExamSlider(
     Column(modifier = Modifier.background(color = if (isEditing) MaterialTheme.colorScheme.surfaceVariant else Color.Transparent, shape = MaterialTheme.shapes.extraLarge)) {
         Box {
             TextField(
-                modifier = Modifier.fillMaxWidth().alpha(if (isEditing) 0f else 1f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .alpha(if (isEditing) 0f else 1f),
                 value = if (progress != min) "$formatedValue $suffix" else "",
                 onValueChange = {},
                 readOnly = true,
@@ -364,24 +547,32 @@ fun ExamSlider(
                 ),
             )
             Slider(
-                modifier = Modifier.align(Alignment.Center).padding(horizontal = 24.dp).alpha(if (isEditing) 1f else 0f).pointerInput(Unit) {
-                    awaitEachGesture {
-                        awaitFirstDown(pass = PointerEventPass.Initial)
-                        isEditing = true
-                        do {
-                            val event = awaitPointerEvent(pass = PointerEventPass.Initial)
-                            val anyChangesDown = event.changes.any { it.pressed }
-                        } while (anyChangesDown)
-                        isEditing = false
-                    }
-                },
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(horizontal = 24.dp)
+                    .alpha(if (isEditing) 1f else 0f)
+                    .pointerInput(Unit) {
+                        awaitEachGesture {
+                            awaitFirstDown(pass = PointerEventPass.Initial)
+                            isEditing = true
+                            do {
+                                val event = awaitPointerEvent(pass = PointerEventPass.Initial)
+                                val anyChangesDown = event.changes.any { it.pressed }
+                            } while (anyChangesDown)
+                            isEditing = false
+                        }
+                    },
                 state = value,
                 colors = SliderDefaults.colors(inactiveTrackColor = MaterialTheme.colorScheme.primary),
             )
         }
         AnimatedVisibility(visible = isEditing) {
             HorizontalDivider(color = MaterialTheme.colorScheme.surface)
-            Row(Modifier.padding(12.dp).fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                Modifier
+                    .padding(12.dp)
+                    .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
+            ) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                     MaterialSymbol(symbolName)
                     if (scale.isEmpty()) {
@@ -422,7 +613,9 @@ fun ExamText(
         AnimatedVisibility(visible = isEditing && items.isNotEmpty()) {
             Column {
                 LazyRow(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -438,6 +631,7 @@ fun ExamText(
                             icon = { MaterialSymbol(iconName = item.second) },
                             onClick = {
                                 text.edit { replace(0, length, item.first) }
+                                focusManager.clearFocus()
                             },
                         )
                     }
@@ -448,7 +642,9 @@ fun ExamText(
         }
 
         TextField(
-            modifier = Modifier.fillMaxWidth().onFocusChanged { focusState -> isEditing = focusState.isFocused },
+            modifier = Modifier
+                .fillMaxWidth()
+                .onFocusChanged { focusState -> isEditing = focusState.isFocused },
             state = text,
             label = { label?.let { Text(label) } },
             lineLimits = TextFieldLineLimits.SingleLine,

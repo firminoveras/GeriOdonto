@@ -10,7 +10,7 @@ enum class MedClass(val text: String, val short_text: String = "") {
     MED_CLASS_ANTAGONISTAS_ALDOSTERONA(text = "Antagonistas da Aldosterona"),
 
     // Diabetes / Hipoglicemiantes
-    MED_CLASS_BIGUANIDAS(text = "Biguanidas",),
+    MED_CLASS_BIGUANIDAS(text = "Biguanidas"),
     MED_CLASS_SULFONILUREIAS(text = "Sulfonilureias"),
     MED_CLASS_INSULINAS(text = "Insulinas"),
     MED_CLASS_INIBIDORES_SGLT2(text = "Inibidores de SGLT2"),
@@ -24,7 +24,7 @@ enum class MedClass(val text: String, val short_text: String = "") {
     // Sistema Nervoso Central (Cognição, Antidepressivos e Parkinson)
     MED_CLASS_INIBIDORES_ACETILCOLINESTERASE(text = "Inibidores da Acetilcolinesterase"),
     MED_CLASS_ANTAGONISTAS_NMDA(text = "Antagonistas do Receptor NMDA"),
-    MED_CLASS_ANTIDEPRESSIVOS(text = "Antidepressivos",),
+    MED_CLASS_ANTIDEPRESSIVOS(text = "Antidepressivos"),
     MED_CLASS_ANTIPARKINSONIANOS(text = "Antiparkinsonianos"),
 
     // Saúde Óssea e Suplementação

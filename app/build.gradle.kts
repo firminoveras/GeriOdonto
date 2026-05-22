@@ -6,17 +6,15 @@ plugins {
 android {
     namespace = "com.firmino.geriodonto"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+        version = release(37)
     }
 
     defaultConfig {
         applicationId = "com.firmino.geriodonto"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
-        versionName = "1.0"
+        versionName = "v0.1 - Beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.material3)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
