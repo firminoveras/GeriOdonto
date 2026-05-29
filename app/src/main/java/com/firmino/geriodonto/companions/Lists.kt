@@ -122,6 +122,30 @@ enum class Risk(val text: String, val category: RiskCategory) {
      */
     ORAL_INFECTION("Infecção Oral (Ex: Candidíase)", RiskCategory.ORAL_AND_SPEECH),
 
+    /**
+     * Crescimento excessivo do tecido gengival, frequentemente associado ao uso de
+     * bloqueadores de canais de cálcio, anticonvulsivantes ou imunossupressores.
+     */
+    GINGIVAL_HYPERPLASIA("Hiperplasia Gengival", RiskCategory.ORAL_AND_SPEECH),
+
+    /**
+     * Condição grave onde o osso maxilar ou mandibular fica exposto e começa a morrer,
+     * geralmente associada ao uso de bifosfonatos ou denosumabe.
+     */
+    OSTEONECROSIS_OF_JAW("Osteonecrose dos Maxilares", RiskCategory.ORAL_AND_SPEECH),
+
+    /**
+     * Disgeusia ou hipogeusia. Alteração ou diminuição do sentido do paladar,
+     * um efeito colateral comum de diversos medicamentos.
+     */
+    TASTE_ALTERATION("Alteração do Paladar (Disgeusia)", RiskCategory.ORAL_AND_SPEECH),
+
+    /**
+     * Produção excessiva de saliva, que pode levar ao babeamento e irritação perioral,
+     * comum em alguns tratamentos neurológicos ou colinérgicos.
+     */
+    SIALORRHEA("Sialorreia (Salivação Excessiva)", RiskCategory.ORAL_AND_SPEECH),
+
     // ==========================================
     // NEUROLÓGICOS
     // ==========================================
@@ -301,6 +325,9 @@ enum class Risk(val text: String, val category: RiskCategory) {
     /** Cansaço extremo persistente que não melhora significativamente com repouso. */
     CHRONIC_FATIGUE("Fadiga Crônica", RiskCategory.GENERAL),
 
+    /** Risco aumentado de sangramento espontâneo ou prolongado após procedimentos, comum com anticoagulantes. */
+    BLEEDING_RISK("Risco de Hemorragia / Sangramento", RiskCategory.GENERAL),
+
     /** Deficiência de nutrientes essenciais por má alimentação ou problemas de absorção. */
     MALNUTRITION("Desnutrição", RiskCategory.GENERAL)
 }
@@ -309,6 +336,7 @@ data class Med(
     val name: String,
     val principleActive: String = "",
     val medClass: MedClass,
+    val risks: List<Risk> = emptyList(),
 )
 
 data class MedicalCondition(
@@ -322,141 +350,169 @@ val Hidroclorotiazida = Med(
     name = "Hidroclorotiazida",
     principleActive = "Hidroclorotiazida",
     medClass = MedClass.MED_CLASS_DIURETICOS_TIAZIDICOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Clortalidona = Med(
     name = "Clortalidona",
     principleActive = "Clortalidona",
     medClass = MedClass.MED_CLASS_DIURETICOS_TIAZIDICOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Enalapril = Med(
     name = "Enalapril",
     principleActive = "Maleato de Enalapril",
     medClass = MedClass.MED_CLASS_INIBIDORES_ECA,
+    risks = listOf(Risk.TASTE_ALTERATION, Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Captopril = Med(
     name = "Captopril",
     principleActive = "Captopril",
     medClass = MedClass.MED_CLASS_INIBIDORES_ECA,
+    risks = listOf(Risk.TASTE_ALTERATION, Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Losartana = Med(
     name = "Losartana",
     principleActive = "Losartana Potássica",
     medClass = MedClass.MED_CLASS_BRA,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Valsartana = Med(
     name = "Valsartana",
     principleActive = "Valsartana",
     medClass = MedClass.MED_CLASS_BRA,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Anlodipino = Med(
     name = "Anlodipino",
     principleActive = "Besilato de Anlodipino",
     medClass = MedClass.MED_CLASS_BLOQUEADORES_CALCIO,
+    risks = listOf(Risk.GINGIVAL_HYPERPLASIA, Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Atenolol = Med(
     name = "Atenolol",
     principleActive = "Atenolol",
     medClass = MedClass.MED_CLASS_BETABLOQUEADORES,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Carvedilol = Med(
     name = "Carvedilol",
     principleActive = "Carvedilol",
     medClass = MedClass.MED_CLASS_BETABLOQUEADORES,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Furosemida = Med(
     name = "Furosemida",
     principleActive = "Furosemida",
     medClass = MedClass.MED_CLASS_DIURETICOS_ALCA,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Espironolactona = Med(
     name = "Espironolactona",
     principleActive = "Espironolactona",
     medClass = MedClass.MED_CLASS_ANTAGONISTAS_ALDOSTERONA,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val Metformina = Med(
     name = "Metformina",
     principleActive = "Cloridrato de Metformina",
     medClass = MedClass.MED_CLASS_BIGUANIDAS,
+    risks = listOf(Risk.TASTE_ALTERATION),
 )
 val Gliclazida = Med(
     name = "Gliclazida",
     principleActive = "Gliclazida",
     medClass = MedClass.MED_CLASS_SULFONILUREIAS,
+    risks = listOf(Risk.DIABETIC_COMPLICATION),
 )
 val Glibenclamida = Med(
     name = "Glibenclamida",
     principleActive = "Glibenclamida",
     medClass = MedClass.MED_CLASS_SULFONILUREIAS,
+    risks = listOf(Risk.DIABETIC_COMPLICATION),
 )
 val InsulinaGlargina = Med(
     name = "Insulina Glargina",
     principleActive = "Insulina Glargina",
     medClass = MedClass.MED_CLASS_INSULINAS,
+    risks = listOf(Risk.DIABETIC_COMPLICATION),
 )
 val InsulinaRegular = Med(
     name = "Insulina Regular",
     principleActive = "Insulina Humana Regular",
     medClass = MedClass.MED_CLASS_INSULINAS,
+    risks = listOf(Risk.DIABETIC_COMPLICATION),
 )
 val Empagliflozina = Med(
     name = "Empagliflozina",
     principleActive = "Empagliflozina",
     medClass = MedClass.MED_CLASS_INIBIDORES_SGLT2,
+    risks = listOf(Risk.URINARY_INFECTION, Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val Sitagliptina = Med(
     name = "Sitagliptina",
     principleActive = "Fosfato de Sitagliptina",
     medClass = MedClass.MED_CLASS_INIBIDORES_DPP4,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val Amiodarona = Med(
     name = "Amiodarona",
     principleActive = "Cloridrato de Amiodarona",
     medClass = MedClass.MED_CLASS_ANTIARRITMICOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.THYROID_DYSFUNCTION),
 )
 val Varfarina = Med(
     name = "Varfarina",
     principleActive = "Varfarina Sódica",
     medClass = MedClass.MED_CLASS_ANTICOAGULANTES,
+    risks = listOf(Risk.BLEEDING_RISK),
 )
 val Rivaroxabana = Med(
     name = "Rivaroxabana",
     principleActive = "Rivaroxabana",
     medClass = MedClass.MED_CLASS_ANTICOAGULANTES,
+    risks = listOf(Risk.BLEEDING_RISK),
 )
 val AcidoAcetilsalicilico = Med(
     name = "Ácido Acetilsalicílico",
     principleActive = "Ácido Acetilsalicílico",
     medClass = MedClass.MED_CLASS_ANTIAGREGANTES_PLAQUETARIOS,
+    risks = listOf(Risk.BLEEDING_RISK, Risk.PEPTIC_ULCER),
 )
 val Donepezila = Med(
     name = "Donepezila",
     principleActive = "Cloridrato de Donepezila",
     medClass = MedClass.MED_CLASS_INIBIDORES_ACETILCOLINESTERASE,
+    risks = listOf(Risk.SIALORRHEA),
 )
 val Rivastigmina = Med(
     name = "Rivastigmina",
     principleActive = "Tartarato de Rivastigmina",
     medClass = MedClass.MED_CLASS_INIBIDORES_ACETILCOLINESTERASE,
+    risks = listOf(Risk.SIALORRHEA),
 )
 val Galantamina = Med(
     name = "Galantamina",
     principleActive = "Bromidrato de Galantamina",
     medClass = MedClass.MED_CLASS_INIBIDORES_ACETILCOLINESTERASE,
+    risks = listOf(Risk.SIALORRHEA),
 )
 val Memantina = Med(
     name = "Memantina",
     principleActive = "Cloridrato de Memantina",
     medClass = MedClass.MED_CLASS_ANTAGONISTAS_NMDA,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Alendronato = Med(
     name = "Alendronato",
     principleActive = "Alendronato de Sódio",
     medClass = MedClass.MED_CLASS_BIFOSFONATOS,
+    risks = listOf(Risk.OSTEONECROSIS_OF_JAW),
 )
 val Risedronato = Med(
     name = "Risedronato",
     principleActive = "Risedronato Sódico",
     medClass = MedClass.MED_CLASS_BIFOSFONATOS,
+    risks = listOf(Risk.OSTEONECROSIS_OF_JAW),
 )
 val CarbonatoDeCalcio = Med(
     name = "Carbonato de Cálcio",
@@ -482,116 +538,139 @@ val Ibuprofeno = Med(
     name = "Ibuprofeno",
     principleActive = "Ibuprofeno",
     medClass = MedClass.MED_CLASS_AINE,
+    risks = listOf(Risk.BLEEDING_RISK, Risk.PEPTIC_ULCER, Risk.GASTROINTESTINAL_BLEEDING, Risk.KIDNEY_FAILURE),
 )
 val Diclofenaco = Med(
     name = "Diclofenaco",
     principleActive = "Diclofenaco Sódico/Potássico",
     medClass = MedClass.MED_CLASS_AINE,
+    risks = listOf(Risk.BLEEDING_RISK, Risk.PEPTIC_ULCER, Risk.GASTROINTESTINAL_BLEEDING, Risk.KIDNEY_FAILURE),
 )
 val Tramadol = Med(
     name = "Tramadol",
     principleActive = "Cloridrato de Tramadol",
     medClass = MedClass.MED_CLASS_ANALGESICOS_OPIOIDES,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.DELIRIUM, Risk.LOSS_OF_BALANCE),
 )
 val Sertralina = Med(
     name = "Sertralina",
     principleActive = "Cloridrato de Sertralina",
     medClass = MedClass.MED_CLASS_ANTIDEPRESSIVOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.BLEEDING_RISK),
 )
 val Escitalopram = Med(
     name = "Escitalopram",
     principleActive = "Oxalato de Escitalopram",
     medClass = MedClass.MED_CLASS_ANTIDEPRESSIVOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.BLEEDING_RISK),
 )
 val Fluoxetina = Med(
     name = "Fluoxetina",
     principleActive = "Cloridrato de Fluoxetina",
     medClass = MedClass.MED_CLASS_ANTIDEPRESSIVOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.BLEEDING_RISK),
 )
 val Mirtazapina = Med(
     name = "Mirtazapina",
     principleActive = "Mirtazapina",
     medClass = MedClass.MED_CLASS_ANTIDEPRESSIVOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Levodopa = Med(
     name = "Levodopa",
     principleActive = "Levodopa",
     medClass = MedClass.MED_CLASS_ANTIPARKINSONIANOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Carbidopa = Med(
     name = "Carbidopa",
     principleActive = "Carbidopa",
     medClass = MedClass.MED_CLASS_ANTIPARKINSONIANOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Pramipexol = Med(
     name = "Pramipexol",
     principleActive = "Dicloridrato de Pramipexol",
     medClass = MedClass.MED_CLASS_ANTIPARKINSONIANOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Selegilina = Med(
     name = "Selegilina",
     principleActive = "Cloridrato de Selegilina",
     medClass = MedClass.MED_CLASS_ANTIPARKINSONIANOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION, Risk.LOSS_OF_BALANCE),
 )
 val Salbutamol = Med(
     name = "Salbutamol",
     principleActive = "Sulfato de Salbutamol",
     medClass = MedClass.MED_CLASS_BRONCODILATADORES,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val BrometoDeIpratropio = Med(
     name = "Brometo de Ipratrópio",
     principleActive = "Brometo de Ipratrópio",
     medClass = MedClass.MED_CLASS_BRONCODILATADORES,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val Budesonida = Med(
     name = "Budesonida",
     principleActive = "Budesonida",
     medClass = MedClass.MED_CLASS_CORTICOIDES_INALATORIOS,
+    risks = listOf(Risk.ORAL_INFECTION),
 )
 val Formoterol = Med(
     name = "Formoterol",
     principleActive = "Fumarato de Formoterol Dihidratado",
     medClass = MedClass.MED_CLASS_BRONCODILATADORES,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val Bicalutamida = Med(
     name = "Bicalutamida",
     principleActive = "Bicalutamida",
     medClass = MedClass.MED_CLASS_ANTIANDROGENIOS,
+    risks = listOf(Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val Leuprorrelina = Med(
     name = "Leuprorrelina",
     principleActive = "Acetato de Leuprorrelina",
     medClass = MedClass.MED_CLASS_ANALOGOS_GNRH,
+    risks = listOf(Risk.BONE_FRACTURE, Risk.DEPRESSION_ANXIETY, Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val Tamoxifeno = Med(
     name = "Tamoxifeno",
     principleActive = "Citrato de Tamoxifeno",
     medClass = MedClass.MED_CLASS_MODULADORES_ESTROGENIO,
+    risks = listOf(Risk.THROMBOSIS, Risk.STROKE, Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val Anastrozol = Med(
     name = "Anastrozol",
     principleActive = "Anastrozol",
     medClass = MedClass.MED_CLASS_INIBIDORES_AROMATASE,
+    risks = listOf(Risk.BONE_FRACTURE, Risk.DEPRESSION_ANXIETY, Risk.XEROSTOMIA_HYPOSALIVATION),
 )
 val Eritropoetina = Med(
     name = "Eritropoetina",
     principleActive = "Eritropoetina Humana Recombinante",
     medClass = MedClass.MED_CLASS_ESTIMULANTES_ERITROPOESE,
+    risks = listOf(Risk.HYPERTENSION_CRISIS),
 )
 val Sevelamer = Med(
     name = "Sevelâmer",
     principleActive = "Cloridrato/Carbonato de Sevelâmer",
     medClass = MedClass.MED_CLASS_QUELANTES_FOSFATO,
+    risks = listOf(Risk.GENERAL_GASTROINTESTINAL),
 )
 val Pilocarpina = Med(
     name = "Pilocarpina",
     principleActive = "Cloridrato de Pilocarpina",
     medClass = MedClass.MED_CLASS_ESTIMULANTES_SALIVARES,
+    risks = listOf(Risk.SIALORRHEA),
 )
 val Cevimelina = Med(
     name = "Cevimelina",
     principleActive = "Cloridrato de Cevimelina",
     medClass = MedClass.MED_CLASS_ESTIMULANTES_SALIVARES,
+    risks = listOf(Risk.SIALORRHEA),
 )
 val Xilitol = Med(
     name = "Substitutos Salivares com Xilitol",
@@ -612,6 +691,7 @@ val Testosterona = Med(
     name = "Testosterona",
     principleActive = "Testosterona",
     medClass = MedClass.MED_CLASS_SUPLEMENTOS_ALIMENTARES,
+    risks = listOf(Risk.GENERAL_CARDIOVASCULAR),
 )
 
 
@@ -956,4 +1036,66 @@ val medicalConditionsList = listOf(
     Xerostomia,
     Fragilidade,
     Sarcopenia
+)
+
+val medsList = listOf(
+    Hidroclorotiazida,
+    Clortalidona,
+    Enalapril,
+    Captopril,
+    Losartana,
+    Valsartana,
+    Anlodipino,
+    Atenolol,
+    Carvedilol,
+    Furosemida,
+    Espironolactona,
+    Metformina,
+    Gliclazida,
+    Glibenclamida,
+    InsulinaGlargina,
+    InsulinaRegular,
+    Empagliflozina,
+    Sitagliptina,
+    Amiodarona,
+    Varfarina,
+    Rivaroxabana,
+    AcidoAcetilsalicilico,
+    Donepezila,
+    Rivastigmina,
+    Galantamina,
+    Memantina,
+    Alendronato,
+    Risedronato,
+    CarbonatoDeCalcio,
+    Colecalciferol,
+    Paracetamol,
+    Dipirona,
+    Ibuprofeno,
+    Diclofenaco,
+    Tramadol,
+    Sertralina,
+    Escitalopram,
+    Fluoxetina,
+    Mirtazapina,
+    Levodopa,
+    Carbidopa,
+    Pramipexol,
+    Selegilina,
+    Salbutamol,
+    BrometoDeIpratropio,
+    Budesonida,
+    Formoterol,
+    Bicalutamida,
+    Leuprorrelina,
+    Tamoxifeno,
+    Anastrozol,
+    Eritropoetina,
+    Sevelamer,
+    Pilocarpina,
+    Cevimelina,
+    Xilitol,
+    SuplementosProteicos,
+    AminoacidosEssenciais,
+    Testosterona,
 )

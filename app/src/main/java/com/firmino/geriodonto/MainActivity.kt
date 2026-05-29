@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -41,6 +42,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.material3.rememberSliderState
@@ -69,9 +71,11 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
+import com.firmino.geriodonto.companions.Med
 import com.firmino.geriodonto.companions.MedicalCondition
 import com.firmino.geriodonto.companions.rememberAppVersion
 import com.firmino.geriodonto.ui.pages.ExamPageDiaseses
+import com.firmino.geriodonto.ui.pages.ExamPageMeds
 import com.firmino.geriodonto.ui.pages.ExamPagePersonal
 import com.firmino.geriodonto.ui.theme.GeriOdontoTheme
 import com.firmino.geriodonto.ui.theme.fontFamilyBaumans
@@ -328,6 +332,33 @@ fun Exam(onDismiss: () -> Unit) {
     var hasFragile by remember { mutableStateOf(false) }
 
     val diaseseList = remember { mutableStateListOf<MedicalCondition>() }
+    val medList = remember { mutableStateListOf<Med>() }
+
+    var deleteDiasese by remember { mutableStateOf<MedicalCondition?>(null) }
+
+    if (deleteDiasese != null) {
+        AlertDialog(
+            onDismissRequest = { deleteDiasese = null },
+            title = { Text("Você deseja deletar essa entrada?") },
+            text = { Text("Essa ação excluirá a entrada de comorbidade selecionada.") },
+            icon = { MaterialSymbol(iconName = "delete") },
+            confirmButton = {
+                TextButton(
+                    content = { Text("Confirmar") },
+                    onClick = {
+                        diaseseList.remove(deleteDiasese)
+                        deleteDiasese = null
+                    },
+                )
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { deleteDiasese = null },
+                    content = { Text("Cancelar") },
+                )
+            },
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -363,8 +394,8 @@ fun Exam(onDismiss: () -> Unit) {
                         hepaticTgp = hepaticTgp,
                         hasFallHistory = hasFallHistory,
                         hasFragile = hasFragile,
-                        onHasFragileChange = {hasFragile = it},
-                        onHasFallHistoryChange = {hasFallHistory = it},
+                        onHasFragileChange = { hasFragile = it },
+                        onHasFallHistoryChange = { hasFallHistory = it },
                         onNext = {
                             scope.launch {
                                 pagerState.animateScrollToPage(ExamPages.PAGE_DIASESES.ordinal)
@@ -376,15 +407,18 @@ fun Exam(onDismiss: () -> Unit) {
                 ExamPages.PAGE_DIASESES.ordinal -> {
                     ExamPageDiaseses(
                         medicalConditionList = diaseseList,
-                        onAdd = {
-                            if (!diaseseList.contains(it)) diaseseList.add(it)
-                        },
-                        onRemove = { diaseseList.remove(it) },
+                        onAdd = { if (!diaseseList.contains(it)) diaseseList.add(it) },
+                        onRemove = { deleteDiasese = it },
                     )
                 }
 
                 ExamPages.PAGE_PRESCRIPTION.ordinal -> {
-                    Text(text = "$index")
+                    ExamPageMeds(
+                        medicalConditionList = diaseseList,
+                        medList = medList,
+                        onAdd = {  },
+                        onRemove = { },
+                    )
                 }
             }
         }
