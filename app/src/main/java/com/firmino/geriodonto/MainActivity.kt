@@ -320,6 +320,8 @@ fun Exam(onDismiss: () -> Unit) {
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
 
+    var showTopBar by remember { mutableStateOf(true) }
+
     val name = rememberTextFieldState("")
     val genre = rememberTextFieldState("")
     val weight = rememberSliderState(value = 0f)
@@ -364,23 +366,29 @@ fun Exam(onDismiss: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } },
-        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(text = "Nova prescrição", style = MaterialTheme.typography.titleLarge)
-            Button(onClick = onDismiss) { Text("Fechar") }
+        AnimatedVisibility(showTopBar) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(text = "Nova prescrição", style = MaterialTheme.typography.titleLarge)
+                    Button(onClick = onDismiss) { Text("Fechar") }
+                }
+                HorizontalDivider()
+                ExamMenu(
+                    currentPage = pagerState.currentPage,
+                    onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
+                )
+            }
         }
-        HorizontalDivider()
-        ExamMenu(
-            currentPage = pagerState.currentPage,
-            onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
-        )
+        Spacer(Modifier.height(8.dp))
         HorizontalPager(state = pagerState, userScrollEnabled = false) { index ->
             when (index) {
                 ExamPages.PAGE_PERSONAL.ordinal -> {
@@ -407,6 +415,7 @@ fun Exam(onDismiss: () -> Unit) {
                 ExamPages.PAGE_DIASESES.ordinal -> {
                     ExamPageDiaseses(
                         medicalConditionList = diaseseList,
+                        onSearchStateChange = {showTopBar = it},
                         onAdd = { if (!diaseseList.contains(it)) diaseseList.add(it) },
                         onRemove = { deleteDiasese = it },
                     )
@@ -416,7 +425,8 @@ fun Exam(onDismiss: () -> Unit) {
                     ExamPageMeds(
                         medicalConditionList = diaseseList,
                         medList = medList,
-                        onAdd = {  },
+                        onSearchStateChange = {showTopBar = it},
+                        onAdd = { },
                         onRemove = { },
                     )
                 }
