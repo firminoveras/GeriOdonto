@@ -1,0 +1,42 @@
+package com.firmino.geriodonto.data.database
+
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import com.firmino.geriodonto.data.InteractionAlertLevel
+import com.firmino.geriodonto.data.MedClass
+import com.firmino.geriodonto.data.Risk
+
+@Entity(tableName = "medications")
+data class MedEntity(
+    @PrimaryKey val id: String,
+    val name: String,
+    val description: String,
+    val principleActive: String,
+    val medClass: MedClass,
+    val byDisease: String,
+    val risks: List<Risk>,
+)
+
+@Entity(
+    tableName = "interactions",
+    foreignKeys = [
+        ForeignKey(
+            entity = MedEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["ownerMedId"],
+            onDelete = ForeignKey.CASCADE,
+        )
+    ],
+    indices = [Index("ownerMedId")],
+)
+
+data class InteractionEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val ownerMedId: String,
+    val interactingMedId: String,
+    val risk: Risk,
+    val description: String,
+    val alertLevel: InteractionAlertLevel,
+)

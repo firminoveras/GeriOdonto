@@ -13,12 +13,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,10 +31,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.LineBreak
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
-import com.firmino.geriodonto.companions.MedicalCondition
-import com.firmino.geriodonto.companions.medicalConditionsList
+import com.firmino.geriodonto.data.MedicalCondition
+import com.firmino.geriodonto.data.medicalConditionsList
+import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.ui.widgets.ExamSearchBar
 import com.firmino.geriodonto.ui.widgets.HighlightedText
 
@@ -49,16 +54,16 @@ fun ExamPageDiaseses(
             Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
         ) {
             item {
                 Spacer(Modifier.height(58.dp))
             }
-            items(items = medicalConditionList) {
+            itemsIndexed(items = medicalConditionList, key = { _, item -> item.name}) { index, item ->
                 ExamDiaseseItem(
-                    modifier = Modifier.fillMaxWidth(),
-                    medicalCondition = it,
-                    onRemove = { onRemove(it) },
+                    shape = roundedCornerListShape(index = index, total = medicalConditionList.size),
+                    medicalCondition = item,
+                    onRemove = { removeItem -> onRemove(removeItem) },
                 )
             }
         }
@@ -79,6 +84,9 @@ fun ExamPageDiaseses(
                                     }
                                 }
                                 .fillMaxWidth(),
+                            colors = ListItemDefaults.colors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            ),
                             headlineContent = {
                                 HighlightedText(result.first, query)
                             },
@@ -96,21 +104,42 @@ fun ExamPageDiaseses(
 }
 
 @Composable
-fun ExamDiaseseItem(modifier: Modifier = Modifier, medicalCondition: MedicalCondition, onRemove: (MedicalCondition) -> Unit) {
+fun ExamDiaseseItem(
+    medicalCondition: MedicalCondition,
+    onRemove: (MedicalCondition) -> Unit,
+    shape: CornerBasedShape,
+) {
     var isExpanded by remember { mutableStateOf(false) }
 
-    Card(onClick = { isExpanded = !isExpanded }) {
+    Card(
+        onClick = { isExpanded = !isExpanded },
+        shape = shape,
+    ) {
         Column(Modifier.fillMaxWidth()) {
-            Box(
-                Modifier.padding(vertical = 8.dp, horizontal = 12.dp),
-            ) {
-                Column(Modifier.padding(end = 48.dp)) {
-                    Text(medicalCondition.name, style = MaterialTheme.typography.titleLarge)
-                    Text(medicalCondition.description, style = MaterialTheme.typography.bodySmall.copy(fontStyle = FontStyle.Italic))
+            Box(Modifier.padding(vertical = 12.dp).fillMaxWidth()) {
+                Column(Modifier.padding(start = 16.dp, end = 48.dp)) {
+                    Text(
+                        text = medicalCondition.name,
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    Text(
+                        text = medicalCondition.description,
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontStyle = FontStyle.Italic,
+                            lineBreak = LineBreak.Paragraph.copy(
+                                strategy = LineBreak.Strategy.HighQuality,
+                                strictness = LineBreak.Strictness.Normal,
+                                wordBreak = LineBreak.WordBreak.Default,
+                            ),
+                            textAlign = TextAlign.Justify,
+                        ),
+                    )
                 }
 
                 IconButton(
-                    modifier = Modifier.align(Alignment.CenterEnd),
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .padding(end = 12.dp),
                     onClick = { onRemove(medicalCondition) },
                     content = { MaterialSymbol("delete") },
                 )

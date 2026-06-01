@@ -70,16 +70,19 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.firmino.geriodonto.companions.MaterialSymbol
-import com.firmino.geriodonto.companions.Med
-import com.firmino.geriodonto.companions.MedicalCondition
 import com.firmino.geriodonto.companions.rememberAppVersion
+import com.firmino.geriodonto.data.MedicalCondition
+import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.ui.pages.ExamPageDiaseses
 import com.firmino.geriodonto.ui.pages.ExamPageMeds
 import com.firmino.geriodonto.ui.pages.ExamPagePersonal
 import com.firmino.geriodonto.ui.theme.GeriOdontoTheme
 import com.firmino.geriodonto.ui.theme.fontFamilyBaumans
 import com.firmino.geriodonto.ui.theme.fontFamilyPoiret
+import com.firmino.geriodonto.viewmodel.MedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
@@ -89,6 +92,7 @@ enum class ExamPages(val text: String, val symbolName: String) {
     PAGE_PRESCRIPTION("Prescrição", "admin_meds"),
 }
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +107,10 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun Content() {
+fun Content(
+    viewModel: MedViewModel = hiltViewModel()
+) {
+
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
@@ -112,7 +119,8 @@ fun Content() {
     var showBottomSheet by remember { mutableStateOf(false) }
     Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
-            Menu(onAddClick = { showBottomSheet = true })
+            Menu(
+                onAddClick = { showBottomSheet = true })
         }
 
         if (showBottomSheet) {
@@ -120,7 +128,9 @@ fun Content() {
                 onDismissRequest = { showBottomSheet = false },
                 sheetState = sheetState,
             ) {
-                Exam {
+                Exam (
+                viewModel = viewModel,
+                ){
                     scope.launch { sheetState.hide() }.invokeOnCompletion {
                         if (!sheetState.isVisible) {
                             showBottomSheet = false
@@ -315,7 +325,7 @@ fun Menu(onAddClick: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Exam(onDismiss: () -> Unit) {
+fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
     val pagerState = rememberPagerState { ExamPages.entries.size }
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
@@ -337,6 +347,7 @@ fun Exam(onDismiss: () -> Unit) {
     val medList = remember { mutableStateListOf<Med>() }
 
     var deleteDiasese by remember { mutableStateOf<MedicalCondition?>(null) }
+    var deleteMed by remember { mutableStateOf<Med?>(null) }
 
     if (deleteDiasese != null) {
         AlertDialog(
@@ -356,6 +367,30 @@ fun Exam(onDismiss: () -> Unit) {
             dismissButton = {
                 TextButton(
                     onClick = { deleteDiasese = null },
+                    content = { Text("Cancelar") },
+                )
+            },
+        )
+    }
+
+    if (deleteMed != null) {
+        AlertDialog(
+            onDismissRequest = { deleteMed = null },
+            title = { Text("Você deseja deletar esse medicamento?") },
+            text = { Text("Essa ação excluirá a entrada de medicamento selecionada.") },
+            icon = { MaterialSymbol(iconName = "delete") },
+            confirmButton = {
+                TextButton(
+                    content = { Text("Confirmar") },
+                    onClick = {
+                        medList.remove(deleteMed)
+                        deleteMed = null
+                    },
+                )
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { deleteMed = null },
                     content = { Text("Cancelar") },
                 )
             },
@@ -415,7 +450,7 @@ fun Exam(onDismiss: () -> Unit) {
                 ExamPages.PAGE_DIASESES.ordinal -> {
                     ExamPageDiaseses(
                         medicalConditionList = diaseseList,
-                        onSearchStateChange = {showTopBar = it},
+                        onSearchStateChange = { showTopBar = it },
                         onAdd = { if (!diaseseList.contains(it)) diaseseList.add(it) },
                         onRemove = { deleteDiasese = it },
                     )
@@ -424,10 +459,11 @@ fun Exam(onDismiss: () -> Unit) {
                 ExamPages.PAGE_PRESCRIPTION.ordinal -> {
                     ExamPageMeds(
                         medicalConditionList = diaseseList,
+                        viewModel = viewModel,
                         medList = medList,
-                        onSearchStateChange = {showTopBar = it},
-                        onAdd = { },
-                        onRemove = { },
+                        onSearchStateChange = { showTopBar = it },
+                        onAdd = { if (!medList.contains(it)) medList.add(it) },
+                        onRemove = { deleteMed = it },
                     )
                 }
             }
