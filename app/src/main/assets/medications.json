@@ -128,7 +128,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "aspirina",
+        "interactingMedId": "acido_acetilsalicilico",
         "risk": "CARDIOVASCULAR_EVENT",
         "description": "Pode reduzir o efeito antiplaquetário da aspirina, diminuindo a cardioproteção contra infarto, AVC e tromboses.",
         "alertLevel": "NORMAL"
@@ -306,7 +306,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "aspirina",
+        "interactingMedId": "acido_acetilsalicilico",
         "risk": "CARDIOVASCULAR_EVENT",
         "description": "Reduz o efeito antiplaquetário da aspirina, elevando o risco de infarto/AVC, além de aumentar significativamente o risco de úlcera gástrica.",
         "alertLevel": "HIGH"
@@ -418,7 +418,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "aspirina",
+        "interactingMedId": "acido_acetilsalicilico",
         "risk": "GASTROINTESTINAL_BLEEDING",
         "description": "Potencialização do sangramento gastrointestinal. Aumento expressivo do risco de úlcera péptica e hemorragia digestiva alta.",
         "alertLevel": "HIGH"
@@ -510,7 +510,7 @@
     ]
   },
   {
-    "id": "diclofenaco",
+    "id": "diclofenaco_sodico",
     "name": "Diclofenaco Sódico",
     "description": "Anti-inflamatório não esteroidal (AINE). Apresenta um dos maiores riscos cardiovasculares (infarto/AVC) entre os AINEs tradicionais, além de alto risco de sangramento gastrointestinal e insuficiência renal. Atenção máxima ao 'Triple Golpe' e em idosos com insuficiência cardíaca ou polifarmácia.",
     "principleActive": "Diclofenaco",
@@ -548,7 +548,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "aspirina",
+        "interactingMedId": "acido_acetilsalicilico",
         "risk": "GASTROINTESTINAL_BLEEDING",
         "description": "Aumento significativo do risco de sangramento gastrointestinal. Pode provocar úlcera péptica e hemorragia digestiva alta.",
         "alertLevel": "HIGH"
@@ -697,7 +697,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "aspirina",
+        "interactingMedId": "acido_acetilsalicilico",
         "risk": "GASTROINTESTINAL_BLEEDING",
         "description": "Aumento expressivo do risco hemorrágico. Pode provocar úlcera péptica e hemorragia digestiva alta.",
         "alertLevel": "HIGH"
@@ -845,7 +845,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "aspirina",
+        "interactingMedId": "acido_acetilsalicilico",
         "risk": "GASTROINTESTINAL_BLEEDING",
         "description": "Aumento do risco de sangramento digestivo. Pode provocar úlcera péptica e hemorragia digestiva alta.",
         "alertLevel": "HIGH"
@@ -1968,7 +1968,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "diclofenaco",
+        "interactingMedId": "diclofenaco_sodico",
         "risk": "GASTROINTESTINAL_BLEEDING",
         "description": "Aumento sinérgico da toxicidade gastrointestinal. Forte propensão ao desenvolvimento de úlceras e sangramento digestivo.",
         "alertLevel": "HIGH"
@@ -2082,7 +2082,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "diclofenaco",
+        "interactingMedId": "diclofenaco_sodico",
         "risk": "GASTROINTESTINAL_BLEEDING",
         "description": "Efeito ulcerogênico aditivo. Risco altíssimo de desenvolvimento de úlceras e hemorragia digestiva severa.",
         "alertLevel": "HIGH"
@@ -2176,7 +2176,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "diclofenaco",
+        "interactingMedId": "diclofenaco_sodico",
         "risk": "RENAL_IMPAIRMENT",
         "description": "Redução da perfusão renal e do efeito anti-hipertensivo. Aumenta substancialmente o risco de insuficiência renal aguda e crise hipertensiva.",
         "alertLevel": "HIGH"
@@ -2259,7 +2259,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "diclofenaco",
+        "interactingMedId": "diclofenaco_sodico",
         "risk": "RENAL_IMPAIRMENT",
         "description": "Redução perigosa da perfusão renal. A associação predispõe fortemente o idoso a um quadro de insuficiência renal aguda.",
         "alertLevel": "HIGH"
@@ -2356,7 +2356,7 @@
         "alertLevel": "HIGH"
       },
       {
-        "interactingMedId": "diclofenaco",
+        "interactingMedId": "diclofenaco_sodico",
         "risk": "RENAL_IMPAIRMENT",
         "description": "Redução da perfusão renal. A associação predispõe fortemente o idoso a um quadro de insuficiência renal aguda.",
         "alertLevel": "HIGH"
@@ -2648,115 +2648,6 @@
         "risk": "BLEEDING_RISK",
         "description": "Pode aumentar discretamente o risco hemorrágico, mas é geralmente considerada uma opção muito mais segura do que os AINEs nesse cenário.",
         "alertLevel": "LOW"
-      }
-    ]
-  },
-  {
-    "id": "sertralina",
-    "name": "Sertralina",
-    "description": "Antidepressivo (ISRS) amplamente utilizado. Na odontologia, exige alerta máximo na associação com Tramadol (risco grave de síndrome serotoninérgica). Além disso, inibe a captação de serotonina pelas plaquetas, aumentando significativamente o risco de sangramento gastrointestinal e cirúrgico quando associada a AINEs, anticoagulantes e AAS. Contribui para xerostomia e risco de hiponatremia.",
-    "principleActive": "Sertralina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
-    "byDisease": "Depressão, ansiedade generalizada, transtorno do pânico, TOC e TEPT.",
-    "risks": [
-      "SEROTONIN_SYNDROME",
-      "BLEEDING_RISK",
-      "GASTROINTESTINAL_BLEEDING",
-      "HYPONATREMIA",
-      "XEROSTOMIA_HYPOSALIVATION",
-      "CNS_DEPRESSION",
-      "LOSS_OF_BALANCE"
-    ],
-    "interactions": [
-      {
-        "interactingMedId": "tramadol",
-        "risk": "SEROTONIN_SYNDROME",
-        "description": "Aumento excessivo da serotonina. Risco altíssimo de Síndrome Serotoninérgica, caracterizada por agitação, tremores, taquicardia, hipertermia e convulsões.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "varfarina",
-        "risk": "BLEEDING_RISK",
-        "description": "Aumento significativo do risco hemorrágico. Favorece o aparecimento de sangramento gengival, hemorragia pós-operatória e sangramentos espontâneos.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "rivaroxabana",
-        "risk": "BLEEDING_RISK",
-        "description": "Potencialização do risco hemorrágico devido à inibição da função plaquetária pelo ISRS associada ao anticoagulante.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "apixabana",
-        "risk": "BLEEDING_RISK",
-        "description": "Aumento do risco de sangramento cirúrgico e sistêmico. Exige cautela e monitoramento em procedimentos invasivos.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "ibuprofeno",
-        "risk": "GASTROINTESTINAL_BLEEDING",
-        "description": "Maior risco gastrointestinal. A associação prejudica a função plaquetária, favorecendo sangramentos digestivos e hematomas.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "diclofenaco_sodico",
-        "risk": "BLEEDING_RISK",
-        "description": "Efeito hemorrágico aditivo. Aumenta substancialmente a propensão a sangramentos ocultos e no sítio cirúrgico.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "diclofenaco_potassico",
-        "risk": "BLEEDING_RISK",
-        "description": "Efeito hemorrágico aditivo severo. Risco elevado de desenvolvimento de hemorragias em idosos frágeis.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "cetoprofeno",
-        "risk": "GASTROINTESTINAL_BLEEDING",
-        "description": "Potencialização severa do risco hemorrágico. Alta probabilidade de induzir sangramento gastrointestinal ativo.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "nimesulida",
-        "risk": "GASTROINTESTINAL_BLEEDING",
-        "description": "Aumento do risco de lesões gastrointestinais associadas a sangramento por disfunção plaquetária.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "acido_acetilsalicilico",
-        "risk": "BLEEDING_RISK",
-        "description": "Inibição adicional da agregação plaquetária. Eleva drasticamente o risco de sangramento digestivo e pós-operatório.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "clopidogrel",
-        "risk": "BLEEDING_RISK",
-        "description": "Potencialização do risco hemorrágico sistêmico. Aumenta a chance de sangramentos graves e prolongados.",
-        "alertLevel": "HIGH"
-      },
-      {
-        "interactingMedId": "diazepam",
-        "risk": "CNS_DEPRESSION",
-        "description": "Potencialização da sedação. Causa sonolência diurna excessiva, tontura e confusão mental.",
-        "alertLevel": "NORMAL"
-      },
-      {
-        "interactingMedId": "clonazepam",
-        "risk": "LOSS_OF_BALANCE",
-        "description": "Depressão aditiva do sistema nervoso central. Aumenta expressivamente o risco de instabilidade postural e quedas.",
-        "alertLevel": "NORMAL"
-      },
-      {
-        "interactingMedId": "midazolam",
-        "risk": "RESPIRATORY_DEPRESSION",
-        "description": "Sedação aumentada e aditiva. Favorece o risco de depressão respiratória em idosos sensíveis.",
-        "alertLevel": "NORMAL"
-      },
-      {
-        "interactingMedId": "codeina",
-        "risk": "THERAPEUTIC_FAILURE",
-        "description": "Redução da conversão metabólica da codeína em sua forma ativa, resultando em falha terapêutica e menor analgesia.",
-        "alertLevel": "NORMAL"
       }
     ]
   },
@@ -4461,6 +4352,2870 @@
         "risk": "LOSS_OF_BALANCE",
         "description": "Potencialização de efeitos adversos no sistema nervoso central. Aumenta o risco de tontura, sonolência e desequilíbrio no idoso.",
         "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "acenocumarol",
+    "name": "Acenocumarol",
+    "description": "Anticoagulante oral derivado da cumarina. Similar à varfarina, exige monitoramento rigoroso do INR e apresenta altíssimo risco de hemorragias se associado a AINEs ou antimicrobianos que alteram a flora intestinal.",
+    "principleActive": "Acenocumarol",
+    "medClass": "MED_CLASS_ANTICOAGULANTES",
+    "byDisease": "Fibrilação atrial, trombose venosa profunda e prevenção de eventos tromboembólicos.",
+    "risks": [
+      "BLEEDING_RISK"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "paracetamol",
+        "risk": "BLEEDING_RISK",
+        "description": "Pode potencializar o efeito anticoagulante em doses elevadas ou uso prolongado. Aumento do risco de sangramento.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "BLEEDING_RISK",
+        "description": "Efeito anticoagulante e antiplaquetário aditivo. Aumenta gravemente a propensão a hemorragia digestiva e cirúrgica.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "amoxicilina",
+        "risk": "BLEEDING_RISK",
+        "description": "Altera a flora intestinal produtora de vitamina K, elevando o INR e o risco de sangramento pós-exodontia.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "BLEEDING_RISK",
+        "description": "Inibe severamente o metabolismo do anticoagulante. Risco de sangramentos graves e elevação crítica do INR.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "fenitoina",
+    "name": "Fenitoína",
+    "description": "Anticonvulsivante de uso crônico. Na odontologia, é uma das principais causas de hiperplasia gengival medicamentosa. É um potente indutor enzimático, alterando a eficácia de diversos medicamentos, e interage perigosamente com o metronidazol.",
+    "principleActive": "Fenitoína",
+    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "byDisease": "Epilepsia e controle de crises convulsivas.",
+    "risks": [
+      "GINGIVAL_HYPERPLASIA",
+      "SEIZURE",
+      "GENERAL_NEUROLOGICAL",
+      "HEPATOTOXICITY"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "paracetamol",
+        "risk": "HEPATOTOXICITY",
+        "description": "Aumenta a formação de metabólitos tóxicos do paracetamol. Risco elevado de dano hepático severo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "tramadol",
+        "risk": "SEIZURE",
+        "description": "Aumenta o risco de convulsões (neurotoxicidade) e reduz a eficácia analgésica do tramadol.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "SEIZURE",
+        "description": "Alteração bidirecional das concentrações plasmáticas. Elevado risco de toxicidade neurológica grave ou descontrole epiléptico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Acelera o metabolismo do midazolam, reduzindo substancialmente seu efeito sedativo na odontologia.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "carbamazepina",
+    "name": "Carbamazepina",
+    "description": "Anticonvulsivante e estabilizador de humor, também prescrito para neuralgia do trigêmeo. É um indutor enzimático potente, o que acelera a eliminação e reduz o efeito de medicamentos como sedativos, corticosteroides e anticoagulantes.",
+    "principleActive": "Carbamazepina",
+    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "byDisease": "Epilepsia, transtorno bipolar e neuralgia do trigêmeo.",
+    "risks": [
+      "SEIZURE",
+      "GENERAL_NEUROLOGICAL",
+      "HEPATOTOXICITY"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "paracetamol",
+        "risk": "HEPATOTOXICITY",
+        "description": "Indução enzimática que aumenta a produção de metabólitos tóxicos, elevando o risco de lesão hepática.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "O metronidazol aumenta os níveis de carbamazepina, provocando neurotoxicidade (tontura, ataxia, sonolência).",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Indução potente da CYP3A4. Acelera intensamente a eliminação do midazolam, causando falha na sedação.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "rivaroxabana",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Acelera o metabolismo da rivaroxabana, reduzindo sua eficácia anticoagulante e favorecendo tromboses.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "fenobarbital",
+    "name": "Fenobarbital",
+    "description": "Barbitúrico utilizado como anticonvulsivante. Possui sedação marcante e atua como forte indutor enzimático hepático, diminuindo o tempo de ação de analgésicos e antimicrobianos no organismo.",
+    "principleActive": "Fenobarbital",
+    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "byDisease": "Epilepsia e controle de crises convulsivas.",
+    "risks": [
+      "CNS_DEPRESSION",
+      "SEIZURE",
+      "HEPATOTOXICITY"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "paracetamol",
+        "risk": "HEPATOTOXICITY",
+        "description": "Acelera o metabolismo hepático gerando metabólitos tóxicos. Aumenta substancialmente o risco de hepatotoxicidade.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Aumenta a metabolização do metronidazol, resultando em rápida redução e possível falha da eficácia antimicrobiana.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "rifampicina",
+    "name": "Rifampicina",
+    "description": "Antibiótico potente, essencial no tratamento da tuberculose. É um dos maiores indutores enzimáticos conhecidos na farmacologia, reduzindo drasticamente a eficácia de analgésicos, corticosteroides e anticoagulantes.",
+    "principleActive": "Rifampicina",
+    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "byDisease": "Tuberculose e profilaxia de infecções graves.",
+    "risks": [
+      "HEPATOTOXICITY",
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "paracetamol",
+        "risk": "HEPATOTOXICITY",
+        "description": "Aumenta o metabolismo hepático do paracetamol, elevando a formação de toxinas e o risco de lesão hepática.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "dexametasona",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Aumento expressivo do metabolismo do corticoide, causando redução importante de sua eficácia anti-inflamatória.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "rivaroxabana",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Redução acentuada dos níveis plasmáticos do anticoagulante, expondo o idoso a alto risco de tromboembolismo.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "ciclosporina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Reduz drasticamente os níveis do imunossupressor sistêmico, podendo desencadear crise de rejeição de órgãos.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "isoniazida",
+    "name": "Isoniazida",
+    "description": "Antimicrobiano de primeira linha para o tratamento da tuberculose. Possui alto potencial hepatotóxico, o que exige extrema cautela ao prescrever medicamentos de metabolização hepática, como o paracetamol.",
+    "principleActive": "Isoniazida",
+    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "byDisease": "Tuberculose.",
+    "risks": [
+      "HEPATOTOXICITY",
+      "GENERAL_NEUROLOGICAL"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "paracetamol",
+        "risk": "HEPATOTOXICITY",
+        "description": "Potencializa fortemente o dano hepático, podendo desencadear quadro grave de hepatite medicamentosa aguda.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "colestiramina",
+    "name": "Colestiramina",
+    "description": "Resina sequestrante de ácidos biliares utilizada no tratamento de dislipidemias. Por atuar ligando-se a substâncias no trato digestivo, impede a absorção correta de diversos medicamentos administrados via oral.",
+    "principleActive": "Colestiramina",
+    "medClass": "MED_CLASS_HIPOLIPEMIANTES",
+    "byDisease": "Hipercolesterolemia e controle de prurido em doenças biliares.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "paracetamol",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "A resina se liga ao analgésico no estômago, reduzindo sua absorção e resultando em perda do efeito contra a dor.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "metoclopramida",
+    "name": "Metoclopramida",
+    "description": "Medicamento pró-cinético e antiemético. Acelera o esvaziamento gástrico, alterando a farmacocinética de analgésicos. Por bloquear receptores de dopamina, é estritamente contraindicada em pacientes com Doença de Parkinson.",
+    "principleActive": "Metoclopramida",
+    "medClass": "MED_CLASS_PROCINETICOS",
+    "byDisease": "Náuseas, vômitos e distúrbios da motilidade gástrica.",
+    "risks": [
+      "GENERAL_NEUROLOGICAL",
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "paracetamol",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Acelera o esvaziamento gástrico, aumentando a taxa de absorção do paracetamol e antecipando seu pico analgésico.",
+        "alertLevel": "LOW"
+      },
+      {
+        "interactingMedId": "levodopa",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Antagonismo dopaminérgico central direto. Causa perda do efeito da levodopa, travamento motor e agravamento severo do Parkinson.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "domperidona",
+    "name": "Domperidona",
+    "description": "Antiemético bloqueador de receptores de dopamina no trato gastrointestinal. Diferente da metoclopramida, não cruza a barreira hematoencefálica, mas apresenta risco de prolongamento do intervalo QT em idosos.",
+    "principleActive": "Domperidona",
+    "medClass": "MED_CLASS_ANTIEMETICOS",
+    "byDisease": "Alívio de náuseas, vômitos e desconforto epigástrico.",
+    "risks": [
+      "ARRHYTHMIA",
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "paracetamol",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Aumenta a motilidade gástrica e a taxa de absorção do paracetamol, alterando levemente sua resposta clínica.",
+        "alertLevel": "LOW"
+      },
+      {
+        "interactingMedId": "amiodarona",
+        "risk": "ARRHYTHMIA",
+        "description": "Efeito aditivo no prolongamento do intervalo QT. Risco aumentado de arritmias ventriculares potencialmente graves.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "metotrexato",
+    "name": "Metotrexato",
+    "description": "Potente quimioterápico e imunossupressor. A interação com AINEs e amoxicilina é crítica na odontologia, pois a inibição da excreção renal do metotrexato leva a uma toxicidade sistêmica gravíssima (mielossupressão).",
+    "principleActive": "Metotrexato",
+    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "byDisease": "Artrite reumatoide, psoríase grave e protocolos oncológicos.",
+    "risks": [
+      "HEMATOLOGICAL_TOXICITY",
+      "RENAL_IMPAIRMENT",
+      "ORAL_INFECTION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "dipirona",
+        "risk": "HEMATOLOGICAL_TOXICITY",
+        "description": "Aumento crítico da toxicidade hematológica. Alto risco de pancitopenia, agranulocitose e infecções oportunistas severas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "HEMATOLOGICAL_TOXICITY",
+        "description": "O AINE reduz a depuração renal do metotrexato, elevando os níveis séricos e causando toxicidade fatal na medula óssea.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "HEMATOLOGICAL_TOXICITY",
+        "description": "Bloqueia a excreção do imunossupressor, precipitando estomatite grave, neutropenia e falência da medula.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "amoxicilina",
+        "risk": "HEMATOLOGICAL_TOXICITY",
+        "description": "A amoxicilina inibe a secreção tubular do metotrexato, gerando acúmulo tóxico e falência hematológica em idosos.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "dabigatrana",
+    "name": "Dabigatrana",
+    "description": "Anticoagulante oral direto (inibidor direto da trombina). Requer alerta máximo na associação com AINEs e antiagregantes plaquetários devido ao risco severo de sangramento gengival e pós-operatório.",
+    "principleActive": "Dabigatrana",
+    "medClass": "MED_CLASS_ANTICOAGULANTES",
+    "byDisease": "Fibrilação atrial não valvar e prevenção de tromboembolismo venoso.",
+    "risks": [
+      "BLEEDING_RISK"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "dipirona",
+        "risk": "BLEEDING_RISK",
+        "description": "Efeito aditivo na coagulação com aumento definitivo do risco hemorrágico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento expressivo do risco de sangramentos gengivais e outras complicações hemorrágicas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento expressivo do risco hemorrágico e predisposição a hemorragias severas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "BLEEDING_RISK",
+        "description": "Potencialização do sangramento, com alto risco de sangramento gastrointestinal e gengival.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "BLEEDING_RISK",
+        "description": "Potencialização do risco hemorrágico, predispondo a hemorragia digestiva e sangramentos orais.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento do risco hemorrágico e predisposição a hemorragias severas.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "ciclosporina",
+    "name": "Ciclosporina",
+    "description": "Potente imunossupressor utilizado para prevenção de rejeição de órgãos. Interage perigosamente com AINEs (elevando drasticamente a nefrotoxicidade) e apresenta hiperplasia gengival como um efeito adverso odontológico muito frequente.",
+    "principleActive": "Ciclosporina",
+    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "byDisease": "Profilaxia de rejeição de transplantes e doenças autoimunes severas.",
+    "risks": [
+      "NEPHROTOXICITY",
+      "GINGIVAL_HYPERPLASIA",
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "dipirona",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Redução dos níveis séricos da ciclosporina, gerando alto risco de falha terapêutica e rejeição.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "NEPHROTOXICITY",
+        "description": "Aumento da nefrotoxicidade do imunossupressor por vasoconstrição renal aditiva. Alto risco de lesão renal.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "NEPHROTOXICITY",
+        "description": "Potencialização da nefrotoxicidade do imunossupressor, gerando alto risco de insuficiência renal aguda.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "NEPHROTOXICITY",
+        "description": "Potencialização da nefrotoxicidade do imunossupressor, gerando alto risco de insuficiência renal aguda.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "NEPHROTOXICITY",
+        "description": "Potencialização da nefrotoxicidade do imunossupressor, gerando alto risco de insuficiência renal aguda.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "NEPHROTOXICITY",
+        "description": "Potencialização da nefrotoxicidade do imunossupressor, gerando alto risco de insuficiência renal aguda.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clindamicina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Possível alteração dos níveis séricos, com risco de redução da eficácia do imunossupressor.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "NEPHROTOXICITY",
+        "description": "Possível aumento dos níveis séricos do imunossupressor, favorecendo quadros de nefrotoxicidade.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "NEPHROTOXICITY",
+        "description": "Aumento das concentrações séricas do imunossupressor, favorecendo quadros agudos de toxicidade renal.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "rifampicina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Reduz drasticamente os níveis do imunossupressor sistêmico, podendo desencadear crise de rejeição de órgãos.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "tacrolimo",
+    "name": "Tacrolimo",
+    "description": "Imunossupressor macrolídeo inibidor da calcineurina. Apresenta perfil de interação semelhante à ciclosporina, com risco severo de nefrotoxicidade se combinado com AINEs, além de sofrer acúmulo perigoso se associado a inibidores enzimáticos (como metronidazol).",
+    "principleActive": "Tacrolimo",
+    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "byDisease": "Profilaxia de rejeição em transplantes de órgãos.",
+    "risks": [
+      "NEPHROTOXICITY"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "NEPHROTOXICITY",
+        "description": "Potencialização da nefrotoxicidade, podendo precipitar um quadro agudo de insuficiência renal em idosos.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "NEPHROTOXICITY",
+        "description": "Aumento da toxicidade renal, predispondo o idoso a insuficiência renal aguda.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "NEPHROTOXICITY",
+        "description": "Aumento da toxicidade renal, predispondo o paciente a lesões renais severas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "NEPHROTOXICITY",
+        "description": "Aumento da toxicidade renal, predispondo o idoso a lesões renais severas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "NEPHROTOXICITY",
+        "description": "Aumento da toxicidade renal, predispondo o idoso a lesões renais agudas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clindamicina",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Possível alteração farmacocinética dos níveis do imunossupressor, exigindo monitorização laboratorial.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "NEPHROTOXICITY",
+        "description": "Potencial aumento das concentrações plasmáticas do tacrolimo. Requer monitorização devido ao risco de lesão renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "NEPHROTOXICITY",
+        "description": "Aumento perigoso dos níveis séricos do imunossupressor. Gera alto risco de dano e insuficiência renal (nefrotoxicidade).",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "alprazolam",
+    "name": "Alprazolam",
+    "description": "Benzodiazepínico de curta a média duração. Em idosos, possui alto risco de causar sedação, quedas, depressão respiratória e confusão, especialmente quando combinado com opioides como o tramadol.",
+    "principleActive": "Alprazolam",
+    "medClass": "MED_CLASS_BENZODIAZEPINICOS",
+    "byDisease": "Transtornos de ansiedade e transtorno do pânico.",
+    "risks": [
+      "CNS_DEPRESSION",
+      "LOSS_OF_BALANCE",
+      "RESPIRATORY_DEPRESSION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "tramadol",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Sedação excessiva e relaxamento muscular aditivo. Aumenta o risco de delirium, instabilidade postural e fraturas de quadril.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "ondansetrona",
+    "name": "Ondansetrona",
+    "description": "Potente antiemético antagonista dos receptores 5-HT3. Na odontologia, deve-se ter extrema cautela na associação com Tramadol, pois bloqueia os receptores que o opioide necessita para agir, resultando em severa falha analgésica.",
+    "principleActive": "Ondansetrona",
+    "medClass": "MED_CLASS_ANTIEMETICOS",
+    "byDisease": "Prevenção de náuseas e vômitos no pós-operatório ou quimioterapia.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "tramadol",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Antagonismo farmacodinâmico. Reduz significativamente a analgesia promovida pelo tramadol por bloqueio de receptores serotoninérgicos.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "captopril",
+    "name": "Captopril",
+    "description": "Anti-hipertensivo inibidor da ECA de ação rápida. Seu efeito hipotensor é reduzido pelos AINEs. Em idosos, a combinação com diuréticos e AINEs forma o perigoso 'Triple Whammy', causando lesão renal.",
+    "principleActive": "Captopril",
+    "medClass": "MED_CLASS_IECA",
+    "byDisease": "Hipertensão arterial sistêmica e insuficiência cardíaca.",
+    "risks": [
+      "BLOOD_PRESSURE_ALTERATION",
+      "RENAL_IMPAIRMENT",
+      "HYPERKALEMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Redução da eficácia terapêutica anti-hipertensiva e risco de alteração renal. Atenção ao risco de Triple Whammy.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Diminuição da eficácia terapêutica anti-hipertensiva e risco de alteração renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Diminuição do controle da pressão arterial e risco de alteração da função renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Perda do controle da pressão arterial e risco de deterioração da função renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Redução da eficácia anti-hipertensiva e risco de comprometimento da função renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "espironolactona",
+        "risk": "HYPERKALEMIA",
+        "description": "Potencialização dos efeitos renais e metabólicos, propiciando hipercalemia severa e instabilidade hemodinâmica.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "valsartana",
+    "name": "Valsartana",
+    "description": "Anti-hipertensivo antagonista dos receptores de angiotensina II (BRA). Pode perder sua eficácia se associada a AINEs (risco de hipertensão reativa e falência renal aditiva).",
+    "principleActive": "Valsartana",
+    "medClass": "MED_CLASS_BRA",
+    "byDisease": "Hipertensão arterial e insuficiência cardíaca.",
+    "risks": [
+      "BLOOD_PRESSURE_ALTERATION",
+      "RENAL_IMPAIRMENT",
+      "HYPERKALEMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Redução da eficácia anti-hipertensiva e risco aditivo de deterioração e dano renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Redução da eficácia anti-hipertensiva e risco aditivo de deterioração renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Redução da eficácia anti-hipertensiva e risco aditivo de deterioração renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Redução da eficácia anti-hipertensiva e risco aditivo de deterioração renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Redução do efeito anti-hipertensivo e risco aditivo de piora renal.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "enalapril",
+        "risk": "HYPERKALEMIA",
+        "description": "Potencialização dos efeitos renais. Risco de desenvolvimento de hipercalemia e comprometimento renal.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "espironolactona",
+    "name": "Espironolactona",
+    "description": "Diurético poupador de potássio. O grande perigo em idosos é a hipercalemia (excesso de potássio no sangue), que é severamente potencializada por IECAs, BRAs e AINEs.",
+    "principleActive": "Espironolactona",
+    "medClass": "MED_CLASS_DIURETICOS_POUPADORES_POTASSIO",
+    "byDisease": "Insuficiência cardíaca grave e hipertensão arterial resistente.",
+    "risks": [
+      "HYPERKALEMIA",
+      "RENAL_IMPAIRMENT",
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "RENAL_IMPAIRMENT",
+        "description": "Redução da eficácia terapêutica do diurético, favorecendo riscos renais aditivos e retenção de líquidos.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "HYPERKALEMIA",
+        "description": "Redução da eficácia terapêutica do diurético com aumento perigoso do risco de hipercalemia e danos renais.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "HYPERKALEMIA",
+        "description": "Aumento perigoso do risco de hipercalemia (devido ao potássio na formulação e mecanismo do AINE) e toxicidade renal aditiva.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "HYPERKALEMIA",
+        "description": "Aumento do risco de toxicidade renal e desenvolvimento de hipercalemia perigosa.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "RENAL_IMPAIRMENT",
+        "description": "Redução da eficácia terapêutica do diurético, favorecendo riscos renais aditivos.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "losartana",
+        "risk": "HYPERKALEMIA",
+        "description": "Aumento crítico do potássio sérico. Risco elevado de hipercalemia, fraqueza muscular, alterações da condução e arritmias.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "enalapril",
+        "risk": "HYPERKALEMIA",
+        "description": "Aumento crítico do potássio sérico. Risco severo de hipercalemia, fraqueza muscular, bradicardia e arritmias fatais.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "captopril",
+        "risk": "HYPERKALEMIA",
+        "description": "Potencialização dos efeitos renais e metabólicos, propiciando hipercalemia e instabilidade hemodinâmica.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "furosemida",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Alterações eletrolíticas complexas devido à compensação parcial da perda de potássio. Requer monitoramento do equilíbrio hidroeletrolítico.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "gentamicina",
+    "name": "Gentamicina",
+    "description": "Antibiótico aminoglicosídeo injetável de espectro estreito. Possui altíssima toxicidade renal e auditiva, especialmente em idosos desidratados ou em uso de diuréticos de alça.",
+    "principleActive": "Gentamicina",
+    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "byDisease": "Infecções bacterianas graves e hospitalares.",
+    "risks": [
+      "NEPHROTOXICITY",
+      "OTOTOXICITY"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "furosemida",
+        "risk": "OTOTOXICITY",
+        "description": "Potencialização da ototoxicidade. A associação eleva substancialmente o risco de perda auditiva neurossensorial no paciente idoso.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "paroxetina",
+    "name": "Paroxetina",
+    "description": "Antidepressivo ISRS. É um dos inibidores de recaptação de serotonina que mais causa sedação em idosos e também possui efeito inibitório enzimático severo e ação inibitória na função plaquetária.",
+    "principleActive": "Paroxetina",
+    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "byDisease": "Depressão maior e transtornos de ansiedade.",
+    "risks": [
+      "SEROTONIN_SYNDROME",
+      "GASTROINTESTINAL_BLEEDING",
+      "DELIRIUM"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "tramadol",
+        "risk": "SEROTONIN_SYNDROME",
+        "description": "Inibe o metabolismo do tramadol. Aumenta significativamente o risco de toxicidade, convulsões e Síndrome Serotoninérgica.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Interação sinérgica elevando o risco de sangramento gastrointestinal e cutâneo-mucoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Aumento importante do risco de sangramento associado aos inibidores de recaptação de serotonina.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Aumento importante do risco de sangramento associado aos inibidores de recaptação de serotonina.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Interação sinérgica elevando o risco de sangramento gastrointestinal e cutâneo-mucoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diazepam",
+        "risk": "DELIRIUM",
+        "description": "Potencialização dos efeitos centrais. Alto risco de desencadear episódios de delirium e confusão mental aguda.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "DELIRIUM",
+        "description": "Potencialização dos efeitos sedativos. Aumenta a probabilidade de episódios de confusão mental no idoso.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "venlafaxina",
+    "name": "Venlafaxina",
+    "description": "Antidepressivo inibidor da recaptação de serotonina e noradrenalina (IRSN). Possui potencial para elevar a pressão arterial e causar grave Síndrome Serotoninérgica se associado ao tramadol.",
+    "principleActive": "Venlafaxina",
+    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "byDisease": "Depressão maior e transtornos de ansiedade.",
+    "risks": [
+      "SEROTONIN_SYNDROME",
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "tramadol",
+        "risk": "SEROTONIN_SYNDROME",
+        "description": "Potencialização serotoninérgica por dupla via de recaptação. Risco de Síndrome Serotoninérgica grave com risco de vida.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "Aumento substancial do risco arrítmico. Exige cautela pelo somatório do efeito de prolongamento do QT.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "duloxetina",
+    "name": "Duloxetina",
+    "description": "Antidepressivo (IRSN) frequentemente usado na geriatria também para dores neuropáticas e fibromialgia. Seu efeito serotoninérgico é aditivo e perigoso com analgésicos opioides.",
+    "principleActive": "Duloxetina",
+    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "byDisease": "Depressão, dor neuropática e fibromialgia.",
+    "risks": [
+      "SEROTONIN_SYNDROME"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "tramadol",
+        "risk": "SEROTONIN_SYNDROME",
+        "description": "Potencialização serotoninérgica aditiva. Risco elevado de manifestações da Síndrome Serotoninérgica (tremores, agitação, febre).",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "nortriptilina",
+    "name": "Nortriptilina",
+    "description": "Antidepressivo tricíclico, sendo um metabólito ativo da amitriptilina (porém geralmente com menos efeitos anticolinérgicos e sedativos que ela). Contudo, ainda interage perigosamente com vasoconstritores adrenérgicos da odontologia.",
+    "principleActive": "Nortriptilina",
+    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "byDisease": "Depressão e dor neuropática.",
+    "risks": [
+      "ARRHYTHMIA",
+      "DELIRIUM"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "lidocaina_epinefrina",
+        "risk": "ARRHYTHMIA",
+        "description": "Aumento crítico da resposta adrenérgica da epinefrina, favorecendo o aparecimento de arritmias cardíacas severas e taquicardia.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "articaina_epinefrina",
+        "risk": "ARRHYTHMIA",
+        "description": "Aumento da resposta cardiovascular periférica com propensão ao desenvolvimento de arritmias.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "mepivacaina",
+        "risk": "ARRHYTHMIA",
+        "description": "Se a mepivacaína estiver associada à levonordefrina: aumento da resposta adrenérgica, elevando o risco de arritmias cardíacas.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diazepam",
+        "risk": "DELIRIUM",
+        "description": "Potencialização da sedação. Causa instabilidade postural e agravamento do comprometimento cognitivo no idoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "DELIRIUM",
+        "description": "Potencialização da sedação, causando instabilidade e agravamento acentuado do déficit cognitivo.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "imipramina",
+    "name": "Imipramina",
+    "description": "O primeiro antidepressivo tricíclico desenvolvido. Possui intensa ação de bloqueio da recaptação de noradrenalina, o que hiper-sensibiliza o sistema cardiovascular às aminas simpatomiméticas (como a epinefrina da anestesia local).",
+    "principleActive": "Imipramina",
+    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "byDisease": "Depressão e enurese noturna.",
+    "risks": [
+      "BLOOD_PRESSURE_ALTERATION",
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "lidocaina_epinefrina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Potencialização cardiovascular adrenérgica. Alto risco de episódios súbitos de hipertensão e alterações de ritmo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "articaina_epinefrina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Potencialização da epinefrina, favorecendo o aparecimento de episódios de hipertensão e taquicardia.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "mepivacaina",
+        "risk": "ARRHYTHMIA",
+        "description": "Se a mepivacaína for usada com levonordefrina: potencialização cardiovascular, com risco moderado de taquicardia e instabilidade pressórica.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "propranolol",
+    "name": "Propranolol",
+    "description": "Betabloqueador não seletivo clássico. Bloqueia os receptores beta-1 e beta-2, fazendo com que a injeção de epinefrina (em anestésicos locais) atue apenas nos receptores alfa-1, gerando vasoconstrição severa e bradicardia vagal compensatória.",
+    "principleActive": "Propranolol",
+    "medClass": "MED_CLASS_BETABLOQUEADORES",
+    "byDisease": "Hipertensão, tremores essenciais, enxaqueca e ansiedade de desempenho.",
+    "risks": [
+      "BLOOD_PRESSURE_ALTERATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "lidocaina_epinefrina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Potencialização drástica dos efeitos vasopressores da epinefrina. Risco severo de crise hipertensiva aguda e bradicardia reflexa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "articaina_epinefrina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Potencialização da resposta vasopressora da epinefrina. Risco de elevação severa da pressão arterial e bradicardia reflexa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "mepivacaina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Se houver levonordefrina associada: alteração da resposta pressórica. Risco de elevação da pressão arterial e bradicardia reflexa.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "nadolol",
+    "name": "Nadolol",
+    "description": "Betabloqueador não seletivo, de ação mais prolongada e sem atividade simpatomimética intrínseca. Apresenta a mesma fisiologia de interação letal do propranolol com os vasoconstritores odontológicos.",
+    "principleActive": "Nadolol",
+    "medClass": "MED_CLASS_BETABLOQUEADORES",
+    "byDisease": "Hipertensão arterial e angina pectoris.",
+    "risks": [
+      "BLOOD_PRESSURE_ALTERATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "lidocaina_epinefrina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Potencialização dos efeitos vasopressores. Alto risco de desencadear uma crise hipertensiva severa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "articaina_epinefrina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Aumento significativo da resposta pressórica. Risco elevado de desencadear uma crise hipertensiva aguda.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "mepivacaina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Se formulada com levonordefrina: potencialização vasopressora, com risco de crise hipertensiva.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "fenelzina",
+    "name": "Fenelzina",
+    "description": "Antidepressivo inibidor da monoamina oxidase (IMAO). Interage limitando a quebra de aminas exógenas e endógenas, exigindo atenção da odontologia no uso de anestésicos com vasoconstritores.",
+    "principleActive": "Fenelzina",
+    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "byDisease": "Depressão refratária.",
+    "risks": [
+      "BLOOD_PRESSURE_ALTERATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "lidocaina_epinefrina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Potencial aumento dos efeitos simpaticomiméticos. Risco moderado de alterações pressóricas (hipertensão).",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "articaina_epinefrina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Potencialização dos efeitos simpaticomiméticos da epinefrina, gerando alterações cardiovasculares.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "mepivacaina",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Se houver levonordefrina: potencial aumento dos efeitos simpaticomiméticos, gerando alterações cardiovasculares.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "tranilcipromina",
+    "name": "Tranilcipromina",
+    "description": "Antidepressivo inibidor não seletivo da monoamina oxidase (IMAO). Potencializa o risco arrítmico de medicamentos simpatomiméticos utilizados na prática odontológica.",
+    "principleActive": "Tranilcipromina",
+    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "byDisease": "Depressão grave e refratária.",
+    "risks": [
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "lidocaina_epinefrina",
+        "risk": "ARRHYTHMIA",
+        "description": "Potencialização adrenérgica, favorecendo o desenvolvimento de arritmias e instabilidade cardiovascular.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "articaina_epinefrina",
+        "risk": "ARRHYTHMIA",
+        "description": "Aumento da resposta adrenérgica à epinefrina, podendo propiciar o surgimento de arritmias cardíacas.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "lauril_sulfato_sodio",
+    "name": "Lauril Sulfato de Sódio",
+    "description": "Agente surfactante (detergente) amplamente utilizado na fabricação de cremes dentais comuns. Possui carga aniônica, que interage e inativa agentes catiônicos como a clorexidina.",
+    "principleActive": "Lauril Sulfato de Sódio (LSS)",
+    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "byDisease": "Higiene oral mecânico-química.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clorexidina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Inativação química da clorexidina pelo detergente. O enxaguante deve ser usado com intervalo de pelo menos 30 minutos após a escovação.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "fluoreto_sodio",
+    "name": "Fluoreto de Sódio",
+    "description": "Agente anticárie presente na grande maioria dos cremes dentais e colutórios. Atua na remineralização do esmalte e interfere no metabolismo bacteriano, mas pode competir quimicamente com a clorexidina nos sítios de ligação do esmalte.",
+    "principleActive": "Fluoreto de Sódio",
+    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "byDisease": "Prevenção da doença cárie.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clorexidina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Competição química que reduz a substantividade e a eficácia clínica da clorexidina. Recomenda-se separar os horários de administração.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "peroxido_hidrogenio",
+    "name": "Peróxido de Hidrogênio",
+    "description": "Agente oxidante utilizado em odontologia para antissepsia local, irrigação de canais e clareamento dental. Pode alterar o meio químico local e inativar outros agentes.",
+    "principleActive": "Peróxido de Hidrogênio",
+    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "byDisease": "Antissepsia e desbridamento químico.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clorexidina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Possível antagonismo local com redução da eficácia antimicrobiana da clorexidina e alteração da microbiota oral.",
+        "alertLevel": "LOW"
+      }
+    ]
+  },
+  {
+    "id": "iodo",
+    "name": "Iodo / Povidona-Iodo",
+    "description": "Potente antisséptico de amplo espectro (PVPI). Interage quimicamente com outros antissépticos, podendo causar precipitação e inativação de ambos.",
+    "principleActive": "Povidona-Iodo",
+    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "byDisease": "Antissepsia pré e pós-operatória.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clorexidina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Interação físico-química entre antissépticos, resultando em inativação mútua e redução da eficácia antimicrobiana.",
+        "alertLevel": "LOW"
+      }
+    ]
+  },
+  {
+    "id": "morfina",
+    "name": "Morfina",
+    "description": "Potente analgésico opioide. Em idosos, o risco de depressão do SNC e depressão respiratória é extremamente alto, especialmente quando associada a benzodiazepínicos.",
+    "principleActive": "Morfina",
+    "medClass": "MED_CLASS_ANALGESICOS_OPIOIDES",
+    "byDisease": "Dores agudas severas e dores oncológicas.",
+    "risks": [
+      "RESPIRATORY_DEPRESSION",
+      "CNS_DEPRESSION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "diazepam",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Efeito depressor aditivo do SNC. Risco iminente de coma e insuficiência respiratória fatal.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Efeito depressor aditivo do SNC. Risco iminente de coma e depressão respiratória.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Potencialização drástica da depressão respiratória. Risco iminente de hipoventilação grave e coma.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "oxicodona",
+    "name": "Oxicodona",
+    "description": "Analgésico opioide forte. Apresenta potente efeito sedativo e depressor respiratório. Associações com benzodiazepínicos na odontologia aumentam acentuadamente o risco de quedas em idosos.",
+    "principleActive": "Oxicodona",
+    "medClass": "MED_CLASS_ANALGESICOS_OPIOIDES",
+    "byDisease": "Dores agudas severas.",
+    "risks": [
+      "RESPIRATORY_DEPRESSION",
+      "LOSS_OF_BALANCE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "diazepam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Potencialização drástica da sedação. Eleva severamente o risco de quedas, fraturas e depressão respiratória.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Potencialização drástica da sedação. Eleva severamente o risco de quedas com fraturas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Sedação profunda e aditiva. Elevado risco de hipoventilação e complicações respiratórias.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "omeprazol",
+    "name": "Omeprazol",
+    "description": "Inibidor da bomba de prótons (IBP). Altera o pH gástrico e inibe a enzima CYP2C19. Pode prolongar o efeito sedativo do diazepam e aumentar o risco de infecções oportunistas pela alteração da flora.",
+    "principleActive": "Omeprazol",
+    "medClass": "MED_CLASS_IBP",
+    "byDisease": "Doença do refluxo gastroesofágico (DRGE) e proteção gástrica.",
+    "risks": [
+      "ALTERED_PHARMACOKINETICS",
+      "GENERAL_GASTROINTESTINAL"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "diazepam",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Reduz o metabolismo hepático do diazepam. Provoca acúmulo do ansiolítico, gerando sedação prolongada e sonolência excessiva.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "clindamicina",
+        "risk": "GENERAL_GASTROINTESTINAL",
+        "description": "Aumento indireto da susceptibilidade a infecção por Clostridioides difficile e diarreia grave devido à disbiose gástrica/intestinal.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "pantoprazol",
+    "name": "Pantoprazol",
+    "description": "Inibidor da bomba de prótons (IBP). Apresenta menor inibição enzimática hepática que o omeprazol, sendo mais seguro farmacocineticamente, porém mantém o risco de disbiose intestinal.",
+    "principleActive": "Pantoprazol",
+    "medClass": "MED_CLASS_IBP",
+    "byDisease": "Doença do refluxo gastroesofágico e gastrite.",
+    "risks": [
+      "GENERAL_GASTROINTESTINAL"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clindamicina",
+        "risk": "GENERAL_GASTROINTESTINAL",
+        "description": "Eleva a suscetibilidade à proliferação de C. difficile e ao desenvolvimento de colite pseudomembranosa.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "esomeprazol",
+    "name": "Esomeprazol",
+    "description": "Inibidor da bomba de prótons (IBP). Isômero do omeprazol, também atua alterando o pH gástrico, podendo favorecer infecções intestinais graves se associado a antibióticos como a clindamicina.",
+    "principleActive": "Esomeprazol",
+    "medClass": "MED_CLASS_IBP",
+    "byDisease": "DRGE e proteção da mucosa gástrica.",
+    "risks": [
+      "GENERAL_GASTROINTESTINAL"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clindamicina",
+        "risk": "GENERAL_GASTROINTESTINAL",
+        "description": "A associação aumenta as chances de disbiose intestinal, favorecendo casos graves de diarreia em idosos.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "eritromicina",
+    "name": "Eritromicina",
+    "description": "Antibiótico macrolídeo e potente inibidor da enzima CYP3A4. Seu uso odontológico exige extremo cuidado, pois bloqueia a metabolização de sedativos, elevando drasticamente o risco de depressão respiratória.",
+    "principleActive": "Eritromicina",
+    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "byDisease": "Infecções odontogênicas em alérgicos a penicilinas.",
+    "risks": [
+      "ALTERED_PHARMACOKINETICS",
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "midazolam",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição metabólica severa. Aumento expressivo da concentração do ansiolítico, com alto risco de sedação excessiva e depressão respiratória.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clindamicina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Antagonismo farmacológico por competição no mesmo sítio ribossomal. Reduz a eficácia antibiótica de ambos.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "claritromicina",
+    "name": "Claritromicina",
+    "description": "Antibiótico macrolídeo. Além do risco de antagonismo antimicrobiano, é um inibidor muito forte da CYP3A4 e P-glicoproteína, aumentando perigosamente os níveis de sedativos (midazolam) e anticoagulantes (dabigatrana e rivaroxabana).",
+    "principleActive": "Claritromicina",
+    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "byDisease": "Infecções bacterianas.",
+    "risks": [
+      "ALTERED_PHARMACOKINETICS",
+      "THERAPEUTIC_FAILURE",
+      "BLEEDING_RISK"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "midazolam",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição intensa da CYP3A4. Causa aumento severo dos níveis de midazolam, resultando em sedação prolongada e depressão respiratória.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "dabigatrana",
+        "risk": "BLEEDING_RISK",
+        "description": "Inibição da P-glicoproteína, resultando em acúmulo da dabigatrana e altíssimo risco de hemorragias graves.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "rivaroxabana",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição metabólica que retarda a eliminação da rivaroxabana, aumentando a propensão a eventos hemorrágicos sistêmicos.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "clindamicina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Possível antagonismo farmacológico por competição ribossomal, levando a potencial falha terapêutica antimicrobiana.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "itraconazol",
+    "name": "Itraconazol",
+    "description": "Antifúngico sistêmico azólico. Age como potente inibidor enzimático da CYP3A4. Associar itraconazol a benzodiazepínicos de metabolização hepática pode resultar em coma sedativo no paciente idoso.",
+    "principleActive": "Itraconazol",
+    "medClass": "MED_CLASS_ANTIFUNGICOS",
+    "byDisease": "Infecções fúngicas sistêmicas.",
+    "risks": [
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "midazolam",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Aumento dramático dos níveis séricos do midazolam por forte bloqueio metabólico. Risco elevado de sedação grave, prolongada e depressão respiratória.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "cetoconazol",
+    "name": "Cetoconazol",
+    "description": "Antifúngico azólico. Devido à sua fortíssima inibição da CYP3A4, apresenta interação gravíssima e potencialmente fatal quando administrado sistemicamente em conjunto com midazolam ou anticoagulantes.",
+    "principleActive": "Cetoconazol",
+    "medClass": "MED_CLASS_ANTIFUNGICOS",
+    "byDisease": "Infecções fúngicas.",
+    "risks": [
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "midazolam",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição hepática extrema da CYP3A4. Provoca sedação grave, letargia prolongada e risco expressivo de insuficiência respiratória.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "rivaroxabana",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Aumento expressivo da exposição ao anticoagulante, favorecendo fortemente o aparecimento de hemorragias graves e incontroláveis.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "quetiapina",
+    "name": "Quetiapina",
+    "description": "Antipsicótico atípico. Muito prescrito em idosos com demência para controle comportamental. Possui altíssimo risco de sedação, hipotensão postural (quedas) e prolongamento do intervalo QT.",
+    "principleActive": "Quetiapina",
+    "medClass": "MED_CLASS_ANTIPSICOTICOS",
+    "byDisease": "Esquizofrenia, transtorno bipolar e sintomas comportamentais em demências.",
+    "risks": [
+      "LOSS_OF_BALANCE",
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "diazepam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Sedação aditiva profunda. Eleva significativamente o risco de quedas com fraturas e delirium em idosos frágeis.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Efeito depressor aditivo potente. Aumenta severamente a instabilidade postural e o risco de quedas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Sedação intensa associada à depressão do SNC. Elevado risco de desorientação, tontura e quedas pós-sedação odontológica.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "Efeito aditivo sobre o prolongamento do intervalo QT. Risco aumentado de desenvolvimento de arritmias ventriculares graves.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "risperidona",
+    "name": "Risperidona",
+    "description": "Antipsicótico atípico utilizado frequentemente na geriatria. Potencializa fortemente a sedação e a confusão mental (delirium) quando associado a depressores do sistema nervoso central, além de elevar o risco arrítmico.",
+    "principleActive": "Risperidona",
+    "medClass": "MED_CLASS_ANTIPSICOTICOS",
+    "byDisease": "Esquizofrenia e agitação associada à demência.",
+    "risks": [
+      "DELIRIUM",
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "diazepam",
+        "risk": "DELIRIUM",
+        "description": "Potencialização dos efeitos no SNC. Alto risco de precipitar quadro de severa confusão mental, sedação intensa e delirium.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "DELIRIUM",
+        "description": "Potencialização da depressão do SNC. Risco significativo de precipitar quedas e episódios de delirium agudo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "Aumento do risco arrítmico devido ao prolongamento sinérgico do intervalo QT. Risco de síncope e alterações cardíacas.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "sotalol",
+    "name": "Sotalol",
+    "description": "Medicamento antiarrítmico com propriedades bloqueadoras beta-adrenérgicas. O grande alerta na odontologia recai sobre o seu potente efeito de prolongamento do intervalo QT.",
+    "principleActive": "Sotalol",
+    "medClass": "MED_CLASS_ANTIARRITMICOS",
+    "byDisease": "Arritmias ventriculares e controle do ritmo na fibrilação atrial.",
+    "risks": [
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "Prolongamento sinérgico e perigoso do intervalo QT. Alto risco de desencadear arritmias ventriculares fatais e Torsades de Pointes.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "quinidina",
+    "name": "Quinidina",
+    "description": "Antiarrítmico de classe I. Possui altíssimo risco de interação com antibióticos macrolídeos (prolongamento do QT) e anestésicos odontológicos contendo epinefrina (instabilidade cardíaca).",
+    "principleActive": "Quinidina",
+    "medClass": "MED_CLASS_ANTIARRITMICOS",
+    "byDisease": "Prevenção e tratamento de arritmias cardíacas.",
+    "risks": [
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "Efeito aditivo no prolongamento QT. Aumenta significativamente a propensão a arritmias ventriculares e parada cardíaca.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "lidocaina_epinefrina",
+        "risk": "ARRHYTHMIA",
+        "description": "Potencialização do risco de instabilidade cardíaca frente à epinefrina. Risco de desencadear arritmias ventriculares perigosas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "articaina_epinefrina",
+        "risk": "ARRHYTHMIA",
+        "description": "Maior risco de distúrbios do ritmo cardíaco associados ao vasoconstritor. Potencial para desenvolvimento de arritmias instáveis.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "mepivacaina",
+        "risk": "ARRHYTHMIA",
+        "description": "Potencialização perigosa dos efeitos de condução cardíaca da mepivacaína, aumentando a propensão a arritmias.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "haloperidol",
+    "name": "Haloperidol",
+    "description": "Antipsicótico típico (neuroléptico). Extremo risco na odontogeriatria: inibe completamente os efeitos da Levodopa (travando os movimentos do paciente com Parkinson), causa intensa sedação com benzodiazepínicos e prolonga o intervalo QT.",
+    "principleActive": "Haloperidol",
+    "medClass": "MED_CLASS_ANTIPSICOTICOS",
+    "byDisease": "Agitação psicomotora, delirium grave e esquizofrenia.",
+    "risks": [
+      "GENERAL_NEUROLOGICAL",
+      "CNS_DEPRESSION",
+      "DELIRIUM",
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "levodopa",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Forte bloqueio dopaminérgico. Causa agravamento grave e imediato do Parkinson, propiciando rigidez aguda e travamento motor profundo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "Potencialização do intervalo QT provocado por ambas as drogas. Elevado risco de arritmias ventriculares e síncope.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diazepam",
+        "risk": "CNS_DEPRESSION",
+        "description": "Potencialização intensa da depressão do SNC. Risco de sedação profunda, desorientação, lentidão motora e quedas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "DELIRIUM",
+        "description": "Sedação intensa e efeito aditivo central. Elevado risco de desorientação, perda de reflexos, quedas e delirium.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "DELIRIUM",
+        "description": "Potencialização severa da depressão do SNC. Alto risco de precipitar quadros de delirium e confusão mental aguda após a sedação.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "diltiazem",
+    "name": "Diltiazem",
+    "description": "Anti-hipertensivo bloqueador de canal de cálcio (não-di-hidropiridínico). Apresenta atividade inibitória enzimática sobre a CYP3A4, podendo prolongar a meia-vida e os efeitos sedativos de benzodiazepínicos como o midazolam.",
+    "principleActive": "Diltiazem",
+    "medClass": "MED_CLASS_BLOQUEADORES_CANAL_CALCIO",
+    "byDisease": "Hipertensão arterial e controle de frequência cardíaca.",
+    "risks": [
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "midazolam",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Redução do metabolismo do midazolam por inibição moderada da CYP3A4. Causa sedação prolongada e eleva o risco de tontura e quedas.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "verapamil",
+    "name": "Verapamil",
+    "description": "Bloqueador dos canais de cálcio. Possui efeito inotrópico negativo (reduz a força do coração) e inibe o metabolismo de outros fármacos. Aumenta os riscos cardiovasculares de sedativos anestésicos.",
+    "principleActive": "Verapamil",
+    "medClass": "MED_CLASS_BLOQUEADORES_CANAL_CALCIO",
+    "byDisease": "Hipertensão, angina e controle de arritmias supraventriculares.",
+    "risks": [
+      "BLOOD_PRESSURE_ALTERATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "midazolam",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Aumento da concentração plasmática do ansiolítico. Potencializa os riscos de hipotensão, sedação excessiva e instabilidade hemodinâmica.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "busulfano",
+    "name": "Bussulfano",
+    "description": "Agente antineoplásico alquilante. Possui toxicidade sistêmica gravíssima, que é criticamente agravada pelo metronidazol (devido à inibição da depuração metabólica).",
+    "principleActive": "Bussulfano",
+    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "byDisease": "Condicionamento para transplante de medula óssea e quimioterapia.",
+    "risks": [
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição enzimática que aumenta perigosamente a toxicidade do quimioterápico, podendo precipitar eventos adversos fatais na medula óssea.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "fluorouracil",
+    "name": "Fluorouracil (5-FU)",
+    "description": "Quimioterápico antimetabólito amplamente utilizado. A associação com metronidazol é de altíssimo risco, pois a inibição metabólica reduz o clearance do 5-FU, resultando em toxicidade hematológica fulminante.",
+    "principleActive": "Fluorouracil",
+    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "byDisease": "Tratamento de câncer gastrointestinal, de mama e de cabeça e pescoço.",
+    "risks": [
+      "HEMATOLOGICAL_TOXICITY"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "HEMATOLOGICAL_TOXICITY",
+        "description": "Aumento drástico da toxicidade sistêmica do quimioterápico por inibição de seu metabolismo, elevando os riscos de mielossupressão fatal.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "alcool",
+    "name": "Álcool (Etanol)",
+    "description": "Substância psicoativa de consumo social. Apresenta interações sistêmicas com depressores do SNC, hepatotóxicos (paracetamol) e, de forma extrema, com o metronidazol (causando o grave efeito antabuse).",
+    "principleActive": "Etanol",
+    "medClass": "MED_CLASS_SUBSTANCIAS_QUIMICAS",
+    "byDisease": "Consumo recreativo.",
+    "risks": [
+      "GENERAL_GASTROINTESTINAL",
+      "HEPATOTOXICITY",
+      "CNS_DEPRESSION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "GENERAL_GASTROINTESTINAL",
+        "description": "Interação tipo 'antabuse' (efeito dissulfiram). Desencadeia náuseas intensas, vômitos, rubor facial, taquicardia e mal-estar extremo. O álcool deve ser evitado até 72h após o tratamento.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "atracurio",
+    "name": "Atracúrio",
+    "description": "Bloqueador neuromuscular (relaxante muscular) não despolarizante utilizado em anestesia geral. Antibióticos como a clindamicina podem prolongar o bloqueio e causar depressão respiratória persistente.",
+    "principleActive": "Besilato de Atracúrio",
+    "medClass": "MED_CLASS_RELAXANTES_MUSCULARES",
+    "byDisease": "Relaxamento muscular em anestesia geral e ventilação mecânica.",
+    "risks": [
+      "RESPIRATORY_DEPRESSION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clindamicina",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Potencialização do bloqueio neuromuscular induzido pelo anestésico, elevando o risco de depressão respiratória no pós-operatório.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "vecuronio",
+    "name": "Vecurônio",
+    "description": "Bloqueador neuromuscular não despolarizante para intubação e cirurgias. Assim como o atracúrio, interage com a clindamicina, atrasando a recuperação respiratória do paciente.",
+    "principleActive": "Brometo de Vecurônio",
+    "medClass": "MED_CLASS_RELAXANTES_MUSCULARES",
+    "byDisease": "Relaxamento em anestesia cirúrgica.",
+    "risks": [
+      "RESPIRATORY_DEPRESSION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clindamicina",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Aumento do bloqueio neuromuscular com possíveis complicações anestésicas e respiratórias em ambiente hospitalar.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "cimetidina",
+    "name": "Cimetidina",
+    "description": "Antagonista do receptor H2 usado para reduzir a acidez gástrica. É um potente inibidor enzimático (CYP450), retardando o metabolismo e prolongando os efeitos de benzodiazepínicos.",
+    "principleActive": "Cimetidina",
+    "medClass": "MED_CLASS_ANTAGONISTAS_H2",
+    "byDisease": "Doença do refluxo gastroesofágico e úlceras gástricas.",
+    "risks": [
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "diazepam",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição do metabolismo do diazepam, favorecendo o acúmulo sistêmico e prolongando excessivamente o efeito depressor e a sedação.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "valproato_de_sodio",
+    "name": "Valproato de Sódio / Ácido Valproico",
+    "description": "Antiepiléptico e estabilizador de humor. Apresenta forte ação depressora sobre o SNC e risco hepatotóxico. O uso com benzodiazepínicos potencializa acentuadamente a letargia em idosos.",
+    "principleActive": "Valproato de Sódio",
+    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "byDisease": "Epilepsia, transtorno bipolar e enxaqueca.",
+    "risks": [
+      "CNS_DEPRESSION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "CNS_DEPRESSION",
+        "description": "Potencialização dos efeitos no sistema nervoso central, favorecendo a ocorrência de sedação excessiva, tontura e perda de coordenação.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "tamoxifeno",
+    "name": "Tamoxifeno",
+    "description": "Modulador seletivo do receptor de estrogênio, essencial no tratamento do câncer de mama. É um pró-fármaco que precisa da enzima CYP2D6 para ser ativado; a inibição dessa enzima (como pela fluoxetina) corta seu efeito antineoplásico.",
+    "principleActive": "Tamoxifeno",
+    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "byDisease": "Tratamento e prevenção do câncer de mama.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "fluoxetina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Inibição enzimática (CYP2D6) que impede a ativação metabólica do tamoxifeno, reduzindo significativamente sua eficácia terapêutica no tratamento oncológico.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "metoprolol",
+    "name": "Metoprolol",
+    "description": "Betabloqueador seletivo (beta-1). Seu metabolismo hepático (CYP2D6) pode ser fortemente bloqueado por antidepressivos como a fluoxetina, resultando em acúmulo sistêmico e bradicardia severa.",
+    "principleActive": "Metoprolol",
+    "medClass": "MED_CLASS_BETABLOQUEADORES",
+    "byDisease": "Hipertensão, angina, insuficiência cardíaca e arritmias.",
+    "risks": [
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "fluoxetina",
+        "risk": "ARRHYTHMIA",
+        "description": "Aumento dos níveis plasmáticos do betabloqueador por inibição enzimática, podendo precipitar episódios de bradicardia severa e hipotensão.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "hidroxicloroquina",
+    "name": "Hidroxicloroquina",
+    "description": "Antimalárico e imunomodulador utilizado em doenças autoimunes. Possui risco cardiológico intrínseco e sua associação com antibióticos macrolídeos (azitromicina) gera um alerta gravíssimo de arritmia fatal.",
+    "principleActive": "Hidroxicloroquina",
+    "medClass": "MED_CLASS_IMUNOMODULADORES_ANTIMALARICOS",
+    "byDisease": "Artrite reumatoide, lúpus e malária.",
+    "risks": [
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "Efeito aditivo severo sobre o prolongamento do intervalo QT. Aumento crítico da propensão a arritmias cardíacas fatais e Torsades de Pointes.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "alopurinol",
+    "name": "Alopurinol",
+    "description": "Medicamento inibidor da xantina oxidase utilizado para reduzir os níveis de ácido úrico. Sua associação com amoxicilina está correlacionada a um aumento substancial do risco de reações alérgicas cutâneas no idoso.",
+    "principleActive": "Alopurinol",
+    "medClass": "MED_CLASS_ANTIGOTOSOS",
+    "byDisease": "Gota e hiperuricemia.",
+    "risks": [
+      "GENERAL_DERMATOLOGICAL"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "amoxicilina",
+        "risk": "GENERAL_DERMATOLOGICAL",
+        "description": "Aumento da incidência de reações cutâneas adversas, como exantema medicamentoso, erupções maculopapulares e manifestações alérgicas severas.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "micofenolato_de_mofetila",
+    "name": "Micofenolato de Mofetila",
+    "description": "Imunossupressor utilizado na prevenção da rejeição de órgãos transplantados. Antibióticos de amplo espectro (como amoxicilina) podem alterar a flora intestinal, prejudicando sua circulação entero-hepática e diminuindo seus níveis no sangue.",
+    "principleActive": "Micofenolato de Mofetila",
+    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "byDisease": "Profilaxia de rejeição em transplantes de órgãos.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "amoxicilina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Redução da concentração sistêmica do imunossupressor por alteração da microbiota, podendo resultar em redução de sua eficácia antirrejeição.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "probenecida",
+    "name": "Probenecida",
+    "description": "Agente uricosúrico utilizado no tratamento da gota. Atua inibindo a reabsorção tubular renal de ácido úrico, mecanismo que também bloqueia a excreção de penicilinas, causando aumento de seus níveis sanguíneos.",
+    "principleActive": "Probenecida",
+    "medClass": "MED_CLASS_ANTIGOTOSOS",
+    "byDisease": "Gota crônica.",
+    "risks": [
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "amoxicilina",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Diminui a excreção renal da amoxicilina. Aumenta os níveis séricos do antibiótico e a meia-vida do fármaco, prolongando potenciais efeitos adversos.",
+        "alertLevel": "LOW"
+      }
+    ]
+  },
+  {
+    "id": "apixabana",
+    "name": "Apixabana",
+    "description": "Anticoagulante oral direto (DOAC). Exige alerta máximo na associação com AINEs e ISRS devido ao risco severo de hemorragia sistêmica, digestiva e sangramentos pós-exodontia.",
+    "principleActive": "Apixabana",
+    "medClass": "MED_CLASS_ANTICOAGULANTES",
+    "byDisease": "Fibrilação atrial, trombose venosa profunda e embolia pulmonar.",
+    "risks": [
+      "BLEEDING_RISK",
+      "GASTROINTESTINAL_BLEEDING"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "BLEEDING_RISK",
+        "description": "Potencialização severa do risco hemorrágico, favorecendo sangramentos orais e sistêmicos.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento crítico da propensão a hemorragias cirúrgicas e sistêmicas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "BLEEDING_RISK",
+        "description": "Efeito aditivo na coagulação. Alto risco de sangramentos.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Aumento severo do risco gastrointestinal e hemorrágico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento do risco hemorrágico sistêmico e no sítio cirúrgico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "acido_acetilsalicilico",
+        "risk": "BLEEDING_RISK",
+        "description": "Efeito anticoagulante e antiagregante aditivo. Risco muito elevado de sangramento grave.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "fluoxetina",
+        "risk": "BLEEDING_RISK",
+        "description": "A inibição plaquetária do ISRS soma-se à anticoagulação, elevando o risco de sangramentos.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "sertralina",
+        "risk": "BLEEDING_RISK",
+        "description": "Efeito aditivo sobre o sangramento, especialmente no trato digestivo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "escitalopram",
+        "risk": "BLEEDING_RISK",
+        "description": "Potencialização do risco hemorrágico sistêmico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "citalopram",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento significativo da propensão a hemorragias.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "paroxetina",
+        "risk": "BLEEDING_RISK",
+        "description": "Alto risco de sangramento aditivo pela disfunção plaquetária.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "fluconazol",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição metabólica aumentando os níveis do anticoagulante e o risco hemorrágico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cetoconazol",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição enzimática intensa. Causa acúmulo perigoso da apixabana com sangramento grave.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "claritromicina",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição da depuração do anticoagulante, favorecendo eventos hemorrágicos.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "litio",
+    "name": "Carbonato de Lítio",
+    "description": "Estabilizador de humor com estreita margem terapêutica. AINEs (especialmente ibuprofeno e diclofenaco) e diuréticos reduzem sua excreção renal, causando intoxicação neurológica grave (tremores, confusão e convulsões).",
+    "principleActive": "Carbonato de Lítio",
+    "medClass": "MED_CLASS_ESTABILIZADORES_HUMOR",
+    "byDisease": "Transtorno Bipolar.",
+    "risks": [
+      "GENERAL_NEUROLOGICAL",
+      "RENAL_IMPAIRMENT"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Reduz o clearance renal do lítio. Aumenta rapidamente os níveis séricos, causando severa neurotoxicidade.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Acúmulo perigoso de lítio por falha de excreção renal. Risco de intoxicação sistêmica.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Inibição da eliminação do lítio. Aumenta substancialmente o risco de toxicidade grave.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Retenção de lítio no organismo. Risco elevado de manifestações tóxicas neurológicas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Aumento dos níveis séricos de lítio, favorecendo tremores e confusão mental.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "furosemida",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "A perda de sódio induzida pelo diurético causa reabsorção massiva de lítio, gerando intoxicação aguda.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "hidroclorotiazida",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Depleção de sódio que provoca forte acúmulo de lítio, com altíssimo risco neurológico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "enalapril",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "O IECA eleva os níveis séricos do lítio, precipitando quadros tóxicos e dano renal.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "losartana",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Aumento da concentração de lítio, predispondo a confusão, ataxia e convulsões.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "metronidazol",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "O metronidazol inibe a eliminação do lítio. Toxicidade neurológica severa em poucos dias.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "clopidogrel",
+    "name": "Clopidogrel",
+    "description": "Antiagregante plaquetário profilático. Sofre inativação perigosa (falha terapêutica) se associado ao Omeprazol. Aumenta severamente o risco de sangramento com AINEs e anticoagulantes.",
+    "principleActive": "Clopidogrel",
+    "medClass": "MED_CLASS_ANTIAGREGANTES_PLAQUETARIOS",
+    "byDisease": "Prevenção de eventos aterotrombóticos, pós-infarto e stents.",
+    "risks": [
+      "BLEEDING_RISK",
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "omeprazol",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "O omeprazol inibe a enzima CYP2C19, impedindo a ativação do clopidogrel. Resulta em alto risco de trombose e infarto.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "esomeprazol",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Bloqueia a ativação do clopidogrel, deixando o paciente desprotegido contra eventos cardiovasculares.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "acido_acetilsalicilico",
+        "risk": "BLEEDING_RISK",
+        "description": "Sinergismo antiplaquetário potente (Dupla Antiagregação). Alto risco de sangramento sistêmico e gengival.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "varfarina",
+        "risk": "BLEEDING_RISK",
+        "description": "Combinação extremamente hemorrágica. Risco de sangramentos de difícil controle.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "rivaroxabana",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento severo da propensão a hemorragias cirúrgicas e espontâneas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "apixabana",
+        "risk": "BLEEDING_RISK",
+        "description": "Potencialização do risco hemorrágico. Sangramentos graves no pós-operatório.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento crítico do tempo de sangramento e risco de hemorragia digestiva.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "BLEEDING_RISK",
+        "description": "A inibição plaquetária eleva severamente a chance de hemorragias com o uso do AINE.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "fluoxetina",
+        "risk": "BLEEDING_RISK",
+        "description": "O ISRS agrava o defeito plaquetário, favorecendo hematomas e sangramentos prolongados.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "digoxina",
+    "name": "Digoxina",
+    "description": "Glicosídeo cardíaco com margem terapêutica muito estreita. Qualquer medicamento que cause queda de potássio (furosemida, corticoides) ou interaja com macrolídeos (azitromicina) pode precipitar intoxicação digitálica fatal (arritmias).",
+    "principleActive": "Digoxina",
+    "medClass": "MED_CLASS_GLICOSIDEOS_CARDIACOS",
+    "byDisease": "Insuficiência cardíaca e fibrilação atrial.",
+    "risks": [
+      "ARRHYTHMIA",
+      "ALTERED_PHARMACOKINETICS"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "furosemida",
+        "risk": "ARRHYTHMIA",
+        "description": "A hipocalemia induzida pelo diurético aumenta drasticamente a toxicidade da digoxina. Risco gravíssimo de arritmias.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "hidroclorotiazida",
+        "risk": "ARRHYTHMIA",
+        "description": "Espoliação de potássio elevando a chance de intoxicação digitálica e alterações de ritmo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "dexametasona",
+        "risk": "ARRHYTHMIA",
+        "description": "A perda de potássio induzida pelo corticoide favorece intoxicação pela digoxina.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "prednisolona",
+        "risk": "ARRHYTHMIA",
+        "description": "Hipocalemia aditiva que precipita toxicidade digitálica perigosa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "amiodarona",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Aumenta drasticamente os níveis da digoxina. Risco severo de bradicardia, bloqueio cardíaco e confusão.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Altera a microbiota intestinal, aumentando a absorção e os níveis da digoxina. Risco de toxicidade.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "claritromicina",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Forte inibição enzimática e de transportadores, causando acúmulo sistêmico letal da digoxina.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "eritromicina",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Aumento dos níveis séricos do digitálico. Exige redução de dose da digoxina e monitoramento.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "lidocaina_epinefrina",
+        "risk": "ARRHYTHMIA",
+        "description": "Aumento da excitabilidade do miocárdio. Risco elevado de arritmias associadas ao uso de catecolaminas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "articaina_epinefrina",
+        "risk": "ARRHYTHMIA",
+        "description": "Sinergismo na excitabilidade cardíaca, podendo deflagrar distúrbios graves do ritmo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "amoxicilina",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Possível aumento da absorção da digoxina por alteração da flora intestinal.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "codeina",
+    "name": "Codeína",
+    "description": "Opioide fraco amplamente usado. É um pró-fármaco que precisa ser ativado pela enzima CYP2D6 para virar morfina. ISRS como a fluoxetina e paroxetina impedem essa conversão, causando falha analgésica. Associações com benzodiazepínicos geram depressão respiratória.",
+    "principleActive": "Codeína",
+    "medClass": "MED_CLASS_ANALGESICOS_OPIOIDES",
+    "byDisease": "Dor leve a moderada.",
+    "risks": [
+      "RESPIRATORY_DEPRESSION",
+      "CNS_DEPRESSION",
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "fluoxetina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Bloqueia a ativação da codeína em morfina. Resulta em completa falha analgésica no paciente.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "paroxetina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Forte inibição enzimática que impede o efeito analgésico da codeína.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diazepam",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Sedação e depressão respiratória aditivas. Risco de letargia, confusão aguda e hipoventilação.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Potencialização drástica da depressão do SNC. Risco de quedas, fraturas e depressão respiratória.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Depressão do SNC combinada. Aumenta severamente os riscos perioperatórios de hipóxia e sedação profunda.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "prednisona",
+    "name": "Prednisona",
+    "description": "Corticosteroide sintético (pró-fármaco da prednisolona). Aumenta significativamente o risco de sangramento e úlcera gástrica se associado a AINEs, e eleva a glicemia, descompensando pacientes diabéticos.",
+    "principleActive": "Prednisona",
+    "medClass": "MED_CLASS_CORTICOIDES",
+    "byDisease": "Processos inflamatórios e imunomediados.",
+    "risks": [
+      "DIABETIC_COMPLICATION",
+      "GASTROINTESTINAL_BLEEDING",
+      "HYPOKALEMIA",
+      "BONE_FRACTURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Potencialização do risco ulcerogênico. Alta propensão a sangramento ativo e perfuração gástrica.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Aumento severo da agressão à mucosa gástrica e hemorragia digestiva.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Aumento severo do risco de úlcera e hemorragia do trato gastrointestinal.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Efeito ulcerogênico sinérgico. Evitar a associação em idosos.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Agravamento da lesão gástrica com risco de sangramentos agudos.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "acido_acetilsalicilico",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Risco gastrointestinal extremo, podendo causar úlceras severas e sangramento incontrolável.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "varfarina",
+        "risk": "BLEEDING_RISK",
+        "description": "Pode alterar o INR de forma imprevisível e agravar o risco de sangramento.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "insulina",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "O corticoide causa hiperglicemia e resistência à insulina, descompensando o diabetes severamente.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "glibenclamida",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Anulação da eficácia do antidiabético, provocando picos hiperglicêmicos.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "furosemida",
+        "risk": "HYPOKALEMIA",
+        "description": "Aumento expressivo da perda de potássio. Risco de fraqueza muscular grave e arritmias.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "hidroclorotiazida",
+        "risk": "HYPOKALEMIA",
+        "description": "Perda sinérgica de potássio, favorecendo distúrbios eletrolíticos críticos.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "amilorida",
+    "name": "Amilorida",
+    "description": "Diurético poupador de potássio. Extremamente perigoso quando associado a IECAs, BRAs ou suplementos de potássio, gerando hipercalemia fatal (excesso de potássio) capaz de parar o coração.",
+    "principleActive": "Amilorida",
+    "medClass": "MED_CLASS_DIURETICOS_POUPADORES_POTASSIO",
+    "byDisease": "Hipertensão e edemas (geralmente associada à HCTZ).",
+    "risks": [
+      "HYPERKALEMIA",
+      "RENAL_IMPAIRMENT"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "enalapril",
+        "risk": "HYPERKALEMIA",
+        "description": "Aumento crítico da retenção de potássio. Risco altíssimo de arritmias letais por hipercalemia severa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "captopril",
+        "risk": "HYPERKALEMIA",
+        "description": "Risco extremo de desenvolvimento de hipercalemia e instabilidade hemodinâmica grave.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "losartana",
+        "risk": "HYPERKALEMIA",
+        "description": "Potencialização severa da retenção de potássio, favorecendo a ocorrência de parada cardíaca.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "valsartana",
+        "risk": "HYPERKALEMIA",
+        "description": "Aumento perigoso dos níveis séricos de potássio. Requer monitoramento eletrolítico estrito.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "espironolactona",
+        "risk": "HYPERKALEMIA",
+        "description": "Duplo mecanismo de retenção de potássio. Interação contraindicada pelo risco quase certo de toxicidade cardíaca.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cloreto_potassio",
+        "risk": "HYPERKALEMIA",
+        "description": "Adição massiva de potássio no sangue associada à falha em excretá-lo. Risco de hipercalemia fulminante.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "RENAL_IMPAIRMENT",
+        "description": "Redução do fluxo sanguíneo renal. Piora a excreção de potássio e pode gerar lesão renal aguda.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "cloreto_potassio",
+    "name": "Cloreto de Potássio",
+    "description": "Suplemento mineral para correção de hipocalemia. Não deve jamais ser prescrito juntamente com medicamentos que retêm potássio (como IECA, BRA e poupadores de potássio), devido ao risco rápido de parada cardíaca por hipercalemia.",
+    "principleActive": "Cloreto de Potássio",
+    "medClass": "MED_CLASS_SUPLEMENTOS_MINERAIS",
+    "byDisease": "Reposição de potássio.",
+    "risks": [
+      "HYPERKALEMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "enalapril",
+        "risk": "HYPERKALEMIA",
+        "description": "O bloqueio da excreção pelo IECA com a suplementação direta gera hipercalemia grave, bradicardia e parada cardíaca.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "losartana",
+        "risk": "HYPERKALEMIA",
+        "description": "Aumento drástico e fatal dos níveis de potássio sistêmico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "captopril",
+        "risk": "HYPERKALEMIA",
+        "description": "Intensa retenção do suplemento, propiciando níveis tóxicos e arritmias.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "valsartana",
+        "risk": "HYPERKALEMIA",
+        "description": "Sinergismo mortal no acúmulo de potássio. Risco de falência cardíaca.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "espironolactona",
+        "risk": "HYPERKALEMIA",
+        "description": "Risco elevadíssimo e imediato de hipercalemia grave. Evitar a associação incondicionalmente.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "amilorida",
+        "risk": "HYPERKALEMIA",
+        "description": "Associação de extremo risco para desenvolvimento de hipercalemia fatal.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "insulina",
+    "name": "Insulina (Rápida / NPH)",
+    "description": "Hormônio para o tratamento de Diabetes Mellitus. Requer atenção odontológica aos horários das consultas, risco de hipoglicemia e a interações com betabloqueadores (que mascaram sinais de alerta) e corticoides (que causam resistência à insulina e hiperglicemia).",
+    "principleActive": "Insulina",
+    "medClass": "MED_CLASS_INSULINAS",
+    "byDisease": "Diabetes Mellitus.",
+    "risks": [
+      "DIABETIC_COMPLICATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "dexametasona",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "O corticoide causa forte resistência à insulina, anulando seu efeito e provocando hiperglicemia severa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "prednisolona",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Aumento crítico da glicose sanguínea por antagonismo metabólico ao efeito insulínico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "prednisona",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Indução drástica de hiperglicemia e perda do controle diabético no paciente.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "atenolol",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Mascara os sinais de alerta de hipoglicemia (taquicardia, tremores), atrasando a intervenção emergencial.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "carvedilol",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Mascara os sintomas autonômicos da hipoglicemia, colocando o idoso em perigo de coma hipoglicêmico não reconhecido.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "propranolol",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Inibe a resposta glicogenolítica do corpo e mascara sinais de alerta vitais de hipoglicemia aguda.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Pode haver potencialização leve da ação hipoglicemiante. Monitorar idosos com jejum prolongado.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Pode gerar instabilidade nos níveis glicêmicos dependendo da resposta metabólica individual do idoso.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "glibenclamida",
+    "name": "Glibenclamida",
+    "description": "Antidiabético oral (Sulfonilureia) de longa duração. Em idosos, possui altíssimo risco de causar episódios graves de hipoglicemia. O uso de antifúngicos azólicos potencializa essa hipoglicemia, enquanto os corticoides provocam o descontrole oposto (hiperglicemia).",
+    "principleActive": "Glibenclamida",
+    "medClass": "MED_CLASS_SULFONILUREIAS",
+    "byDisease": "Diabetes Mellitus Tipo 2.",
+    "risks": [
+      "DIABETIC_COMPLICATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "fluconazol",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Inibição do metabolismo hepático da glibenclamida. Causa acúmulo sistêmico e hipoglicemia severa, prolongada e perigosa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "miconazol",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Interação de risco extremo. Pode precipitar crise de hipoglicemia profunda, tonturas, sudorese e coma.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "dexametasona",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Corticoide gera resistência tecidual, anulando a eficácia da glibenclamida e causando hiperglicemia intensa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "prednisolona",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Descompensação rápida e agressiva do diabetes por antagonismo do metabolismo glicêmico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "prednisona",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Provoca hiperglicemia e perda completa da proteção antidiabética no paciente idoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Pode potencializar discretamente a hipoglicemia, exigindo monitoramento no pós-operatório com alimentação restrita.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "citalopram",
+    "name": "Citalopram",
+    "description": "Antidepressivo (ISRS). Seu grande limitante de segurança em idosos, se comparado a outros ISRS, é o risco dose-dependente de prolongamento do intervalo QT. Alerta grave com tramadol e antiarrítmicos.",
+    "principleActive": "Citalopram",
+    "medClass": "MED_CLASS_ISRS",
+    "byDisease": "Depressão e ansiedade.",
+    "risks": [
+      "SEROTONIN_SYNDROME",
+      "ARRHYTHMIA",
+      "BLEEDING_RISK",
+      "GASTROINTESTINAL_BLEEDING"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "tramadol",
+        "risk": "SEROTONIN_SYNDROME",
+        "description": "Aumento excessivo de serotonina no SNC. Elevado risco de toxicidade, agitação severa, hipertermia e convulsões.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "Sinergismo perigoso no prolongamento do intervalo QT, aumentando a chance de Torsades de Pointes e arritmias fatais.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "amiodarona",
+        "risk": "ARRHYTHMIA",
+        "description": "Potencialização drástica do risco cardíaco. Exposição ao risco de síncope, parada cardíaca e morte súbita.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "haloperidol",
+        "risk": "ARRHYTHMIA",
+        "description": "Interação farmacodinâmica agravando o prolongamento do QT e precipitando arritmias ventriculares.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "quetiapina",
+        "risk": "ARRHYTHMIA",
+        "description": "Risco aditivo de instabilidade cardíaca e alterações do ritmo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "risperidona",
+        "risk": "ARRHYTHMIA",
+        "description": "Ambas medicações prolongam o QT. Risco severo de toxicidade cardiológica no idoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "fluconazol",
+        "risk": "ARRHYTHMIA",
+        "description": "Inibe o metabolismo do citalopram e ambos prolongam o intervalo QT. Risco cardíaco extremo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "varfarina",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumenta o risco hemorrágico por disfunção plaquetária e alteração do INR.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "acido_acetilsalicilico",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Efeito antiplaquetário aditivo. Aumenta gravemente o risco de úlcera e sangramento gástrico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Interação lesiva ao trato digestivo. Alto risco de desencadear hemorragia gastrointestinal ativa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "BLEEDING_RISK",
+        "description": "Inibição de plaquetas sinérgica, causando episódios de sangramento gengival e digestivo no idoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento substancial da propensão a hemorragias cirúrgicas prolongadas.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "gabapentina",
+    "name": "Gabapentina",
+    "description": "Antiepiléptico e gabapentinoide utilizado para dor neuropática e neuropatia diabética. Seu maior risco na odontogeriatria é a depressão intensa do SNC (sedação, tontura, sonolência profunda e quedas) quando associada a opioides ou benzodiazepínicos.",
+    "principleActive": "Gabapentina",
+    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "byDisease": "Dor neuropática, neuralgia e epilepsia.",
+    "risks": [
+      "CNS_DEPRESSION",
+      "LOSS_OF_BALANCE",
+      "RESPIRATORY_DEPRESSION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "diazepam",
+        "risk": "CNS_DEPRESSION",
+        "description": "Sedação aditiva e depressão neurológica profunda. Risco crítico de descoordenação motora, letargia e quedas com fraturas no idoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Potencialização intensa da sedação central. Aumenta drasticamente a instabilidade postural e o comprometimento cognitivo.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "CNS_DEPRESSION",
+        "description": "Sedação extrema em ambiente perioperatório odontológico, com recuperação retardada e risco de hipoventilação.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "alprazolam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Ação depressora sinérgica sobre o SNC, favorecendo episódios severos de desequilíbrio e quedas ao deambular.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "tramadol",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Depressão cruzada e sedação intensa. Aumenta consideravelmente o risco de depressão respiratória grave e coma.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "morfina",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Aumento sinérgico e letal do risco de insuficiência respiratória e sedação em idosos.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "oxicodona",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Depressão respiratória severa, com sedação aditiva prolongada que expõe o idoso a risco de morte.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "pregabalina",
+    "name": "Pregabalina",
+    "description": "Análogo da gabapentina (gabapentinoide), mais potente, utilizado para dores neuropáticas severas e fibromialgia. O sinergismo depressor no SNC com benzodiazepínicos e opioides causa sedação incapacitante e perigoso risco de quedas.",
+    "principleActive": "Pregabalina",
+    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "byDisease": "Dor neuropática severa, fibromialgia e Transtorno de Ansiedade Generalizada (TAG).",
+    "risks": [
+      "CNS_DEPRESSION",
+      "LOSS_OF_BALANCE",
+      "RESPIRATORY_DEPRESSION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "diazepam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Sinergismo depressor acentuado. Provoca sedação intensa, tonturas debilitantes e alto risco de quedas traumáticas no idoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "CNS_DEPRESSION",
+        "description": "Sonolência profunda, ataxia e confusão mental (delirium) por ação farmacodinâmica somada.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Risco de depressão respiratória perioperatória grave e dificuldade na recuperação após sedação odontológica.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "alprazolam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "A associação resulta em comprometimento cognitivo e motor extremo, anulando a autonomia do idoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "tramadol",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Depressão aditiva central, propiciando episódios perigosos de hipoventilação e confusão (delirium).",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "morfina",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Risco agudo e severo de falência respiratória e sedação profunda. Uso apenas sob monitoramento estrito.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "oxicodona",
+        "risk": "RESPIRATORY_DEPRESSION",
+        "description": "Aumento crítico dos eventos depressores respiratórios e cognitivos, com alto potencial fatal em idosos.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "calcio",
+    "name": "Suplementos de Cálcio",
+    "description": "Suplementos vitamínicos e minerais. Em odontologia, o cálcio interage de forma direta e física com o Alendronato (impedindo a absorção do bifosfonato) e em altas concentrações pode inativar quimicamente a clorexidina tópica.",
+    "principleActive": "Cálcio",
+    "medClass": "MED_CLASS_SUPLEMENTOS_MINERAIS",
+    "byDisease": "Osteopenia, osteoporose e reposição nutricional.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "alendronato",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "O cálcio liga-se fisicamente ao bifosfonato no estômago, bloqueando sua absorção. O suplemento deve ser tomado em horário distante.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "clorexidina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Soluções bucais ou resíduos com alto teor de cálcio podem precipitar e inativar a molécula da clorexidina. Separar os horários de uso.",
+        "alertLevel": "LOW"
+      }
+    ]
+  },
+  {
+    "id": "carbonato_calcio",
+    "name": "Carbonato de Cálcio",
+    "description": "Forma mais comum de suplementação de cálcio e usado como antiácido leve. Neutraliza o pH estomacal e forma complexos insolúveis com bifosfonatos.",
+    "principleActive": "Carbonato de Cálcio",
+    "medClass": "MED_CLASS_SUPLEMENTOS_MINERAIS",
+    "byDisease": "Osteoporose e dispepsia.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "alendronato",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Diminuição expressiva da absorção do alendronato no trato gastrointestinal, impedindo a proteção óssea se tomados juntos.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "magnesio",
+    "name": "Suplementos de Magnésio",
+    "description": "Suplementos minerais catiônicos. Assim como o cálcio, as moléculas de magnésio formam quelatos no sistema digestivo quando em contato com o alendronato, cortando seu efeito.",
+    "principleActive": "Magnésio",
+    "medClass": "MED_CLASS_SUPLEMENTOS_MINERAIS",
+    "byDisease": "Suplementação nutricional e regulação muscular.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "alendronato",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Formação de complexos químicos insolúveis com a medicação. Reduz a absorção do bifosfonato, gerando falha no tratamento ósseo.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "antiacidos",
+    "name": "Antiácidos (Hidróxido de Alumínio / Magnésio)",
+    "description": "Medicamentos de venda livre para alívio da acidez gástrica. Seus componentes metálicos formam quelatos potentes que anulam a absorção oral do alendronato.",
+    "principleActive": "Sais de Alumínio, Magnésio e Cálcio",
+    "medClass": "MED_CLASS_ANTIACIDOS",
+    "byDisease": "Azia, dispepsia e má digestão.",
+    "risks": [
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "alendronato",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Redução severa da biodisponibilidade do alendronato no organismo devido à quelação de moléculas, inativando o controle da osteoporose.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "acido_acetilsalicilico",
+    "name": "Ácido Acetilsalicílico (Aspirina)",
+    "description": "AINE clássico e antiagregante plaquetário de uso contínuo (AAS) por cardiopatas. Na odontologia, não deve ser suspenso para extrações simples, mas gera alerta máximo de hemorragia e úlcera perfurada quando combinado a outros AINEs, Anticoagulantes, Clopidogrel, Corticoides e Antidepressivos ISRS.",
+    "principleActive": "Ácido Acetilsalicílico",
+    "medClass": "MED_CLASS_ANTIAGREGANTES_PLAQUETARIOS",
+    "byDisease": "Prevenção secundária de IAM (infarto) e AVC, profilaxia de tromboses.",
+    "risks": [
+      "BLEEDING_RISK",
+      "GASTROINTESTINAL_BLEEDING",
+      "CARDIOVASCULAR_EVENT"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "varfarina",
+        "risk": "BLEEDING_RISK",
+        "description": "Sinergismo perigoso com anticoagulantes orais. Risco elevadíssimo de hemorragias sistêmicas e sangramentos pós-cirúrgicos incontroláveis.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "rivaroxabana",
+        "risk": "BLEEDING_RISK",
+        "description": "Aumento do tempo de sangramento de forma aditiva. Risco extremo de hemorragias clínicas severas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "apixabana",
+        "risk": "BLEEDING_RISK",
+        "description": "Sinergismo que potencializa de forma letal a chance de sangramentos no trato digestivo e geniturinário.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "dabigatrana",
+        "risk": "BLEEDING_RISK",
+        "description": "Agravamento da resposta hemostática primária com risco severo de complicações hemorrágicas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clopidogrel",
+        "risk": "BLEEDING_RISK",
+        "description": "A combinação das duas vias de inibição plaquetária eleva drasticamente os riscos de hemorragia (uso com indicação estrita cardiológica).",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "CARDIOVASCULAR_EVENT",
+        "description": "O ibuprofeno compete e anula o efeito cardioprotetor (antiplaquetário) da aspirina, favorecendo infarto. Além disso, aumenta o risco de úlceras.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Potencialização dramática da toxicidade da mucosa gástrica. Risco severo de desenvolvimento de úlceras sangrantes e perfuradas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "diclofenaco_potassico",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Lesão da mucosa estomacal somada à falha de coagulação local, causando severos episódios de hemorragia digestiva alta.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "cetoprofeno",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Dano aditivo direto no epitélio gástrico e inibição prolongada de plaquetas, elevando as chances de hemorragia ativa e grave.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "nimesulida",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Aumento do tempo de sangramento e da ação ulcerogênica, contraindicando o uso simultâneo em idosos frágeis.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "fluoxetina",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "A inibição da recaptação de serotonina nas plaquetas promovida pelo ISRS associada à aspirina deflagra alto risco de sangramentos sistêmicos e orais.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "sertralina",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Sinergismo na disfunção das plaquetas, com perigo marcante para hemorragias ocultas ou prolongadas pós-exodontias.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "escitalopram",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Risco de hemorragias mucosas e digestivas pela supressão aditiva da hemostasia primária do paciente.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "citalopram",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Agrava significativamente o defeito plaquetário, favorecendo o aparecimento de hematomas e sangramento prolongado.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "paroxetina",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Alteração sinérgica do tempo de sangramento, com propensão considerável ao desenvolvimento de quadros hemorrágicos no idoso.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "dexametasona",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "O corticoide potencializa os efeitos lesivos do AAS sobre a parede do estômago, expondo o idoso a risco de úlceras pépticas profundas e fatais.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "prednisolona",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Combinação fortemente ulcerogênica, provocando lesões gastrointestinais associadas a episódios de hemorragia e choque hipovolêmico.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "prednisona",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Risco ulcerativo extremo e perigoso pela dupla agressão à via protetora das prostaglandinas no epitélio digestivo.",
+        "alertLevel": "HIGH"
       }
     ]
   }

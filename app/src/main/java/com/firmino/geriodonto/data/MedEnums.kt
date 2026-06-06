@@ -97,6 +97,19 @@ enum class InteractionAlertLevel(symbolName: String, color: Color){
 }
 
 enum class MedClass(val text: String, val short_text: String = "") {
+    MED_CLASS_GLICOSIDEOS_CARDIACOS(text = "Glicosídeos Cardíacos / Digitálicos"),
+    MED_CLASS_ANTIACIDOS(text = "Antiácidos"),
+    MED_CLASS_SUBSTANCIAS_QUIMICAS(text = "Substâncias Químicas / Álcool"),
+    MED_CLASS_RELAXANTES_MUSCULARES(text = "Relaxantes Musculares"),
+    MED_CLASS_ANTAGONISTAS_H2(text = "Antagonistas do Receptor H2"),
+    MED_CLASS_ANTIGOTOSOS(text = "Antigotosos / Uricosúricos"),
+    MED_CLASS_IMUNOMODULADORES_ANTIMALARICOS(text = "Imunomoduladores / Antimaláricos"),
+    MED_CLASS_IBP(text = "Inibidores da Bomba de Prótons (IBP)"),
+    MED_CLASS_ANTIPSICOTICOS(text = "Antipsicóticos"),
+    MED_CLASS_BLOQUEADORES_CANAL_CALCIO(text = "Bloqueadores dos Canais de Cálcio"),
+    MED_CLASS_DIURETICOS_POUPADORES_POTASSIO(text = "Diuréticos Poupadores de Potássio"),
+    MED_CLASS_HIPOLIPEMIANTES(text = "Hipolipemiantes / Resinas"),
+    MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES(text = "Quimioterápicos / Imunossupressores"),
     MED_CLASS_ANTICOLINERGICOS(text = "Anticolinérgicos / Antiespasmódicos Urinários"),
     MED_CLASS_ANTIFUNGICOS(text = "Antifúngicos"),
     MED_CLASS_DIURETICOS(text = "Diuréticos"),
@@ -113,7 +126,6 @@ enum class MedClass(val text: String, val short_text: String = "") {
     MED_CLASS_IRSN(text = "Inibidores da Recaptação de Serotonina e Norepinefrina (IRSN)"),
     MED_CLASS_BENZODIAZEPINICOS(text = "Benzodiazepínicos"),
     MED_CLASS_ANTIEMETICOS(text = "Antieméticos"),
-
     MED_CLASS_DIURETICOS_TIAZIDICOS(text = "Diuréticos Tiazídicos"),
     MED_CLASS_INIBIDORES_ECA(text = "Inibidores da ECA"),
     MED_CLASS_BRA(text = "Bloqueadores do Receptor de Angiotensina (BRA)"),
