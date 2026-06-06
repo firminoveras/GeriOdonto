@@ -16,9 +16,13 @@ enum class RiskCategory(val description: String) {
     INFECTIOUS("Infeccioso e Imunológico"),
     ORAL_AND_SPEECH("Saúde Bucal e Fonoaudiológica"),
     GENERAL("Geral e Sintomas"),
+    SENSORY_NEUROLOGICAL("Sensorial e Neurológico"),
 }
 
 enum class Risk(val text: String, val category: RiskCategory) {
+    HYPOCALCEMIA("Hipocalcemia / Baixo Cálcio", RiskCategory.METABOLIC_ENDOCRINE),
+    MUSCLE_TOXICITY("Toxicidade Muscular / Miopatia", RiskCategory.MUSCULOSKELETAL),
+    HYPOKALEMIA("Hipocalemia / Hipopotassemia", RiskCategory.METABOLIC_ENDOCRINE),
     HYPERKALEMIA("Hipercalemia / Hiperpotassemia", RiskCategory.METABOLIC_ENDOCRINE),
     DYSPHAGIA("Disfagia (Dificuldade de Deglutição)", RiskCategory.ORAL_AND_SPEECH),
     CHEWING_IMPAIRMENT("Comprometimento da Mastigação", RiskCategory.ORAL_AND_SPEECH),
@@ -81,6 +85,9 @@ enum class Risk(val text: String, val category: RiskCategory) {
     RESPIRATORY_DEPRESSION("Depressão Respiratória", RiskCategory.RESPIRATORY),
     CARDIOVASCULAR_EVENT(text = "Evento Cardiovascular", category = RiskCategory.CARDIOVASCULAR),
     NEPHROTOXICITY(text = "Nefrotoxicidade", category = RiskCategory.RENAL_UROLOGICAL),
+    DEHYDRATION("Desidratação", RiskCategory.METABOLIC_ENDOCRINE),
+    OTOTOXICITY("Ototoxicidade / Perda Auditiva", RiskCategory.SENSORY_NEUROLOGICAL),
+    HYPONATREMIA("Hiponatremia / Baixo Sódio", RiskCategory.METABOLIC_ENDOCRINE),
 }
 
 enum class InteractionAlertLevel(symbolName: String, color: Color){
@@ -90,6 +97,11 @@ enum class InteractionAlertLevel(symbolName: String, color: Color){
 }
 
 enum class MedClass(val text: String, val short_text: String = "") {
+    MED_CLASS_ANTICOLINERGICOS(text = "Anticolinérgicos / Antiespasmódicos Urinários"),
+    MED_CLASS_ANTIFUNGICOS(text = "Antifúngicos"),
+    MED_CLASS_DIURETICOS(text = "Diuréticos"),
+    MED_CLASS_IECA(text = "Inibidor da Enzima Conversora de Angiotensina (IECA)"),
+    MED_CLASS_CORTICOIDES(text = "Corticosteroides Sistêmicos"),
     MED_CLASS_ANTIEPILEPTICOS(text = "Antiepilépticos"),
     MED_CLASS_PROCINETICOS(text = "Pró-cinéticos"),
     MED_CLASS_RESINAS_LIGACAO(text = "Resinas Fixadoras de Ácidos Biliares"),
