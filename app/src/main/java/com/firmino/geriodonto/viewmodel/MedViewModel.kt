@@ -6,6 +6,7 @@ import com.firmino.geriodonto.data.database.DatabaseSeeder
 import com.firmino.geriodonto.data.database.MedRepository
 import com.firmino.geriodonto.data.database.MedWithInteractions
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,12 +20,27 @@ import javax.inject.Inject
 @HiltViewModel
 class MedViewModel @Inject constructor(
     val repository: MedRepository,
-    private val databaseSeeder: DatabaseSeeder
+    private val databaseSeeder: DatabaseSeeder,
 ) : ViewModel() {
-    init { viewModelScope.launch { databaseSeeder.checkAndSeedDatabase() } }
-
+    private val _seedingState = MutableStateFlow<SeedingState>(SeedingState.Idle)
     private val _searchQuery = MutableStateFlow("")
+    val seedingState: StateFlow<SeedingState> = _seedingState.asStateFlow()
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
+    fun seedDatabase() {
+        if (_seedingState.value is SeedingState.Loading || _seedingState.value is SeedingState.Success) {
+            return
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            _seedingState.value = SeedingState.Loading
+            try {
+                databaseSeeder.checkAndSeedDatabase()
+                _seedingState.value = SeedingState.Success
+            } catch (e: Exception) {
+                _seedingState.value = SeedingState.Error(e.message ?: "Erro")
+            }
+        }
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val medsList: StateFlow<List<MedWithInteractions>> = _searchQuery
@@ -38,7 +54,7 @@ class MedViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
+            initialValue = emptyList(),
         )
 
     fun onSearchQueryChanged(newQuery: String) {
@@ -49,4 +65,11 @@ class MedViewModel @Inject constructor(
     suspend fun getMed(id: String): MedWithInteractions? {
         return repository.getMedById(id)
     }
+}
+
+sealed interface SeedingState {
+    object Loading : SeedingState
+    object Success : SeedingState
+    object Idle : SeedingState
+    data class Error(val message: String) : SeedingState
 }

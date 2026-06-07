@@ -30,6 +30,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
@@ -71,6 +72,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.rememberAppVersion
 import com.firmino.geriodonto.data.MedicalCondition
@@ -82,6 +84,7 @@ import com.firmino.geriodonto.ui.theme.GeriOdontoTheme
 import com.firmino.geriodonto.ui.theme.fontFamilyBaumans
 import com.firmino.geriodonto.ui.theme.fontFamilyPoiret
 import com.firmino.geriodonto.viewmodel.MedViewModel
+import com.firmino.geriodonto.viewmodel.SeedingState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -108,7 +111,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun Content(
-    viewModel: MedViewModel = hiltViewModel()
+    viewModel: MedViewModel = hiltViewModel(),
 ) {
 
     val sheetState = rememberBottomSheetState(
@@ -120,7 +123,9 @@ fun Content(
     Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
             Menu(
-                onAddClick = { showBottomSheet = true })
+                viewModel = viewModel,
+                onAddClick = { showBottomSheet = true },
+            )
         }
 
         if (showBottomSheet) {
@@ -128,9 +133,9 @@ fun Content(
                 onDismissRequest = { showBottomSheet = false },
                 sheetState = sheetState,
             ) {
-                Exam (
-                viewModel = viewModel,
-                ){
+                Exam(
+                    viewModel = viewModel,
+                ) {
                     scope.launch { sheetState.hide() }.invokeOnCompletion {
                         if (!sheetState.isVisible) {
                             showBottomSheet = false
@@ -145,15 +150,18 @@ fun Content(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun Menu(onAddClick: () -> Unit) {
+fun Menu(
+    viewModel: MedViewModel,
+    onAddClick: () -> Unit,
+) {
+    val seedingState by viewModel.seedingState.collectAsStateWithLifecycle()
+    val appVersion = rememberAppVersion()
     val gradientBrush = Brush.linearGradient(
         colors = listOf(
             MaterialTheme.colorScheme.primary,
             MaterialTheme.colorScheme.onSecondary,
         ),
     )
-    val appVersion = rememberAppVersion()
-
     val rotationAngle by rememberInfiniteTransition(label = "InfiniteRotationTransition").animateFloat(
         initialValue = 0f,
         targetValue = 360f,
@@ -176,7 +184,6 @@ fun Menu(onAddClick: () -> Unit) {
             painter = ColorPainter(MaterialTheme.colorScheme.primary),
             contentDescription = null,
         )
-
         Image(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -188,8 +195,6 @@ fun Menu(onAddClick: () -> Unit) {
             painter = ColorPainter(MaterialTheme.colorScheme.primary),
             contentDescription = null,
         )
-
-
         Image(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -201,7 +206,6 @@ fun Menu(onAddClick: () -> Unit) {
             painter = ColorPainter(MaterialTheme.colorScheme.primary),
             contentDescription = null,
         )
-
         Image(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -213,7 +217,6 @@ fun Menu(onAddClick: () -> Unit) {
             painter = ColorPainter(MaterialTheme.colorScheme.primary),
             contentDescription = null,
         )
-
         Image(
             modifier = Modifier
                 .align(Alignment.BottomStart)
@@ -225,7 +228,6 @@ fun Menu(onAddClick: () -> Unit) {
             painter = ColorPainter(MaterialTheme.colorScheme.primary),
             contentDescription = null,
         )
-
         Image(
             modifier = Modifier
                 .align(Alignment.BottomStart)
@@ -237,8 +239,6 @@ fun Menu(onAddClick: () -> Unit) {
             painter = ColorPainter(MaterialTheme.colorScheme.primary),
             contentDescription = null,
         )
-
-
         Image(
             modifier = Modifier
                 .align(Alignment.BottomStart)
@@ -250,7 +250,6 @@ fun Menu(onAddClick: () -> Unit) {
             painter = ColorPainter(MaterialTheme.colorScheme.primary),
             contentDescription = null,
         )
-
         Image(
             modifier = Modifier
                 .align(Alignment.BottomStart)
@@ -261,6 +260,14 @@ fun Menu(onAddClick: () -> Unit) {
                 .clip(MaterialShapes.Cookie12Sided.toShape()),
             painter = ColorPainter(MaterialTheme.colorScheme.primary),
             contentDescription = null,
+        )
+        Text(
+            modifier = Modifier
+                .padding(horizontal = 18.dp)
+                .align(Alignment.BottomStart),
+            text = appVersion,
+            color = MaterialTheme.colorScheme.onPrimary,
+            style = MaterialTheme.typography.labelMediumEmphasized,
         )
 
         Column(
@@ -298,28 +305,74 @@ fun Menu(onAddClick: () -> Unit) {
             Spacer(Modifier.height(128.dp))
         }
 
-        VerticalFloatingToolbar(
-            modifier = Modifier.align(Alignment.BottomEnd),
-            expanded = true,
-            floatingActionButton = {
-                FloatingActionButton(onClick = onAddClick) {
-                    MaterialSymbol(iconName = "add")
+
+        when (seedingState) {
+            SeedingState.Idle -> {
+                viewModel.seedDatabase()
+            }
+
+            SeedingState.Loading -> {
+                PocketAlert(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    alertText = "Atualizando medicamentos...",
+                    symbolName = "warning",
+                    isLoading = true,
+                )
+            }
+
+            SeedingState.Success -> {
+                VerticalFloatingToolbar(
+                    modifier = Modifier.align(Alignment.BottomEnd),
+                    expanded = true,
+                    floatingActionButton = {
+                        FloatingActionButton(onClick = onAddClick) {
+                            MaterialSymbol(iconName = "add")
+                        }
+                    },
+                ) {
+                    IconButton(onClick = {}) { MaterialSymbol(iconName = "info") }
+                    IconButton(onClick = {}) { MaterialSymbol(iconName = "policy") }
                 }
-            },
-        ) {
-            IconButton(onClick = {}) { MaterialSymbol(iconName = "info") }
-            IconButton(onClick = {}) { MaterialSymbol(iconName = "policy") }
+            }
+
+            is SeedingState.Error -> {
+                PocketAlert(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    alertText = "Erro ao atualizar database.",
+                    symbolName = "erro",
+                )
+            }
         }
 
-        Text(
-            modifier = Modifier
-                .padding(horizontal = 18.dp)
-                .align(Alignment.BottomStart),
-            text = appVersion,
-            color = MaterialTheme.colorScheme.onPrimary,
-            style = MaterialTheme.typography.labelMediumEmphasized,
-        )
+    }
+}
 
+@Composable
+fun PocketAlert(
+    modifier: Modifier = Modifier,
+    alertText: String = "",
+    symbolName: String = "alert",
+    color: Color = MaterialTheme.colorScheme.primary,
+    isLoading: Boolean = false,
+) {
+    Surface(
+        modifier = modifier.padding(vertical = 24.dp),
+        shape = MaterialTheme.shapes.extraLarge,
+        color = MaterialTheme.colorScheme.surfaceContainerHighest,
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(modifier = Modifier.size(24.dp))
+            } else {
+                MaterialSymbol(iconName = symbolName)
+            }
+
+            Text(text = alertText, style = MaterialTheme.typography.titleSmall)
+        }
     }
 }
 

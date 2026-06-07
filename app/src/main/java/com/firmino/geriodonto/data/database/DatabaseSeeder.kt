@@ -6,14 +6,16 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 class DatabaseSeeder @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val medDao: MedDao,
 ) {
-    private val CURRENT_JSON_VERSION = 4
+    private val CURRENT_JSON_VERSION = 9
 
     suspend fun checkAndSeedDatabase() {
         val prefs = context.getSharedPreferences("geriodonto_prefs", Context.MODE_PRIVATE)
@@ -52,10 +54,11 @@ class DatabaseSeeder @Inject constructor(
                         )
                     }
                 }
-
+                medDao.deleteAllInteractions()
+                medDao.deleteAllMeds()
                 medDao.insertMeds(medEntities)
                 medDao.insertInteractions(interactionEntities)
-
+                delay(2000.milliseconds)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

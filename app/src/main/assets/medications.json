@@ -2337,7 +2337,7 @@
     "name": "Hidroclorotiazida",
     "description": "Diurético tiazídico muito utilizado. Em idosos, é uma das principais causas medicamentosas de xerostomia (risco de cárie radicular e candidíase). Requer alerta máximo para AINEs (falha anti-hipertensiva e lesão renal), bem como monitoramento de distúrbios hidroeletrolíticos severos (hipocalemia, hiponatremia, desidratação) e risco de toxicidade digitálica.",
     "principleActive": "Hidroclorotiazida",
-    "medClass": "MED_CLASS_DIURETICOS",
+    "medClass": "MED_CLASS_DIURETICOS_TIAZIDICOS",
     "byDisease": "Hipertensão arterial, insuficiência cardíaca leve e edemas.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -7216,6 +7216,753 @@
         "risk": "GASTROINTESTINAL_BLEEDING",
         "description": "Risco ulcerativo extremo e perigoso pela dupla agressão à via protetora das prostaglandinas no epitélio digestivo.",
         "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "clortalidona",
+    "name": "Clortalidona",
+    "description": "Diurético tiazídico de longa duração amplamente prescrito para hipertensão. Em idosos, exige muito cuidado com a desidratação e a hipocalemia (perda de potássio), que é perigosa se o paciente usar digoxina.",
+    "principleActive": "Clortalidona",
+    "medClass": "MED_CLASS_DIURETICOS_TIAZIDICOS",
+    "byDisease": "Hipertensão arterial e insuficiência cardíaca.",
+    "risks": [
+      "HYPOKALEMIA",
+      "DEHYDRATION",
+      "LOSS_OF_BALANCE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "O AINE reduz o efeito diurético e anti-hipertensivo, promovendo retenção de líquidos e piora da pressão.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Redução acentuada da eficácia da clortalidona. Risco de descompensação da pressão arterial.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "digoxina",
+        "risk": "ARRHYTHMIA",
+        "description": "A perda de potássio (hipocalemia) induzida pelo diurético potencializa fortemente a toxicidade da digoxina, causando arritmias letais.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "litio",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "O diurético impede a excreção renal do lítio, causando acúmulo e severa intoxicação neurológica.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "anlodipino",
+    "name": "Anlodipino",
+    "description": "Anti-hipertensivo bloqueador dos canais de cálcio. Causa frequentemente edema de membros inferiores e, mais relevante para a odontologia, pode causar hiperplasia gengival medicamentosa.",
+    "principleActive": "Besilato de Anlodipino",
+    "medClass": "MED_CLASS_BLOQUEADORES_CANAL_CALCIO",
+    "byDisease": "Hipertensão arterial e angina.",
+    "risks": [
+      "GINGIVAL_HYPERPLASIA",
+      "BLOOD_PRESSURE_ALTERATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Redução discreta da eficácia hipotensora. Monitorar pressão arterial em uso prolongado do AINE.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "cetoconazol",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição do metabolismo do anlodipino, aumentando seus níveis séricos e o risco de hipotensão e edema.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "gliclazida",
+    "name": "Gliclazida",
+    "description": "Antidiabético oral (Sulfonilureia). Possui alto risco de hipoglicemia no paciente idoso. Antibióticos, antifúngicos e corticoides interferem severamente em sua eficácia.",
+    "principleActive": "Gliclazida",
+    "medClass": "MED_CLASS_SULFONILUREIAS",
+    "byDisease": "Diabetes Mellitus Tipo 2.",
+    "risks": [
+      "DIABETIC_COMPLICATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "dexametasona",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "O corticoide causa forte resistência à insulina, anulando o efeito da gliclazida e causando hiperglicemia intensa.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "fluconazol",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Aumenta drasticamente os níveis da gliclazida no sangue. Alto risco de hipoglicemia severa e coma.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "miconazol",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Interação de risco extremo, precipitando episódios de hipoglicemia perigosa no idoso.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "empagliflozina",
+    "name": "Empagliflozina",
+    "description": "Antidiabético inibidor de SGLT2. Elimina a glicose pela urina. Em idosos, exige atenção máxima à hidratação, pois causa diurese osmótica e pode levar a desidratação e infecções urinárias recorrentes.",
+    "principleActive": "Empagliflozina",
+    "medClass": "MED_CLASS_INIBIDORES_SGLT2",
+    "byDisease": "Diabetes Tipo 2 e Insuficiência Cardíaca.",
+    "risks": [
+      "DEHYDRATION",
+      "URINARY_INFECTION",
+      "DIABETIC_COMPLICATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "furosemida",
+        "risk": "DEHYDRATION",
+        "description": "Aumento excessivo do volume urinário. Risco sinérgico de desidratação grave, hipotensão e tonturas.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "clortalidona",
+        "risk": "DEHYDRATION",
+        "description": "Sinergismo diurético. Eleva o risco de depleção de volume e insuficiência renal aguda.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "prednisolona",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "O corticoide eleva a glicemia sistêmica, contrapondo e reduzindo o controle diabético.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "sitagliptina",
+    "name": "Sitagliptina",
+    "description": "Antidiabético oral inibidor da enzima DPP-4. Possui baixo risco de hipoglicemia se usado isoladamente, sendo muito prescrito em geriatria.",
+    "principleActive": "Sitagliptina",
+    "medClass": "MED_CLASS_INIBIDORES_DPP4",
+    "byDisease": "Diabetes Mellitus Tipo 2.",
+    "risks": [
+      "DIABETIC_COMPLICATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "dexametasona",
+        "risk": "DIABETIC_COMPLICATION",
+        "description": "Uso do corticoide anula a regulação da glicemia, favorecendo o descontrole diabético no paciente.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "rivastigmina",
+    "name": "Rivastigmina",
+    "description": "Inibidor da acetilcolinesterase para o tratamento do Alzheimer. Aumenta a disponibilidade de acetilcolina. Sofre antagonismo direto de medicamentos com perfil anticolinérgico, o que piora a demência.",
+    "principleActive": "Rivastigmina",
+    "medClass": "MED_CLASS_INIBIDORES_ACETILCOLINESTERASE",
+    "byDisease": "Doença de Alzheimer e demência da Doença de Parkinson.",
+    "risks": [
+      "DEMENTIA_ALZHEIMER",
+      "GENERAL_GASTROINTESTINAL",
+      "ARRHYTHMIA",
+      "LOSS_OF_BALANCE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "oxibutinina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "A oxibutinina (anticolinérgico) corta o efeito da rivastigmina, piorando rapidamente a cognição e memória.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "amitriptilina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Antagonismo farmacológico. A carga anticolinérgica do antidepressivo anula o tratamento do Alzheimer.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "atenolol",
+        "risk": "ARRHYTHMIA",
+        "description": "Risco de potencialização de bradicardia severa e síncope.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "DELIRIUM",
+        "description": "Sedação em paciente demenciado eleva drasticamente o risco de confusão aguda e delirium no pós-operatório.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "galantamina",
+    "name": "Galantamina",
+    "description": "Inibidor colinérgico para controle do Alzheimer. Possui mecanismo duplo (inibição da colinesterase e modulação de receptores nicotínicos). Perigosamente inativada por anticolinérgicos.",
+    "principleActive": "Galantamina",
+    "medClass": "MED_CLASS_INIBIDORES_ACETILCOLINESTERASE",
+    "byDisease": "Demência na Doença de Alzheimer.",
+    "risks": [
+      "DEMENTIA_ALZHEIMER",
+      "ARRHYTHMIA",
+      "GENERAL_GASTROINTESTINAL"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "amitriptilina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Ação antagonista deletéria no sistema nervoso central, piorando o quadro de demência.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "carvedilol",
+        "risk": "ARRHYTHMIA",
+        "description": "Pode induzir bradicardia profunda e perda de consciência.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diazepam",
+        "risk": "DELIRIUM",
+        "description": "Sedação excessiva, agravamento do déficit cognitivo e quedas.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "memantina",
+    "name": "Memantina",
+    "description": "Antagonista dos receptores NMDA, usado no Alzheimer moderado a grave. Diferente dos inibidores colinérgicos, sua principal complicação medicamentosa na odontologia é a extrema confusão se associada a sedativos.",
+    "principleActive": "Memantina",
+    "medClass": "MED_CLASS_ANTAGONISTAS_NMDA",
+    "byDisease": "Doença de Alzheimer (fases moderada e grave).",
+    "risks": [
+      "DELIRIUM",
+      "LOSS_OF_BALANCE",
+      "DEMENTIA_ALZHEIMER"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "midazolam",
+        "risk": "DELIRIUM",
+        "description": "Sedação no idoso com demência avançada. Elevado risco de desorientação severa, delírios e recuperação retardada.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Aumenta marcantemente o risco de quedas, letargia e confusão psicomotora.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "risedronato",
+    "name": "Risedronato",
+    "description": "Bifosfonato oral para osteoporose. Gera um alerta vital na odontologia para o risco de Osteonecrose dos Maxilares (MRONJ) após cirurgias dentárias e implantes.",
+    "principleActive": "Risedronato Sódico",
+    "medClass": "MED_CLASS_BIFOSFONATOS",
+    "byDisease": "Osteoporose e Doença de Paget.",
+    "risks": [
+      "OSTEONECROSIS_OF_JAW",
+      "GASTROINTESTINAL_BLEEDING"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "calcio",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Cálcio bloqueia a absorção do risedronato se tomados próximos. Exige intervalo mínimo de 2 horas.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "antiacidos",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Sais de alumínio e magnésio quelam a medicação no estômago, anulando sua eficácia.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "GASTROINTESTINAL_BLEEDING",
+        "description": "Aumento do risco de agressão e ulceração do trato gastrointestinal superior.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "colecalciferol",
+    "name": "Colecalciferol (Vitamina D3)",
+    "description": "Suplemento essencial para metabolismo ósseo e muscular, muito prescrito para idosos frágeis e sarcopênicos. Corticoides sistêmicos reduzem muito sua absorção e eficácia.",
+    "principleActive": "Vitamina D3",
+    "medClass": "MED_CLASS_VITAMINAS",
+    "byDisease": "Osteoporose, deficiência de vitamina D e fragilidade.",
+    "risks": [
+      "GENERAL_METABOLIC"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "dexametasona",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "O uso de glicocorticoides prejudica o metabolismo da Vitamina D, favorecendo a descalcificação óssea.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "prednisolona",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "O corticoide antagoniza os efeitos de retenção de cálcio promovidos pela vitamina D.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "suplementos_proteicos",
+    "name": "Suplementos Proteicos (Whey, Colágeno, etc)",
+    "description": "Suplementação nutricional para combate à sarcopenia (perda de massa muscular) no idoso. Em pacientes com Parkinson, grandes refeições proteicas bloqueiam a absorção da Levodopa.",
+    "principleActive": "Aminoácidos / Proteínas",
+    "medClass": "MED_CLASS_SUPLEMENTOS_ALIMENTARES",
+    "byDisease": "Sarcopenia, fragilidade e desnutrição.",
+    "risks": [
+      "GENERAL_METABOLIC"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "levodopa",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Aminoácidos do suplemento competem com a Levodopa no intestino, anulando o remédio do Parkinson. Não usar nos mesmos horários.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "mirtazapina",
+    "name": "Mirtazapina",
+    "description": "Antidepressivo atípico muito usado na geriatria, pois aumenta o apetite e dá sono (trata insônia e desnutrição juntas). Causa profunda sedação se combinada com ansiolíticos.",
+    "principleActive": "Mirtazapina",
+    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "byDisease": "Depressão maior, insônia e baixo peso.",
+    "risks": [
+      "CNS_DEPRESSION",
+      "LOSS_OF_BALANCE",
+      "SEROTONIN_SYNDROME"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "diazepam",
+        "risk": "CNS_DEPRESSION",
+        "description": "Sinergismo depressor marcante. Risco altíssimo de sonolência excessiva, quedas e confusão mental.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "CNS_DEPRESSION",
+        "description": "Sedação profunda e recuperação lenta após anestesia odontológica.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "tramadol",
+        "risk": "SEROTONIN_SYNDROME",
+        "description": "Risco de toxicidade serotoninérgica se as doses forem muito elevadas. Requer monitoramento.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "carbidopa",
+    "name": "Carbidopa",
+    "description": "Inibidor da descarboxilase sempre associado à Levodopa no tratamento do Parkinson (evita que a levodopa se transforme em dopamina no sangue antes de chegar ao cérebro).",
+    "principleActive": "Carbidopa",
+    "medClass": "MED_CLASS_ANTIPARKINSONIANOS",
+    "byDisease": "Doença de Parkinson.",
+    "risks": [
+      "GENERAL_NEUROLOGICAL",
+      "LOSS_OF_BALANCE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "haloperidol",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Bloqueia receptores dopaminérgicos centrais, anulando a medicação antiparkinsoniana severamente.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "metoclopramida",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Antagonismo do efeito antiparkinsoniano e agravamento rápido dos tremores e rigidez.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "losartana",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Pode potencializar a hipotensão ortostática do paciente parkinsoniano.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "pramipexol",
+    "name": "Pramipexol",
+    "description": "Agonista dopaminérgico usado sozinho ou com a levodopa. Em idosos, possui altíssimo risco de causar alucinações (delirium) e sonolência repentina (ataques de sono).",
+    "principleActive": "Pramipexol",
+    "medClass": "MED_CLASS_ANTIPARKINSONIANOS",
+    "byDisease": "Doença de Parkinson e Síndrome das Pernas Inquietas.",
+    "risks": [
+      "DELIRIUM",
+      "CNS_DEPRESSION",
+      "LOSS_OF_BALANCE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "haloperidol",
+        "risk": "GENERAL_NEUROLOGICAL",
+        "description": "Antagonismo direto. Interação totalmente contraindicada pelo agravamento do Parkinson.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "midazolam",
+        "risk": "DELIRIUM",
+        "description": "Depressão do SNC aditiva. Elevada propensão a desencadear confusão psicótica ou alucinações.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "clonazepam",
+        "risk": "LOSS_OF_BALANCE",
+        "description": "Aumenta drasticamente o risco de quedas, instabilidade postural e sedação profunda.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "selegilina",
+    "name": "Selegilina",
+    "description": "Inibidor da enzima MAO-B, prolonga o efeito da dopamina no cérebro. Devido à inibição da MAO, tem interações fatais com medicamentos serotoninérgicos (como tramadol e antidepressivos).",
+    "principleActive": "Selegilina",
+    "medClass": "MED_CLASS_ANTIPARKINSONIANOS",
+    "byDisease": "Doença de Parkinson.",
+    "risks": [
+      "SEROTONIN_SYNDROME",
+      "BLOOD_PRESSURE_ALTERATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "tramadol",
+        "risk": "SEROTONIN_SYNDROME",
+        "description": "Interação absoluta. Risco máximo de deflagrar Síndrome Serotoninérgica fatal (convulsões, febre alta, coma).",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "fluoxetina",
+        "risk": "SEROTONIN_SYNDROME",
+        "description": "Risco gravíssimo de toxicidade e crise serotoninérgica severa. Deve-se aguardar semanas de intervalo entre as drogas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "sertralina",
+        "risk": "SEROTONIN_SYNDROME",
+        "description": "Interação farmacodinâmica muito perigosa. Risco iminente de toxicidade central.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "salbutamol",
+    "name": "Salbutamol",
+    "description": "Broncodilatador de curta ação (beta-2 agonista) para crises de asma e DPOC. Seu efeito salva-vidas de abrir os pulmões é diretamente bloqueado se o paciente usar um betabloqueador não seletivo.",
+    "principleActive": "Salbutamol",
+    "medClass": "MED_CLASS_BRONCODILATADORES",
+    "byDisease": "Asma e Doença Pulmonar Obstrutiva Crônica (DPOC).",
+    "risks": [
+      "ARRHYTHMIA",
+      "XEROSTOMIA_HYPOSALIVATION",
+      "COPD"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "propranolol",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Antagonismo farmacológico direto. O propranolol fecha os brônquios e impede a ação do salbutamol, gerando risco de asfixia.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "atenolol",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Embora cardioseletivo, em altas doses pode antagonizar e prejudicar a eficácia do broncodilatador.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "brometo_ipratropio",
+    "name": "Brometo de Ipratrópio",
+    "description": "Broncodilatador anticolinérgico inalatório. Pode exacerbar o ressecamento da boca (xerostomia) em idosos e interagir com outros medicamentos de mesma carga anticolinérgica.",
+    "principleActive": "Brometo de Ipratrópio",
+    "medClass": "MED_CLASS_BRONCODILATADORES",
+    "byDisease": "DPOC e broncoespasmo.",
+    "risks": [
+      "XEROSTOMIA_HYPOSALIVATION",
+      "TASTE_ALTERATION",
+      "COPD"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "oxibutinina",
+        "risk": "XEROSTOMIA_HYPOSALIVATION",
+        "description": "Sinergismo anticolinérgico. Aumenta significativamente a secura na boca e a dificuldade de usar próteses dentárias.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "amitriptilina",
+        "risk": "XEROSTOMIA_HYPOSALIVATION",
+        "description": "Soma de efeitos anticolinérgicos. Risco de constipação e redução extrema do fluxo salivar.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "budesonida",
+    "name": "Budesonida",
+    "description": "Corticosteroide inalatório ou nasal. Na cavidade bucal, a falta de enxágue pós-uso frequentemente causa candidíase pseudomembranosa. Inibidores da CYP3A4 acumulam a droga no organismo.",
+    "principleActive": "Budesonida",
+    "medClass": "MED_CLASS_CORTICOIDES_INALATORIOS",
+    "byDisease": "Asma crônica e DPOC.",
+    "risks": [
+      "ORAL_INFECTION",
+      "XEROSTOMIA_HYPOSALIVATION"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "itraconazol",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Inibição de enzimas que aumentam a concentração do corticoide no sangue, gerando risco de toxicidade sistêmica.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "claritromicina",
+        "risk": "ALTERED_PHARMACOKINETICS",
+        "description": "Aumenta os níveis de budesonida por bloqueio enzimático. Requer cuidado com o eixo hormonal.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "formoterol",
+    "name": "Formoterol",
+    "description": "Broncodilatador de longa ação (beta-2 agonista). Assim como o salbutamol, é antagonizado por betabloqueadores. Adicionalmente, possui leve risco de alterar o intervalo QT do coração.",
+    "principleActive": "Formoterol",
+    "medClass": "MED_CLASS_BRONCODILATADORES",
+    "byDisease": "Controle de manutenção da Asma e DPOC.",
+    "risks": [
+      "ARRHYTHMIA",
+      "XEROSTOMIA_HYPOSALIVATION",
+      "COPD"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "propranolol",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Anulação do efeito broncodilatador. A combinação pode deflagrar espasmos severos nas vias aéreas.",
+        "alertLevel": "HIGH"
+      },
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "Possível efeito aditivo no prolongamento do intervalo QT. Cautela no uso com cardiopatas.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "bicalutamida",
+    "name": "Bicalutamida",
+    "description": "Antiandrogênio não esteroide para tratamento de câncer de próstata. Apresenta forte ligação às proteínas plasmáticas, podendo deslocar anticoagulantes orais e causar hemorragias.",
+    "principleActive": "Bicalutamida",
+    "medClass": "MED_CLASS_ANTIANDROGENIOS",
+    "byDisease": "Câncer de próstata avançado.",
+    "risks": [
+      "HEPATOTOXICITY",
+      "GENERAL_METABOLIC"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "varfarina",
+        "risk": "BLEEDING_RISK",
+        "description": "Desloca a varfarina de suas proteínas de ligação. Aumenta gravemente o INR e a propensão a hemorragia sistêmica.",
+        "alertLevel": "HIGH"
+      }
+    ]
+  },
+  {
+    "id": "leuprorrelina",
+    "name": "Leuprorrelina",
+    "description": "Análogo do GnRH (terapia de privação androgênica). Causa castração química no tratamento do câncer de próstata, acelerando intensamente a perda de massa óssea e risco de fraturas em idosos.",
+    "principleActive": "Acetato de Leuprorrelina",
+    "medClass": "MED_CLASS_ANALOGOS_GNRH",
+    "byDisease": "Câncer de próstata e endometriose.",
+    "risks": [
+      "BONE_FRACTURE",
+      "GENERAL_METABOLIC"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "azitromicina",
+        "risk": "ARRHYTHMIA",
+        "description": "A privação de andrógenos prolonga o intervalo QT, podendo somar-se perigosamente aos efeitos cardíacos do antibiótico.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "anastrozol",
+    "name": "Anastrozol",
+    "description": "Inibidor da aromatase não esteroide, suprime o estrogênio no tratamento do câncer de mama pós-menopausa. A deficiência drástica de estrogênio causa dores articulares severas e osteoporose.",
+    "principleActive": "Anastrozol",
+    "medClass": "MED_CLASS_INIBIDORES_AROMATASE",
+    "byDisease": "Câncer de mama em mulheres pós-menopáusicas.",
+    "risks": [
+      "BONE_FRACTURE",
+      "CHRONIC_PAIN"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "tamoxifeno",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "A coadministração pode reduzir as concentrações séricas do anastrozol. Geralmente a associação oncológica não é recomendada.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "eritropoetina",
+    "name": "Eritropoetina (EPO)",
+    "description": "Hormônio estimulador de glóbulos vermelhos, fundamental no doente renal crônico. Possui risco inerente de elevar a pressão arterial e causar eventos trombóticos, que pioram com uso de AINEs.",
+    "principleActive": "Eritropoetina Humana Recombinante",
+    "medClass": "MED_CLASS_ESTIMULANTES_ERITROPOESE",
+    "byDisease": "Anemia secundária à Doença Renal Crônica ou quimioterapia.",
+    "risks": [
+      "HYPERTENSION_CRISIS",
+      "THROMBOSIS",
+      "KIDNEY_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "ibuprofeno",
+        "risk": "BLOOD_PRESSURE_ALTERATION",
+        "description": "Sinergismo na elevação da pressão arterial e potencial dano renal aditivo no paciente comprometido.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "diclofenaco_sodico",
+        "risk": "HYPERTENSION_CRISIS",
+        "description": "Aumenta o risco de crise hipertensiva severa em pacientes renais em tratamento com EPO.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "sevelamer",
+    "name": "Sevelamer",
+    "description": "Quelante de fosfato não absorvível. Indispensável para pacientes com falência renal. Atua no trato digestivo e, por prender minerais fisicamente, pode inativar diversos remédios orais se tomados juntos.",
+    "principleActive": "Cloridrato de Sevelâmer",
+    "medClass": "MED_CLASS_QUELANTES_FOSFATO",
+    "byDisease": "Hiperfosfatemia na Doença Renal Crônica (Diálise).",
+    "risks": [
+      "GENERAL_GASTROINTESTINAL",
+      "THERAPEUTIC_FAILURE"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "alendronato",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Quelação direta. O sevelamer impede completamente a absorção do bifosfonato, exigindo que sejam tomados em horários distintos.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "pilocarpina",
+    "name": "Pilocarpina",
+    "description": "Agonista colinérgico paraensempático usado para forçar a produção de saliva e lágrima em pacientes com boca seca e Síndrome de Sjögren. É anulada por qualquer remédio com efeito anticolinérgico.",
+    "principleActive": "Cloridrato de Pilocarpina",
+    "medClass": "MED_CLASS_ESTIMULANTES_SALIVARES",
+    "byDisease": "Xerostomia pós-radioterapia e Síndrome de Sjögren.",
+    "risks": [
+      "SIALORRHEA",
+      "GENERAL_GASTROINTESTINAL",
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "amitriptilina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Ação farmacológica oposta. O antidepressivo bloqueia os receptores e impede que a pilocarpina produza saliva.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "oxibutinina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Inativação do estímulo salivar através de bloqueio anticolinérgico sistêmico competitivo.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "atenolol",
+        "risk": "ARRHYTHMIA",
+        "description": "Aumento do tônus parassimpático somado ao betabloqueio. Risco de bradicardia e problemas de condução cardíaca.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "cevimelina",
+    "name": "Cevimelina",
+    "description": "Análogo sintético da pilocarpina. Estimula os receptores muscarínicos para aumentar o fluxo salivar e combater a xerostomia, sujeita às mesmas interações anticolinérgicas e perigos cardíacos.",
+    "principleActive": "Cevimelina",
+    "medClass": "MED_CLASS_ESTIMULANTES_SALIVARES",
+    "byDisease": "Xerostomia em Síndrome de Sjögren.",
+    "risks": [
+      "SIALORRHEA",
+      "GENERAL_GASTROINTESTINAL",
+      "ARRHYTHMIA"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "amitriptilina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Antagonismo de receptores muscarínicos, reduzindo dramaticamente o alívio da boca seca propiciado pelo fármaco.",
+        "alertLevel": "NORMAL"
+      },
+      {
+        "interactingMedId": "carvedilol",
+        "risk": "ARRHYTHMIA",
+        "description": "Aumento da propensão a distúrbios da condução cardíaca (bradicardia) devido ao somatório dos mecanismos autonômicos.",
+        "alertLevel": "NORMAL"
+      }
+    ]
+  },
+  {
+    "id": "xilitol",
+    "name": "Xilitol",
+    "description": "Adoçante de álcool de açúcar utilizado em gomas e pastilhas. Na odontologia, é um ótimo substituto salivar preventivo, não cariogênico, e que reduz o crescimento do Streptococcus mutans.",
+    "principleActive": "Xilitol",
+    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "byDisease": "Prevenção de cáries e alívio de boca seca.",
+    "risks": [
+      "GENERAL_GASTROINTESTINAL"
+    ],
+    "interactions": [
+      {
+        "interactingMedId": "clorexidina",
+        "risk": "THERAPEUTIC_FAILURE",
+        "description": "Interação segura. Pode ser utilizado em bochechos combinados sem perda da eficácia antimicrobiana.",
+        "alertLevel": "LOW"
       }
     ]
   }

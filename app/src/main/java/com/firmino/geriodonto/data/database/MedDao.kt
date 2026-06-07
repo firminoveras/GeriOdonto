@@ -26,4 +26,10 @@ interface MedDao {
     @Transaction
     @Query("SELECT * FROM medications WHERE name LIKE '%' || :searchQuery || '%' OR principleActive LIKE '%' || :searchQuery || '%'")
     fun searchMedsByNameOrPrinciple(searchQuery: String): Flow<List<MedWithInteractions>>
+
+    @Query("DELETE FROM interactions")
+    suspend fun deleteAllInteractions()
+
+    @Query("DELETE FROM medications")
+    suspend fun deleteAllMeds()
 }

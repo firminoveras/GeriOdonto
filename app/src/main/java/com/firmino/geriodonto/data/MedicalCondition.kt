@@ -37,8 +37,8 @@ val DiabetesMellitusTipo2 = MedicalCondition(
         "metformina",
         "gliclazida",
         "glibenclamida",
-        "insulinaGlargina",
-        "insulinaRegular",
+        "insulina_glargina",
+        "insulina",
         "empagliflozina",
         "sitagliptina",
     ),
@@ -73,7 +73,7 @@ val Arritmia = MedicalCondition(
         "amiodarona",
         "varfarina",
         "rivaroxabana",
-        "acidoAcetilsalicilico",
+        "acido_acetilsalicilico",
     ),
     commonRisks = listOf(
         Risk.ARRHYTHMIA,
@@ -118,7 +118,7 @@ val Osteoporose = MedicalCondition(
     commonMeds = listOf(
         "alendronato",
         "risedronato",
-        "carbonatoDeCalcio",
+        "carbonato_calcio",
         "colecalciferol",
     ),
     commonRisks = listOf(
@@ -133,7 +133,7 @@ val Artrite = MedicalCondition(
         "paracetamol",
         "dipirona",
         "ibuprofeno",
-        "diclofenaco",
+        "diclofenaco_sodico",
         "tramadol",
     ),
     commonRisks = listOf(
@@ -149,7 +149,7 @@ val Artrose = MedicalCondition(
         "paracetamol",
         "dipirona",
         "ibuprofeno",
-        "diclofenaco",
+        "diclofenaco_sodico",
         "tramadol",
     ),
     commonRisks = listOf(
@@ -303,7 +303,7 @@ val Fragilidade = MedicalCondition(
     description = "Síndrome clínica de vulnerabilidade sistêmica a estressores, caracterizada por fraqueza, lentidão e exaustão.",
     commonMeds = listOf(
         "colecalciferol",
-        "carbonatoDeCalcio",
+        "carbonato_calcio",
         "suplementosProteicos",
     ),
     commonRisks = listOf(
@@ -319,7 +319,7 @@ val Sarcopenia = MedicalCondition(
     description = "Doença muscular caracterizada pela perda acelerada de massa, força e desempenho físico muscular.",
     commonMeds = listOf(
         "colecalciferol",
-        "carbonatoDeCalcio",
+        "carbonato_calcio",
     ),
     commonRisks = listOf(
         Risk.MUSCLE_WASTING,
