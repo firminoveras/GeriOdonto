@@ -2,20 +2,26 @@ package com.firmino.geriodonto.data
 
 import androidx.compose.ui.graphics.Color
 
-enum class RiskCategory(val description: String) {
-    NEUROLOGICAL("Neurológico"),
-    CARDIOVASCULAR("Cardiovascular"),
-    RESPIRATORY("Respiratório"),
-    METABOLIC_ENDOCRINE("Metabólico e Endócrino"),
-    RENAL_UROLOGICAL("Renal e Urológico"),
-    GASTROINTESTINAL("Gastrointestinal"),
-    MUSCULOSKELETAL("Musculoesquelético"),
-    SENSORY("Sensorial"),
-    DERMATOLOGICAL("Dermatológico"),
-    PSYCHIATRIC("Psiquiátrico e Psicológico"),
-    INFECTIOUS_HEMATOLOGICAL("Infeccioso, Imunológico e Hematológico"),
-    ORAL_AND_SPEECH("Saúde Bucal e Fonoaudiológica"),
-    GENERAL("Geral e Sintomas")
+enum class InteractionAlertLevel(symbolName: String, color: Color){
+    HIGH("brightness_alert", Color(0xFFEF5350)),
+    NORMAL("warning", Color(0xFFFFCA28)),
+    LOW("error", Color(0xFF26C6DA)),
+}
+
+enum class RiskCategory(val description: String, val symbolName: String = "") {
+    NEUROLOGICAL("Neurológico", "neurology"),
+    CARDIOVASCULAR("Cardiovascular", "cardiology"),
+    RESPIRATORY("Respiratório", "pulmonology"),
+    METABOLIC_ENDOCRINE("Metabólico e Endócrino", "endocrinology"),
+    RENAL_UROLOGICAL("Renal e Urológico", "nephrology"),
+    GASTROINTESTINAL("Gastrointestinal", "gastroenterology"),
+    MUSCULOSKELETAL("Musculoesquelético", "femur_alt"),
+    SENSORY("Sensorial", "touch_app"),
+    DERMATOLOGICAL("Dermatológico", "dermatology"),
+    PSYCHIATRIC("Psiquiátrico e Psicológico", "psychology"),
+    INFECTIOUS_HEMATOLOGICAL("Infeccioso, Imunológico e Hematológico", "microbiology"),
+    ORAL_AND_SPEECH("Bucal e Fonoaudiológica", "oral_disease"),
+    GENERAL("Geral", "stethoscope")
 }
 
 enum class Risk(val text: String, val category: RiskCategory) {
@@ -47,7 +53,7 @@ enum class Risk(val text: String, val category: RiskCategory) {
     DEMENTIA_ALZHEIMER("Demência / Alzheimer", RiskCategory.NEUROLOGICAL),
     SEROTONIN_SYNDROME("Síndrome Serotoninérgica", RiskCategory.NEUROLOGICAL),
     CNS_DEPRESSION("Depressão do Sistema Nervoso Central", RiskCategory.NEUROLOGICAL),
-    LOSS_OF_BALANCE("Perda de Equilíbrio / Risco de Queda", RiskCategory.NEUROLOGICAL), // Ajustado para neurológico
+    LOSS_OF_BALANCE("Perda de Equilíbrio / Risco de Queda", RiskCategory.NEUROLOGICAL),
     GENERAL_NEUROLOGICAL("Outras Complicações Neurológicas", RiskCategory.NEUROLOGICAL),
 
     // PSIQUIÁTRICO
@@ -72,7 +78,7 @@ enum class Risk(val text: String, val category: RiskCategory) {
 
     // RENAL E UROLÓGICO
     KIDNEY_FAILURE("Insuficiência Renal", RiskCategory.RENAL_UROLOGICAL),
-    RENAL_IMPAIRMENT("Piora da Função Renal", RiskCategory.RENAL_UROLOGICAL), // Removido "Desidratação" do texto
+    RENAL_IMPAIRMENT("Piora da Função Renal", RiskCategory.RENAL_UROLOGICAL),
     NEPHROTOXICITY("Nefrotoxicidade", RiskCategory.RENAL_UROLOGICAL),
     URINARY_INFECTION("Infecção do Trato Urinário (ITU)", RiskCategory.RENAL_UROLOGICAL),
     GENERAL_RENAL("Outras Complicações Renais/Urológicas", RiskCategory.RENAL_UROLOGICAL),
@@ -91,7 +97,7 @@ enum class Risk(val text: String, val category: RiskCategory) {
 
     // SENSORIAL
     VISION_LOSS("Complicações Visuais / Cegueira", RiskCategory.SENSORY),
-    OTOTOXICITY("Ototoxicidade / Perda Auditiva", RiskCategory.SENSORY), // Ajustado a categoria e unificado com Hearing Loss
+    OTOTOXICITY("Ototoxicidade / Perda Auditiva", RiskCategory.SENSORY),
     PERIPHERAL_NEUROPATHY("Perda de Sensibilidade (Neuropatia)", RiskCategory.SENSORY),
 
     // DERMATOLÓGICO
@@ -112,70 +118,64 @@ enum class Risk(val text: String, val category: RiskCategory) {
     THERAPEUTIC_FAILURE("Falha Terapêutica / Redução de Eficácia", RiskCategory.GENERAL)
 }
 
-enum class InteractionAlertLevel(symbolName: String, color: Color){
-    HIGH("brightness_alert", Color(0xFFEF5350)),
-    NORMAL("warning", Color(0xFFFFCA28)),
-    LOW("error", Color(0xFF26C6DA)),
-}
-
-enum class MedClass(val text: String, val short_text: String = "") {
-    MED_CLASS_GLICOSIDEOS_CARDIACOS(text = "Glicosídeos Cardíacos / Digitálicos"),
-    MED_CLASS_ANTIACIDOS(text = "Antiácidos"),
-    MED_CLASS_SUBSTANCIAS_QUIMICAS(text = "Substâncias Químicas"),
-    MED_CLASS_RELAXANTES_MUSCULARES(text = "Relaxantes Musculares"),
-    MED_CLASS_ANTAGONISTAS_H2(text = "Antagonistas do Receptor H2"),
-    MED_CLASS_ANTIGOTOSOS(text = "Antigotosos / Uricosúricos"),
-    MED_CLASS_IMUNOMODULADORES_ANTIMALARICOS(text = "Imunomoduladores / Antimaláricos"),
-    MED_CLASS_IBP(text = "Inibidores da Bomba de Prótons (IBP)"),
-    MED_CLASS_ANTIPSICOTICOS(text = "Antipsicóticos"),
-    MED_CLASS_BLOQUEADORES_CANAL_CALCIO(text = "Bloqueadores dos Canais de Cálcio"),
-    MED_CLASS_DIURETICOS_POUPADORES_POTASSIO(text = "Diuréticos Poupadores de Potássio"),
-    MED_CLASS_HIPOLIPEMIANTES(text = "Hipolipemiantes / Resinas"),
-    MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES(text = "Quimioterápicos / Imunossupressores"),
-    MED_CLASS_ANTICOLINERGICOS(text = "Anticolinérgicos / Antiespasmódicos Urinários"),
-    MED_CLASS_ANTIFUNGICOS(text = "Antifúngicos"),
-    MED_CLASS_IECA(text = "Inibidor da Enzima Conversora de Angiotensina (IECA)"),
-    MED_CLASS_CORTICOIDES(text = "Corticosteroides Sistêmicos"),
-    MED_CLASS_ANTIEPILEPTICOS(text = "Antiepilépticos"),
-    MED_CLASS_PROCINETICOS(text = "Pró-cinéticos"),
-    MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS(text = "Antibióticos / Tuberculostáticos"),
-    MED_CLASS_ESTABILIZADORES_HUMOR(text = "Estabilizadores de Humor"),
-    MED_CLASS_ISRS(text = "Inibidores Seletivos da Recaptação de Serotonina (ISRS)"),
-    MED_CLASS_IRSN(text = "Inibidores da Recaptação de Serotonina e Norepinefrina (IRSN)"),
-    MED_CLASS_BENZODIAZEPINICOS(text = "Benzodiazepínicos"),
-    MED_CLASS_ANTIEMETICOS(text = "Antieméticos"),
-    MED_CLASS_DIURETICOS_TIAZIDICOS(text = "Diuréticos Tiazídicos"),
-    MED_CLASS_BRA(text = "Bloqueadores do Receptor de Angiotensina (BRA)"),
-    MED_CLASS_BETABLOQUEADORES(text = "Betabloqueadores"),
-    MED_CLASS_DIURETICOS_ALCA(text = "Diuréticos de Alça"),
-    MED_CLASS_ANTAGONISTAS_ALDOSTERONA(text = "Antagonistas da Aldosterona"),
-    MED_CLASS_BIGUANIDAS(text = "Biguanidas"),
-    MED_CLASS_SULFONILUREIAS(text = "Sulfonilureias"),
-    MED_CLASS_INSULINAS(text = "Insulinas"),
-    MED_CLASS_INIBIDORES_SGLT2(text = "Inibidores de SGLT2"),
-    MED_CLASS_INIBIDORES_DPP4(text = "Inibidores de DPP-4"),
-    MED_CLASS_ANTIARRITMICOS(text = "Antiarrítmicos"),
-    MED_CLASS_ANTICOAGULANTES(text = "Anticoagulantes"),
-    MED_CLASS_ANTIAGREGANTES_PLAQUETARIOS(text = "Antiagregantes Plaquetários"),
-    MED_CLASS_INIBIDORES_ACETILCOLINESTERASE(text = "Inibidores da Acetilcolinesterase"),
-    MED_CLASS_ANTAGONISTAS_NMDA(text = "Antagonistas do Receptor NMDA"),
-    MED_CLASS_ANTIDEPRESSIVOS(text = "Antidepressivos"),
-    MED_CLASS_ANTIPARKINSONIANOS(text = "Antiparkinsonianos"),
-    MED_CLASS_BIFOSFONATOS(text = "Bifosfonatos"),
-    MED_CLASS_SUPLEMENTOS_MINERAIS(text = "Suplementos Minerais"),
-    MED_CLASS_VITAMINAS(text = "Vitaminas"),
-    MED_CLASS_ANALGESICOS_AGENTES(text = "Analgésicos Comuns"),
-    MED_CLASS_AINE(text = "Anti-inflamatórios Não Esteroides (AINEs)"),
-    MED_CLASS_ANALGESICOS_OPIOIDES(text = "Analgésicos Opioides"),
-    MED_CLASS_BRONCODILATADORES(text = "Broncodilatadores"),
-    MED_CLASS_CORTICOIDES_INALATORIOS(text = "Corticoides Inalatórios"),
-    MED_CLASS_ANTIANDROGENIOS(text = "Antiandrogênios (Próstata)"),
-    MED_CLASS_ANALOGOS_GNRH(text = "Análogos de GnRH (Próstata)"),
-    MED_CLASS_MODULADORES_ESTROGENIO(text = "Moduladores Seletivos do Receptor de Estrogênio (Mama)"),
-    MED_CLASS_INIBIDORES_AROMATASE(text = "Inibidores da Aromatase (Mama)"),
-    MED_CLASS_ESTIMULANTES_ERITROPOESE(text = "Agentes Estimuladores da Eritropoese"),
-    MED_CLASS_QUELANTES_FOSFATO(text = "Quelantes de Fosfato"),
-    MED_CLASS_ESTIMULANTES_SALIVARES(text = "Estimulantes Salivares"),
-    MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS(text = "Produtos Auxiliares e Substitutos Salivares"),
-    MED_CLASS_SUPLEMENTOS_ALIMENTARES(text = "Suplementos e Aminoácidos")
+enum class MedClass(val text: String) {
+    GLICOSIDEOS_CARDIACOS(text = "Glicosídeos Cardíacos / Digitálicos"),
+    ANTIACIDOS(text = "Antiácidos"),
+    SUBSTANCIAS_QUIMICAS(text = "Substâncias Químicas"),
+    RELAXANTES_MUSCULARES(text = "Relaxantes Musculares"),
+    ANTAGONISTAS_H2(text = "Antagonistas do Receptor H2"),
+    ANTIGOTOSOS(text = "Antigotosos / Uricosúricos"),
+    IMUNOMODULADORES_ANTIMALARICOS(text = "Imunomoduladores / Antimaláricos"),
+    IBP(text = "Inibidores da Bomba de Prótons (IBP)"),
+    ANTIPSICOTICOS(text = "Antipsicóticos"),
+    BLOQUEADORES_CANAL_CALCIO(text = "Bloqueadores dos Canais de Cálcio"),
+    DIURETICOS_POUPADORES_POTASSIO(text = "Diuréticos Poupadores de Potássio"),
+    HIPOLIPEMIANTES(text = "Hipolipemiantes / Resinas"),
+    QUIMIOTERAPICOS_IMUNOSSUPRESSORES(text = "Quimioterápicos / Imunossupressores"),
+    ANTICOLINERGICOS(text = "Anticolinérgicos / Antiespasmódicos Urinários"),
+    ANTIFUNGICOS(text = "Antifúngicos"),
+    IECA(text = "Inibidor da Enzima Conversora de Angiotensina (IECA)"),
+    CORTICOIDES(text = "Corticosteroides Sistêmicos"),
+    ANTIEPILEPTICOS(text = "Antiepilépticos"),
+    PROCINETICOS(text = "Pró-cinéticos"),
+    ANTIBIOTICOS_TUBERCULOSTATICOS(text = "Antibióticos / Tuberculostáticos"),
+    ESTABILIZADORES_HUMOR(text = "Estabilizadores de Humor"),
+    ISRS(text = "Inibidores Seletivos da Recaptação de Serotonina (ISRS)"),
+    IRSN(text = "Inibidores da Recaptação de Serotonina e Norepinefrina (IRSN)"),
+    BENZODIAZEPINICOS(text = "Benzodiazepínicos"),
+    ANTIEMETICOS(text = "Antieméticos"),
+    DIURETICOS_TIAZIDICOS(text = "Diuréticos Tiazídicos"),
+    BRA(text = "Bloqueadores do Receptor de Angiotensina (BRA)"),
+    BETABLOQUEADORES(text = "Betabloqueadores"),
+    DIURETICOS_ALCA(text = "Diuréticos de Alça"),
+    ANTAGONISTAS_ALDOSTERONA(text = "Antagonistas da Aldosterona"),
+    BIGUANIDAS(text = "Biguanidas"),
+    SULFONILUREIAS(text = "Sulfonilureias"),
+    INSULINAS(text = "Insulinas"),
+    INIBIDORES_SGLT2(text = "Inibidores de SGLT2"),
+    INIBIDORES_DPP4(text = "Inibidores de DPP-4"),
+    ANTIARRITMICOS(text = "Antiarrítmicos"),
+    ANTICOAGULANTES(text = "Anticoagulantes"),
+    ANTIAGREGANTES_PLAQUETARIOS(text = "Antiagregantes Plaquetários"),
+    INIBIDORES_ACETILCOLINESTERASE(text = "Inibidores da Acetilcolinesterase"),
+    ANTAGONISTAS_NMDA(text = "Antagonistas do Receptor NMDA"),
+    ANTIDEPRESSIVOS(text = "Antidepressivos"),
+    ANTIPARKINSONIANOS(text = "Antiparkinsonianos"),
+    BIFOSFONATOS(text = "Bifosfonatos"),
+    SUPLEMENTOS_MINERAIS(text = "Suplementos Minerais"),
+    VITAMINAS(text = "Vitaminas"),
+    ANALGESICOS_AGENTES(text = "Analgésicos Comuns"),
+    AINE(text = "Anti-inflamatórios Não Esteroides (AINEs)"),
+    ANALGESICOS_OPIOIDES(text = "Analgésicos Opioides"),
+    BRONCODILATADORES(text = "Broncodilatadores"),
+    CORTICOIDES_INALATORIOS(text = "Corticoides Inalatórios"),
+    ANTIANDROGENIOS(text = "Antiandrogênios (Próstata)"),
+    ANALOGOS_GNRH(text = "Análogos de GnRH (Próstata)"),
+    MODULADORES_ESTROGENIO(text = "Moduladores Seletivos do Receptor de Estrogênio (Mama)"),
+    INIBIDORES_AROMATASE(text = "Inibidores da Aromatase (Mama)"),
+    ESTIMULANTES_ERITROPOESE(text = "Agentes Estimuladores da Eritropoese"),
+    QUELANTES_FOSFATO(text = "Quelantes de Fosfato"),
+    ESTIMULANTES_SALIVARES(text = "Estimulantes Salivares"),
+    PRODUTOS_AUXILIARES_BUCAIS(text = "Produtos Auxiliares e Substitutos Salivares"),
+    SUPLEMENTOS_ALIMENTARES(text = "Suplementos e Aminoácidos")
 }

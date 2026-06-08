@@ -40,23 +40,14 @@ fun ExamSlider(
     symbolName: String,
     suffix: String,
     value: SliderState,
-    scale: List<Pair<Float, String>> = listOf(),
-    min: Float = 0f,
-    max: Float = 100f,
     decimals: Int = 0,
     plusIndicator: Boolean = false,
+    description: (value: Float) -> String = { "" },
 ) {
     var isEditing by remember { mutableStateOf(false) }
-    var description by remember { mutableStateOf("") }
-    val progress = (min + (max - min) * value.value)
-    scale.forEach {
-        if (progress <= it.first) {
-            description = it.second
-        }
-    }
 
-    val formatedValue = "%.${decimals}f${if (plusIndicator && progress == max) "+" else ""}".format(
-        progress,
+    val formatedValue = "%.${decimals}f${if (plusIndicator && value.value == value.valueRange.endInclusive) "+" else ""}".format(
+        value.value,
     )
 
     Column(
@@ -70,7 +61,7 @@ fun ExamSlider(
                 modifier = Modifier
                     .fillMaxWidth()
                     .alpha(if (isEditing) 0f else 1f),
-                value = if (progress != min) "$formatedValue $suffix" else "",
+                value = if (value.value != value.valueRange.start) "$formatedValue $suffix" else "",
                 onValueChange = {},
                 readOnly = true,
                 label = { Text(label) },
@@ -115,7 +106,7 @@ fun ExamSlider(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     MaterialSymbol(symbolName)
-                    if (scale.isEmpty()) {
+                    if (description(value.value).isEmpty()) {
                         Text(text = label, style = MaterialTheme.typography.bodyLarge)
                     } else {
                         Column {
@@ -124,7 +115,7 @@ fun ExamSlider(
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
-                            Text(text = description, style = MaterialTheme.typography.bodyMedium)
+                            Text(text = description(value.value), style = MaterialTheme.typography.bodyMedium)
                         }
                     }
                 }

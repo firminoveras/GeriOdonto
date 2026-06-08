@@ -4,7 +4,7 @@
     "name": "Paracetamol",
     "description": "Analgésico e antitérmico amplamente utilizado na odontologia. O consumo crônico de álcool ou doenças hepáticas pré-existentes aumentam o risco de hepatotoxicidade, mesmo em doses terapêuticas.",
     "principleActive": "Paracetamol",
-    "medClass": "MED_CLASS_ANALGESICOS_AGENTES",
+    "medClass": "ANALGESICOS_AGENTES",
     "byDisease": "Dor leve a moderada de origem odontológica, febre.",
     "risks": [
       "HEPATOTOXICITY"
@@ -77,7 +77,7 @@
     "name": "Dipirona",
     "description": "Analgésico e antipirético amplamente utilizado, geralmente bem tolerado, mas requer atenção especial em idosos anticoagulados, com doença renal crônica ou em uso de metotrexato. Atenção ao risco raro de agranulocitose.",
     "principleActive": "Metamizol",
-    "medClass": "MED_CLASS_ANALGESICOS_AGENTES",
+    "medClass": "ANALGESICOS_AGENTES",
     "byDisease": "Dor leve a moderada, febre.",
     "risks": [
       "BLEEDING_RISK",
@@ -170,7 +170,7 @@
     "name": "Tramadol",
     "description": "Analgésico opioide de ação central utilizado para dor moderada a intensa. Exige cautela extrema em idosos devido ao alto risco de depressão central, instabilidade postural e confusão mental.",
     "principleActive": "Tramadol",
-    "medClass": "MED_CLASS_ANALGESICOS_OPIOIDES",
+    "medClass": "ANALGESICOS_OPIOIDES",
     "byDisease": "Dor moderada a intensa de origem odontológica.",
     "risks": [
       "LOSS_OF_BALANCE",
@@ -272,7 +272,7 @@
     "name": "Ibuprofeno",
     "description": "Anti-inflamatório não esteroidal (AINE). Apresenta alto risco de sangramento gastrointestinal, toxicidade renal e descompensação cardiovascular em idosos. Atenção máxima ao 'Triple Golpe' (AINE + IECA/BRA + Diurético).",
     "principleActive": "Ibuprofeno",
-    "medClass": "MED_CLASS_AINE",
+    "medClass": "AINE",
     "byDisease": "Dor e inflamação de origem odontológica.",
     "risks": [
       "GASTROINTESTINAL_BLEEDING",
@@ -384,7 +384,7 @@
     "name": "Nimesulida",
     "description": "Anti-inflamatório não esteroidal (AINE). Apresenta riscos significativos de hepatotoxicidade, sangramento gastrointestinal e insuficiência renal. Deve ser utilizada por períodos curtos (geralmente até 5 dias).",
     "principleActive": "Nimesulida",
-    "medClass": "MED_CLASS_AINE",
+    "medClass": "AINE",
     "byDisease": "Dor e inflamação de origem odontológica.",
     "risks": [
       "HEPATOTOXICITY",
@@ -514,7 +514,7 @@
     "name": "Diclofenaco Sódico",
     "description": "Anti-inflamatório não esteroidal (AINE). Apresenta um dos maiores riscos cardiovasculares (infarto/AVC) entre os AINEs tradicionais, além de alto risco de sangramento gastrointestinal e insuficiência renal. Atenção máxima ao 'Triple Golpe' e em idosos com insuficiência cardíaca ou polifarmácia.",
     "principleActive": "Diclofenaco",
-    "medClass": "MED_CLASS_AINE",
+    "medClass": "AINE",
     "byDisease": "Dor e inflamação de origem odontológica.",
     "risks": [
       "CARDIOVASCULAR_EVENT",
@@ -662,7 +662,7 @@
     "name": "Diclofenaco Potássico",
     "description": "Anti-inflamatório não esteroidal (AINE) de ação rápida. Possui perfil de risco idêntico ao diclofenaco sódico: alto risco cardiovascular, sangramento gastrointestinal e dano renal. Atenção extra ao teor de potássio, que pode favorecer hipercalemia em idosos com disfunção renal ou em uso de poupadores de potássio, além do grave risco de 'Triple Golpe'.",
     "principleActive": "Diclofenaco",
-    "medClass": "MED_CLASS_AINE",
+    "medClass": "AINE",
     "byDisease": "Dor aguda e inflamação de origem odontológica.",
     "risks": [
       "CARDIOVASCULAR_EVENT",
@@ -811,7 +811,7 @@
     "name": "Cetoprofeno",
     "description": "Anti-inflamatório não esteroidal (AINE). Apresenta risco elevado de sangramento gastrointestinal, insuficiência renal e retenção hídrica em idosos. Atenção especial à combinação com antidepressivos ISRS (Sertralina, Fluoxetina), que aumenta drasticamente o risco hemorrágico, e ao risco de falência renal por 'Triple Golpe' (AINE + IECA/BRA + Diurético).",
     "principleActive": "Cetoprofeno",
-    "medClass": "MED_CLASS_AINE",
+    "medClass": "AINE",
     "byDisease": "Dor odontogênica e controle inflamatório pós-operatório.",
     "risks": [
       "GASTROINTESTINAL_BLEEDING",
@@ -959,7 +959,7 @@
     "name": "Amoxicilina",
     "description": "Antibiótico mais prescrito na odontologia. Apresenta excelente perfil de segurança global em idosos, mas exige monitoramento rigoroso se associado à Varfarina (risco de sangramento por alteração da microbiota) e Metotrexato (toxicidade grave). Requer ajuste de dose na insuficiência renal crônica e atenção a distúrbios gastrointestinais.",
     "principleActive": "Amoxicilina",
-    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "medClass": "ANTIBIOTICOS_TUBERCULOSTATICOS",
     "byDisease": "Tratamento e profilaxia de infecções odontogênicas.",
     "risks": [
       "BLEEDING_RISK",
@@ -1018,7 +1018,7 @@
     "name": "Clindamicina",
     "description": "Antibiótico de excelente ação contra anaeróbios, muito utilizado em alérgicos a penicilinas. Embora tenha poucas interações clássicas, seu maior perigo em idosos é o alto risco de diarreia grave e colite pseudomembranosa por Clostridioides difficile. Requer cautela se associado a anticoagulantes, inibidores da bomba de prótons ou em casos de insuficiência hepática avançada.",
     "principleActive": "Clindamicina",
-    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "medClass": "ANTIBIOTICOS_TUBERCULOSTATICOS",
     "byDisease": "Tratamento de infecções odontogênicas e periodontais.",
     "risks": [
       "BLEEDING_RISK",
@@ -1100,7 +1100,7 @@
     "name": "Azitromicina",
     "description": "Antibiótico macrolídeo. Possui menos interações que outros macrolídeos, mas apresenta grave risco de prolongamento do intervalo QT e arritmias fatais em idosos (especialmente se associado a antiarrítmicos, antidepressivos ou antipsicóticos). Requer cautela com o uso concomitante de digoxina e varfarina, e atenção em casos de insuficiência hepática avançada.",
     "principleActive": "Azitromicina",
-    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "medClass": "ANTIBIOTICOS_TUBERCULOSTATICOS",
     "byDisease": "Tratamento de infecções odontogênicas em alérgicos a penicilinas.",
     "risks": [
       "ARRHYTHMIA",
@@ -1200,7 +1200,7 @@
     "name": "Metronidazol",
     "description": "Antimicrobiano essencial para infecções anaeróbias e periodontites. Requer extrema atenção na odontogeriatria devido ao altíssimo risco de interações graves: inibe o metabolismo da Varfarina (risco hemorrágico fatal), eleva os níveis de Lítio (neurotoxicidade) e causa efeito 'antabuse' com álcool. Apresenta risco de toxicidade neurológica e hepática.",
     "principleActive": "Metronidazol",
-    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "medClass": "ANTIBIOTICOS_TUBERCULOSTATICOS",
     "byDisease": "Infecções anaeróbias, periodontites agressivas e abscessos odontogênicos.",
     "risks": [
       "BLEEDING_RISK",
@@ -1289,7 +1289,7 @@
     "name": "Lidocaína com Epinefrina",
     "description": "Anestésico local com vasoconstritor. A lidocaína em si é segura, mas a epinefrina apresenta riscos cardiovasculares importantes. Exige limite de dose em cardiopatas (máx. 0,04 mg de epinefrina, aprox. 2 tubetes 1:100.000) e monitoramento severo ao ser associado a betabloqueadores não seletivos, antidepressivos tricíclicos e antiarrítmicos.",
     "principleActive": "Lidocaína e Epinefrina",
-    "medClass": "MED_CLASS_ANALGESICOS_AGENTES",
+    "medClass": "ANALGESICOS_AGENTES",
     "byDisease": "Anestesia local para procedimentos odontológicos.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -1370,7 +1370,7 @@
     "name": "Mepivacaína",
     "description": "Anestésico local muito utilizado na odontogeriatria (frequentemente a 3% sem vasoconstritor, sendo mais seguro para cardiopatas). Exige cautela em pacientes com doença hepática avançada devido ao risco de acúmulo e toxicidade. Quando em formulação com o vasoconstritor levonordefrina, apresenta risco cardiovascular ao interagir com antidepressivos tricíclicos e betabloqueadores.",
     "principleActive": "Mepivacaína",
-    "medClass": "MED_CLASS_ANALGESICOS_AGENTES",
+    "medClass": "ANALGESICOS_AGENTES",
     "byDisease": "Anestesia local para procedimentos odontológicos.",
     "risks": [
       "ARRHYTHMIA",
@@ -1452,7 +1452,7 @@
     "name": "Articaína com Epinefrina",
     "description": "Anestésico local com excelente difusão e metabolismo parcialmente plasmático (mais seguro na insuficiência hepática que a lidocaína). O risco clínico em idosos é atrelado à presença da epinefrina, exigindo limite de dose (máx. 0,04 mg, aprox. 2 tubetes 1:100.000) e monitoramento cardiovascular frente a betabloqueadores, antidepressivos e antiarrítmicos.",
     "principleActive": "Articaína e Epinefrina",
-    "medClass": "MED_CLASS_ANALGESICOS_AGENTES",
+    "medClass": "ANALGESICOS_AGENTES",
     "byDisease": "Anestesia local para procedimentos odontológicos.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -1533,7 +1533,7 @@
     "name": "Clorexidina",
     "description": "Antisséptico oral com mínima absorção sistêmica e alta segurança em idosos. As principais interações são locais, sofrendo inativação química pelo Lauril Sulfato de Sódio (SLS) presente em cremes dentais. Requer precaução em idosos com xerostomia severa, alteração de paladar ou demência avançada (risco de deglutição do bochecho).",
     "principleActive": "Digluconato de Clorexidina",
-    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "medClass": "PRODUTOS_AUXILIARES_BUCAIS",
     "byDisease": "Controle químico do biofilme, gengivite, periodontite e pós-operatório.",
     "risks": [
       "XEROSTOMIA_HYPOSALIVATION",
@@ -1578,7 +1578,7 @@
     "name": "Diazepam",
     "description": "Benzodiazepínico (ansiolítico e sedativo). Considerado medicamento potencialmente inapropriado para idosos (Critérios de Beers) pela meia-vida prolongada e acúmulo de metabólitos. Alto risco de sedação excessiva, quedas, fraturas, delirium e depressão respiratória. Exige atenção máxima se associado a opioides, antidepressivos ou antipsicóticos.",
     "principleActive": "Diazepam",
-    "medClass": "MED_CLASS_BENZODIAZEPINICOS",
+    "medClass": "BENZODIAZEPINICOS",
     "byDisease": "Controle da ansiedade pré-operatória e sedação mínima na odontologia.",
     "risks": [
       "CNS_DEPRESSION",
@@ -1690,7 +1690,7 @@
     "name": "Clonazepam",
     "description": "Benzodiazepínico amplamente utilizado, mas considerado potencialmente inapropriado para idosos em uso prolongado (Critérios de Beers). Apresenta alto risco de sedação excessiva, quedas, fraturas, déficit cognitivo e delirium. Requer extrema atenção se associado a opioides, gabapentinoides (gabapentina/pregabalina), antidepressivos e antipsicóticos.",
     "principleActive": "Clonazepam",
-    "medClass": "MED_CLASS_BENZODIAZEPINICOS",
+    "medClass": "BENZODIAZEPINICOS",
     "byDisease": "Controle da ansiedade odontológica, transtorno do pânico, insônia e epilepsia.",
     "risks": [
       "CNS_DEPRESSION",
@@ -1808,7 +1808,7 @@
     "name": "Midazolam",
     "description": "Benzodiazepínico de curta duração para sedação consciente. Apesar da meia-vida curta, idosos apresentam alta sensibilidade, com risco de depressão respiratória, sedação excessiva, quedas e delirium. Sofre intenso metabolismo hepático pela CYP3A4, exigindo alerta máximo e redução de dose ao ser associado a macrolídeos, antifúngicos azólicos e opioides.",
     "principleActive": "Midazolam",
-    "medClass": "MED_CLASS_BENZODIAZEPINICOS",
+    "medClass": "BENZODIAZEPINICOS",
     "byDisease": "Sedação consciente, controle da ansiedade e procedimentos cirúrgicos.",
     "risks": [
       "CNS_DEPRESSION",
@@ -1933,7 +1933,7 @@
     "name": "Dexametasona",
     "description": "Corticosteroide sintético de alta potência. Requer atenção especial em idosos devido ao risco de descompensação do diabetes (hiperglicemia), sangramento gastrointestinal (especialmente se associado a AINEs), hipertensão e perda de potássio (hipocalemia). Uso prolongado eleva o risco de infecções oportunistas, como candidíase oral.",
     "principleActive": "Dexametasona",
-    "medClass": "MED_CLASS_CORTICOIDES",
+    "medClass": "CORTICOIDES",
     "byDisease": "Controle de edema pós-operatório, dor, inflamação e reações alérgicas.",
     "risks": [
       "DIABETIC_COMPLICATION",
@@ -2046,7 +2046,7 @@
     "name": "Prednisolona",
     "description": "Corticosteroide sistêmico utilizado para controle de inflamações intensas e lesões imunomediadas orais. Em idosos, exige atenção devido ao risco de hiperglicemia (descompensação do diabetes), sangramento gastrointestinal (especialmente se associado a AINEs), hipertensão, hipocalemia e agravamento da osteoporose.",
     "principleActive": "Prednisolona",
-    "medClass": "MED_CLASS_CORTICOIDES",
+    "medClass": "CORTICOIDES",
     "byDisease": "Processos inflamatórios intensos, alergias e doenças imunomediadas orais.",
     "risks": [
       "DIABETIC_COMPLICATION",
@@ -2160,7 +2160,7 @@
     "name": "Losartana",
     "description": "Anti-hipertensivo (BRA) amplamente utilizado. Em idosos, apresenta interação perigosa com AINEs, resultando em perda do controle pressórico e lesão renal aguda (risco de 'Triple Golpe' se associado a um diurético). Atenção máxima ao risco severo de hipercalemia e arritmias se combinado com espironolactona, amilorida ou suplementos de potássio.",
     "principleActive": "Losartana",
-    "medClass": "MED_CLASS_BRA",
+    "medClass": "BRA",
     "byDisease": "Hipertensão arterial, insuficiência cardíaca e proteção renal.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -2242,7 +2242,7 @@
     "name": "Enalapril",
     "description": "Anti-hipertensivo (IECA) amplamente prescrito para idosos. Apresenta interação de altíssimo risco com AINEs (reduz o controle pressórico e pode causar insuficiência renal aguda). Exige alerta máximo para o risco de hipercalemia fatal se associado a espironolactona, amilorida ou cloreto de potássio, além do risco de quedas por hipotensão postural.",
     "principleActive": "Enalapril",
-    "medClass": "MED_CLASS_IECA",
+    "medClass": "IECA",
     "byDisease": "Hipertensão arterial, insuficiência cardíaca e nefropatia diabética.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -2337,7 +2337,7 @@
     "name": "Hidroclorotiazida",
     "description": "Diurético tiazídico muito utilizado. Em idosos, é uma das principais causas medicamentosas de xerostomia (risco de cárie radicular e candidíase). Requer alerta máximo para AINEs (falha anti-hipertensiva e lesão renal), bem como monitoramento de distúrbios hidroeletrolíticos severos (hipocalemia, hiponatremia, desidratação) e risco de toxicidade digitálica.",
     "principleActive": "Hidroclorotiazida",
-    "medClass": "MED_CLASS_DIURETICOS_TIAZIDICOS",
+    "medClass": "DIURETICOS_TIAZIDICOS",
     "byDisease": "Hipertensão arterial, insuficiência cardíaca leve e edemas.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -2434,7 +2434,7 @@
     "name": "Varfarina",
     "description": "Anticoagulante oral de altíssima relevância clínica. Exige monitoramento rigoroso do INR. Apresenta risco crítico de hemorragias graves, sistêmicas e pós-operatórias. O Metronidazol e os AINEs são alertas vermelhos absolutos por elevarem drasticamente o risco de sangramento. O uso seguro na odontologia depende de INR idealmente entre 2,0 e 3,5.",
     "principleActive": "Varfarina",
-    "medClass": "MED_CLASS_ANTICOAGULANTES",
+    "medClass": "ANTICOAGULANTES",
     "byDisease": "Fibrilação atrial, próteses valvares mecânicas, tromboembolismo venoso e prevenção de AVC.",
     "risks": [
       "BLEEDING_RISK",
@@ -2538,7 +2538,7 @@
     "name": "Rivaroxabana",
     "description": "Anticoagulante oral direto. Diferente da varfarina, não exige monitoramento por INR e não possui interação crítica com o metronidazol. Porém, exige alerta máximo na associação com AINEs, AAS e clopidogrel, que elevam severamente o risco de sangramentos e hemorragias digestivas. Atenção especial em pacientes com insuficiência renal crônica (risco de acúmulo).",
     "principleActive": "Rivaroxabana",
-    "medClass": "MED_CLASS_ANTICOAGULANTES",
+    "medClass": "ANTICOAGULANTES",
     "byDisease": "Fibrilação atrial não valvar, trombose venosa profunda, embolia pulmonar e prevenção de eventos tromboembólicos.",
     "risks": [
       "BLEEDING_RISK",
@@ -2656,7 +2656,7 @@
     "name": "Sertralina",
     "description": "Antidepressivo (ISRS) amplamente utilizado. Na odontologia, exige alerta máximo na associação com Tramadol (risco grave de síndrome serotoninérgica). Além disso, inibe a captação de serotonina pelas plaquetas, aumentando significativamente o risco de sangramento gastrointestinal e cirúrgico quando associada a AINEs, anticoagulantes e AAS. Contribui para xerostomia e risco de hiponatremia.",
     "principleActive": "Sertralina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão, ansiedade generalizada, transtorno do pânico, TOC e TEPT.",
     "risks": [
       "SEROTONIN_SYNDROME",
@@ -2765,7 +2765,7 @@
     "name": "Escitalopram",
     "description": "Antidepressivo ISRS amplamente prescrito para idosos. Exige alerta máximo na associação com Tramadol (risco grave de Síndrome Serotoninérgica). Aumenta significativamente o risco hemorrágico e gastrointestinal ao interagir com AINEs, anticoagulantes e antiagregantes plaquetários. Requer cautela com a Azitromicina devido ao risco de prolongamento do intervalo QT e arritmias.",
     "principleActive": "Escitalopram",
-    "medClass": "MED_CLASS_ISRS",
+    "medClass": "ISRS",
     "byDisease": "Depressão, ansiedade generalizada, transtorno do pânico e ansiedade no envelhecimento.",
     "risks": [
       "SEROTONIN_SYNDROME",
@@ -2875,7 +2875,7 @@
     "name": "Fluoxetina",
     "description": "Antidepressivo ISRS com longa meia-vida e potente inibidor enzimático (CYP2D6). Exige alerta máximo na associação com Tramadol (risco grave de Síndrome Serotoninérgica). Aumenta significativamente o risco hemorrágico ao interagir com AINEs e anticoagulantes. Impede a ativação metabólica da codeína, causando falha analgésica. Contribui para xerostomia e hiponatremia.",
     "principleActive": "Fluoxetina",
-    "medClass": "MED_CLASS_ISRS",
+    "medClass": "ISRS",
     "byDisease": "Depressão, transtornos de ansiedade, transtorno do pânico e TOC.",
     "risks": [
       "SEROTONIN_SYNDROME",
@@ -2997,7 +2997,7 @@
     "name": "Nistatina",
     "description": "Antifúngico de ação tópica. Devido à sua absorção sistêmica praticamente nula, é um dos medicamentos mais seguros na odontogeriatria, sem interações sistêmicas relevantes (seguro com anticoagulantes, AINEs e anti-hipertensivos). A principal atenção é evitar o uso simultâneo com clorexidina, que pode inativar sua ação, e monitorar fatores que causam falha terapêutica, como xerostomia e diabetes descompensado.",
     "principleActive": "Nistatina",
-    "medClass": "MED_CLASS_ANTIFUNGICOS",
+    "medClass": "ANTIFUNGICOS",
     "byDisease": "Candidíase oral, estomatite protética e queilite angular.",
     "risks": [
       "THERAPEUTIC_FAILURE",
@@ -3018,7 +3018,7 @@
     "name": "Miconazol",
     "description": "Antifúngico utilizado na odontologia (gel oral). Diferente da nistatina, apresenta absorção sistêmica significativa. Exige alerta vermelho na associação com Varfarina (aumento perigoso do INR e hemorragia grave) e outros anticoagulantes. Requer cautela com benzodiazepínicos (aumenta a sedação) e estatinas (risco de miopatia e rabdomiólise).",
     "principleActive": "Miconazol",
-    "medClass": "MED_CLASS_ANTIFUNGICOS",
+    "medClass": "ANTIFUNGICOS",
     "byDisease": "Candidíase oral, estomatite protética e queilite angular.",
     "risks": [
       "BLEEDING_RISK",
@@ -3102,7 +3102,7 @@
     "name": "Fluconazol",
     "description": "Antifúngico sistêmico utilizado em candidíases refratárias. É um potente inibidor de enzimas hepáticas, exigindo alerta máximo na associação com Varfarina, Rivaroxabana e Apixabana (eleva drasticamente o risco de hemorragias graves). Requer atenção ao interagir com benzodiazepínicos (sedação excessiva), estatinas (toxicidade muscular/rabdomiólise) e antidepressivos como o escitalopram (risco de arritmias por prolongamento do QT).",
     "principleActive": "Fluconazol",
-    "medClass": "MED_CLASS_ANTIFUNGICOS",
+    "medClass": "ANTIFUNGICOS",
     "byDisease": "Candidíase oral extensa, orofaríngea, sistêmica e infecções refratárias a tópicos.",
     "risks": [
       "BLEEDING_RISK",
@@ -3212,7 +3212,7 @@
     "name": "Metformina",
     "description": "Antidiabético oral (Biguanida) de primeira linha no diabetes tipo 2. Apresenta interações de alto risco com corticosteroides (dexametasona e prednisolona), que provocam hiperglicemia e descompensação do diabetes. Exige cautela na associação com AINEs e diuréticos, pois a piora da função renal pode levar ao acúmulo da metformina e ao desenvolvimento da perigosa acidose láctica.",
     "principleActive": "Metformina",
-    "medClass": "MED_CLASS_BIGUANIDAS",
+    "medClass": "BIGUANIDAS",
     "byDisease": "Tratamento do Diabetes Mellitus Tipo 2.",
     "risks": [
       "DIABETIC_COMPLICATION",
@@ -3305,7 +3305,7 @@
     "name": "Insulina Glargina",
     "description": "Insulina basal de ação prolongada. A principal preocupação na odontologia é a associação com corticosteroides (dexametasona e prednisolona), que induzem severa hiperglicemia e resistência à insulina, comprometendo a cicatrização. Requer monitoramento contra episódios de hipoglicemia ao ser associada com AINEs, IECAs, BRAs ou fluoxetina, especialmente em idosos com jejum prolongado ou fragilidade.",
     "principleActive": "Insulina Glargina",
-    "medClass": "MED_CLASS_INSULINAS",
+    "medClass": "INSULINAS",
     "byDisease": "Tratamento do Diabetes Mellitus Tipo 1 e Tipo 2.",
     "risks": [
       "DIABETIC_COMPLICATION"
@@ -3396,7 +3396,7 @@
     "name": "Atenolol",
     "description": "Betabloqueador amplamente utilizado em idosos. Na odontologia, exige atenção por mascarar os sinais adrenérgicos da hipoglicemia (como taquicardia e tremores) em pacientes que usam insulina ou metformina. Interage com AINEs, que reduzem seu efeito anti-hipertensivo, e com diuréticos, IECAs ou BRAs, potencializando o risco de hipotensão postural, bradicardia e quedas.",
     "principleActive": "Atenolol",
-    "medClass": "MED_CLASS_BETABLOQUEADORES",
+    "medClass": "BETABLOQUEADORES",
     "byDisease": "Hipertensão Arterial Sistêmica, Doença Arterial Coronariana, Angina Pectoris e controle da frequência cardíaca.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -3496,7 +3496,7 @@
     "name": "Carvedilol",
     "description": "Betabloqueador não seletivo com ação alfa-bloqueadora. Na odontologia, exige atenção redobrada ao interagir com anestésicos locais contendo epinefrina (risco de hipertensão e bradicardia reflexa). Apresenta maior risco de hipotensão ortostática e quedas do que o atenolol. AINEs reduzem sua eficácia anti-hipertensiva e ele pode mascarar sinais de alerta (adrenérgicos) de quadros hipoglicêmicos em pacientes diabéticos.",
     "principleActive": "Carvedilol",
-    "medClass": "MED_CLASS_BETABLOQUEADORES",
+    "medClass": "BETABLOQUEADORES",
     "byDisease": "Hipertensão Arterial Sistêmica, Insuficiência Cardíaca, Doença Arterial Coronariana e Fibrilação Atrial.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -3609,7 +3609,7 @@
     "name": "Amiodarona",
     "description": "Antiarrítmico de meia-vida muito longa. Na odontologia, exige alerta máximo na associação com Azitromicina, Fluconazol e Miconazol devido ao risco grave de prolongamento do intervalo QT, Torsades de Pointes e arritmias fatais. Também interage perigosamente com a Varfarina (risco severo de hemorragia). Pode causar toxicidade tireoidiana e pulmonar no uso crônico.",
     "principleActive": "Amiodarona",
-    "medClass": "MED_CLASS_ANTIARRITMICOS",
+    "medClass": "ANTIARRITMICOS",
     "byDisease": "Fibrilação Atrial, Flutter Atrial, Taquicardia Ventricular e arritmias complexas.",
     "risks": [
       "ARRHYTHMIA",
@@ -3711,7 +3711,7 @@
     "name": "Alendronato",
     "description": "Bifosfonato utilizado para osteoporose. O grande alerta na odontologia é o risco grave de Osteonecrose dos Maxilares (MRONJ), que é drasticamente potencializado na associação com corticosteroides (dexametasona e prednisolona). Além disso, interage com AINEs, potencializando a toxicidade gastrointestinal (esofagite e úlceras). Suplementos de cálcio e antiácidos cortam seu efeito se tomados juntos.",
     "principleActive": "Alendronato",
-    "medClass": "MED_CLASS_BIFOSFONATOS",
+    "medClass": "BIFOSFONATOS",
     "byDisease": "Osteoporose, osteopenia de alto risco e osteoporose induzida por corticosteroides.",
     "risks": [
       "OSTEONECROSIS_OF_JAW",
@@ -3793,7 +3793,7 @@
     "name": "Zoledronato",
     "description": "Bifosfonato intravenoso de altíssima potência. Apresenta risco clínico severo de Osteonecrose dos Maxilares (MRONJ), sendo significativamente mais perigoso que o alendronato para exodontias e implantes. O risco de MRONJ explode quando associado a corticosteroides. Exige monitoramento do risco de hipocalcemia (se associado a diuréticos) e de nefrotoxicidade (se associado a AINEs).",
     "principleActive": "Ácido Zoledrônico",
-    "medClass": "MED_CLASS_BIFOSFONATOS",
+    "medClass": "BIFOSFONATOS",
     "byDisease": "Osteoporose, metástases ósseas, mieloma múltiplo e hipercalcemia associada ao câncer.",
     "risks": [
       "OSTEONECROSIS_OF_JAW",
@@ -3877,7 +3877,7 @@
     "name": "Amitriptilina",
     "description": "Antidepressivo tricíclico considerado medicamento de alto risco em idosos (Critérios de Beers). Apresenta forte efeito anticolinérgico, sendo uma das principais causas de xerostomia, retenção urinária e delirium. Exige alerta vermelho na associação com Tramadol (Síndrome Serotoninérgica) e Midazolam. Potencializa os efeitos cardiovasculares da epinefrina dos anestésicos locais e aumenta expressivamente o risco de quedas por hipotensão ortostática e sedação aditiva.",
     "principleActive": "Amitriptilina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão, dor neuropática, neuralgia pós-herpética, fibromialgia, insônia e cefaleias crônicas.",
     "risks": [
       "XEROSTOMIA_HYPOSALIVATION",
@@ -3974,7 +3974,7 @@
     "name": "Oxibutinina",
     "description": "Anticolinérgico urinário considerado medicamento de alto risco em idosos (Critérios de Beers). Na odontologia, é uma das causas medicamentosas mais severas de xerostomia, elevando drasticamente o risco de cáries radiculares e candidíase. A associação com Amitriptilina é extremamente perigosa (soma letal de carga anticolinérgica), e o uso com benzodiazepínicos e tramadol potencializa graves quadros de delirium, sedação e quedas.",
     "principleActive": "Oxibutinina",
-    "medClass": "MED_CLASS_ANTICOLINERGICOS",
+    "medClass": "ANTICOLINERGICOS",
     "byDisease": "Bexiga hiperativa, incontinência urinária de urgência e hiperatividade do músculo detrusor.",
     "risks": [
       "XEROSTOMIA_HYPOSALIVATION",
@@ -4051,7 +4051,7 @@
     "name": "Furosemida",
     "description": "Diurético de alça muito prescrito para idosos. Causa frequentemente desidratação, hipotensão postural, hipocalemia e xerostomia. Interage com AINEs (que reduzem seu efeito diurético) e potencializa o risco de síncope e quedas quando associada a anti-hipertensivos. Requer alerta máximo na associação com Amiodarona e Digoxina, pois a hipocalemia induzida eleva drasticamente o risco de arritmias fatais.",
     "principleActive": "Furosemida",
-    "medClass": "MED_CLASS_DIURETICOS_ALCA",
+    "medClass": "DIURETICOS_ALCA",
     "byDisease": "Insuficiência Cardíaca, Hipertensão Arterial Sistêmica, Edemas e Doença Renal Crônica.",
     "risks": [
       "DEHYDRATION",
@@ -4172,7 +4172,7 @@
     "name": "Levodopa",
     "description": "Principal medicamento para a Doença de Parkinson. Na odontologia, exige atenção devido ao alto risco de hipotensão ortostática, quedas, xerostomia, disfagia e alterações cognitivas (delirium e alucinações). O melhor horário para o atendimento odontológico é entre 60 e 90 minutos após a administração (pico de controle motor). Interage perigosamente com benzodiazepínicos, anti-hipertensivos e diuréticos, potencializando a instabilidade postural e sedação.",
     "principleActive": "Levodopa",
-    "medClass": "MED_CLASS_ANTIPARKINSONIANOS",
+    "medClass": "ANTIPARKINSONIANOS",
     "byDisease": "Doença de Parkinson.",
     "risks": [
       "LOSS_OF_BALANCE",
@@ -4274,7 +4274,7 @@
     "name": "Donepezila",
     "description": "Inibidor da acetilcolinesterase essencial no tratamento do Alzheimer. Na odontologia, exige alerta máximo para o uso de Midazolam (risco grave de delirium e confusão pós-operatória). Apresenta perigoso antagonismo farmacológico com anticolinérgicos (oxibutinina e amitriptilina), anulando o efeito do tratamento e piorando a demência. Potencializa bradicardia e síncope ao interagir com betabloqueadores, e pode alterar o fluxo salivar (hipersalivação).",
     "principleActive": "Donepezila",
-    "medClass": "MED_CLASS_INIBIDORES_ACETILCOLINESTERASE",
+    "medClass": "INIBIDORES_ACETILCOLINESTERASE",
     "byDisease": "Doença de Alzheimer e outras formas de demência com comprometimento cognitivo.",
     "risks": [
       "THERAPEUTIC_FAILURE",
@@ -4360,7 +4360,7 @@
     "name": "Acenocumarol",
     "description": "Anticoagulante oral derivado da cumarina. Similar à varfarina, exige monitoramento rigoroso do INR e apresenta altíssimo risco de hemorragias se associado a AINEs ou antimicrobianos que alteram a flora intestinal.",
     "principleActive": "Acenocumarol",
-    "medClass": "MED_CLASS_ANTICOAGULANTES",
+    "medClass": "ANTICOAGULANTES",
     "byDisease": "Fibrilação atrial, trombose venosa profunda e prevenção de eventos tromboembólicos.",
     "risks": [
       "BLEEDING_RISK"
@@ -4397,7 +4397,7 @@
     "name": "Fenitoína",
     "description": "Anticonvulsivante de uso crônico. Na odontologia, é uma das principais causas de hiperplasia gengival medicamentosa. É um potente indutor enzimático, alterando a eficácia de diversos medicamentos, e interage perigosamente com o metronidazol.",
     "principleActive": "Fenitoína",
-    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "medClass": "ANTIEPILEPTICOS",
     "byDisease": "Epilepsia e controle de crises convulsivas.",
     "risks": [
       "GINGIVAL_HYPERPLASIA",
@@ -4437,7 +4437,7 @@
     "name": "Carbamazepina",
     "description": "Anticonvulsivante e estabilizador de humor, também prescrito para neuralgia do trigêmeo. É um indutor enzimático potente, o que acelera a eliminação e reduz o efeito de medicamentos como sedativos, corticosteroides e anticoagulantes.",
     "principleActive": "Carbamazepina",
-    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "medClass": "ANTIEPILEPTICOS",
     "byDisease": "Epilepsia, transtorno bipolar e neuralgia do trigêmeo.",
     "risks": [
       "SEIZURE",
@@ -4476,7 +4476,7 @@
     "name": "Fenobarbital",
     "description": "Barbitúrico utilizado como anticonvulsivante. Possui sedação marcante e atua como forte indutor enzimático hepático, diminuindo o tempo de ação de analgésicos e antimicrobianos no organismo.",
     "principleActive": "Fenobarbital",
-    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "medClass": "ANTIEPILEPTICOS",
     "byDisease": "Epilepsia e controle de crises convulsivas.",
     "risks": [
       "CNS_DEPRESSION",
@@ -4503,7 +4503,7 @@
     "name": "Rifampicina",
     "description": "Antibiótico potente, essencial no tratamento da tuberculose. É um dos maiores indutores enzimáticos conhecidos na farmacologia, reduzindo drasticamente a eficácia de analgésicos, corticosteroides e anticoagulantes.",
     "principleActive": "Rifampicina",
-    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "medClass": "ANTIBIOTICOS_TUBERCULOSTATICOS",
     "byDisease": "Tuberculose e profilaxia de infecções graves.",
     "risks": [
       "HEPATOTOXICITY",
@@ -4541,7 +4541,7 @@
     "name": "Isoniazida",
     "description": "Antimicrobiano de primeira linha para o tratamento da tuberculose. Possui alto potencial hepatotóxico, o que exige extrema cautela ao prescrever medicamentos de metabolização hepática, como o paracetamol.",
     "principleActive": "Isoniazida",
-    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "medClass": "ANTIBIOTICOS_TUBERCULOSTATICOS",
     "byDisease": "Tuberculose.",
     "risks": [
       "HEPATOTOXICITY",
@@ -4561,7 +4561,7 @@
     "name": "Colestiramina",
     "description": "Resina sequestrante de ácidos biliares utilizada no tratamento de dislipidemias. Por atuar ligando-se a substâncias no trato digestivo, impede a absorção correta de diversos medicamentos administrados via oral.",
     "principleActive": "Colestiramina",
-    "medClass": "MED_CLASS_HIPOLIPEMIANTES",
+    "medClass": "HIPOLIPEMIANTES",
     "byDisease": "Hipercolesterolemia e controle de prurido em doenças biliares.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -4580,7 +4580,7 @@
     "name": "Metoclopramida",
     "description": "Medicamento pró-cinético e antiemético. Acelera o esvaziamento gástrico, alterando a farmacocinética de analgésicos. Por bloquear receptores de dopamina, é estritamente contraindicada em pacientes com Doença de Parkinson.",
     "principleActive": "Metoclopramida",
-    "medClass": "MED_CLASS_PROCINETICOS",
+    "medClass": "PROCINETICOS",
     "byDisease": "Náuseas, vômitos e distúrbios da motilidade gástrica.",
     "risks": [
       "GENERAL_NEUROLOGICAL",
@@ -4606,7 +4606,7 @@
     "name": "Domperidona",
     "description": "Antiemético bloqueador de receptores de dopamina no trato gastrointestinal. Diferente da metoclopramida, não cruza a barreira hematoencefálica, mas apresenta risco de prolongamento do intervalo QT em idosos.",
     "principleActive": "Domperidona",
-    "medClass": "MED_CLASS_ANTIEMETICOS",
+    "medClass": "ANTIEMETICOS",
     "byDisease": "Alívio de náuseas, vômitos e desconforto epigástrico.",
     "risks": [
       "ARRHYTHMIA",
@@ -4632,7 +4632,7 @@
     "name": "Metotrexato",
     "description": "Potente quimioterápico e imunossupressor. A interação com AINEs e amoxicilina é crítica na odontologia, pois a inibição da excreção renal do metotrexato leva a uma toxicidade sistêmica gravíssima (mielossupressão).",
     "principleActive": "Metotrexato",
-    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "medClass": "QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
     "byDisease": "Artrite reumatoide, psoríase grave e protocolos oncológicos.",
     "risks": [
       "HEMATOLOGICAL_TOXICITY",
@@ -4671,7 +4671,7 @@
     "name": "Dabigatrana",
     "description": "Anticoagulante oral direto (inibidor direto da trombina). Requer alerta máximo na associação com AINEs e antiagregantes plaquetários devido ao risco severo de sangramento gengival e pós-operatório.",
     "principleActive": "Dabigatrana",
-    "medClass": "MED_CLASS_ANTICOAGULANTES",
+    "medClass": "ANTICOAGULANTES",
     "byDisease": "Fibrilação atrial não valvar e prevenção de tromboembolismo venoso.",
     "risks": [
       "BLEEDING_RISK"
@@ -4720,7 +4720,7 @@
     "name": "Ciclosporina",
     "description": "Potente imunossupressor utilizado para prevenção de rejeição de órgãos. Interage perigosamente com AINEs (elevando drasticamente a nefrotoxicidade) e apresenta hiperplasia gengival como um efeito adverso odontológico muito frequente.",
     "principleActive": "Ciclosporina",
-    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "medClass": "QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
     "byDisease": "Profilaxia de rejeição de transplantes e doenças autoimunes severas.",
     "risks": [
       "NEPHROTOXICITY",
@@ -4795,7 +4795,7 @@
     "name": "Tacrolimo",
     "description": "Imunossupressor macrolídeo inibidor da calcineurina. Apresenta perfil de interação semelhante à ciclosporina, com risco severo de nefrotoxicidade se combinado com AINEs, além de sofrer acúmulo perigoso se associado a inibidores enzimáticos (como metronidazol).",
     "principleActive": "Tacrolimo",
-    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "medClass": "QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
     "byDisease": "Profilaxia de rejeição em transplantes de órgãos.",
     "risks": [
       "NEPHROTOXICITY"
@@ -4856,7 +4856,7 @@
     "name": "Alprazolam",
     "description": "Benzodiazepínico de curta a média duração. Em idosos, possui alto risco de causar sedação, quedas, depressão respiratória e confusão, especialmente quando combinado com opioides como o tramadol.",
     "principleActive": "Alprazolam",
-    "medClass": "MED_CLASS_BENZODIAZEPINICOS",
+    "medClass": "BENZODIAZEPINICOS",
     "byDisease": "Transtornos de ansiedade e transtorno do pânico.",
     "risks": [
       "CNS_DEPRESSION",
@@ -4877,7 +4877,7 @@
     "name": "Ondansetrona",
     "description": "Potente antiemético antagonista dos receptores 5-HT3. Na odontologia, deve-se ter extrema cautela na associação com Tramadol, pois bloqueia os receptores que o opioide necessita para agir, resultando em severa falha analgésica.",
     "principleActive": "Ondansetrona",
-    "medClass": "MED_CLASS_ANTIEMETICOS",
+    "medClass": "ANTIEMETICOS",
     "byDisease": "Prevenção de náuseas e vômitos no pós-operatório ou quimioterapia.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -4896,7 +4896,7 @@
     "name": "Captopril",
     "description": "Anti-hipertensivo inibidor da ECA de ação rápida. Seu efeito hipotensor é reduzido pelos AINEs. Em idosos, a combinação com diuréticos e AINEs forma o perigoso 'Triple Whammy', causando lesão renal.",
     "principleActive": "Captopril",
-    "medClass": "MED_CLASS_IECA",
+    "medClass": "IECA",
     "byDisease": "Hipertensão arterial sistêmica e insuficiência cardíaca.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -4947,7 +4947,7 @@
     "name": "Valsartana",
     "description": "Anti-hipertensivo antagonista dos receptores de angiotensina II (BRA). Pode perder sua eficácia se associada a AINEs (risco de hipertensão reativa e falência renal aditiva).",
     "principleActive": "Valsartana",
-    "medClass": "MED_CLASS_BRA",
+    "medClass": "BRA",
     "byDisease": "Hipertensão arterial e insuficiência cardíaca.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -4998,7 +4998,7 @@
     "name": "Espironolactona",
     "description": "Diurético poupador de potássio. O grande perigo em idosos é a hipercalemia (excesso de potássio no sangue), que é severamente potencializada por IECAs, BRAs e AINEs.",
     "principleActive": "Espironolactona",
-    "medClass": "MED_CLASS_DIURETICOS_POUPADORES_POTASSIO",
+    "medClass": "DIURETICOS_POUPADORES_POTASSIO",
     "byDisease": "Insuficiência cardíaca grave e hipertensão arterial resistente.",
     "risks": [
       "HYPERKALEMIA",
@@ -5067,7 +5067,7 @@
     "name": "Gentamicina",
     "description": "Antibiótico aminoglicosídeo injetável de espectro estreito. Possui altíssima toxicidade renal e auditiva, especialmente em idosos desidratados ou em uso de diuréticos de alça.",
     "principleActive": "Gentamicina",
-    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "medClass": "ANTIBIOTICOS_TUBERCULOSTATICOS",
     "byDisease": "Infecções bacterianas graves e hospitalares.",
     "risks": [
       "NEPHROTOXICITY",
@@ -5087,7 +5087,7 @@
     "name": "Paroxetina",
     "description": "Antidepressivo ISRS. É um dos inibidores de recaptação de serotonina que mais causa sedação em idosos e também possui efeito inibitório enzimático severo e ação inibitória na função plaquetária.",
     "principleActive": "Paroxetina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão maior e transtornos de ansiedade.",
     "risks": [
       "SEROTONIN_SYNDROME",
@@ -5144,7 +5144,7 @@
     "name": "Venlafaxina",
     "description": "Antidepressivo inibidor da recaptação de serotonina e noradrenalina (IRSN). Possui potencial para elevar a pressão arterial e causar grave Síndrome Serotoninérgica se associado ao tramadol.",
     "principleActive": "Venlafaxina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão maior e transtornos de ansiedade.",
     "risks": [
       "SEROTONIN_SYNDROME",
@@ -5170,7 +5170,7 @@
     "name": "Duloxetina",
     "description": "Antidepressivo (IRSN) frequentemente usado na geriatria também para dores neuropáticas e fibromialgia. Seu efeito serotoninérgico é aditivo e perigoso com analgésicos opioides.",
     "principleActive": "Duloxetina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão, dor neuropática e fibromialgia.",
     "risks": [
       "SEROTONIN_SYNDROME"
@@ -5189,7 +5189,7 @@
     "name": "Nortriptilina",
     "description": "Antidepressivo tricíclico, sendo um metabólito ativo da amitriptilina (porém geralmente com menos efeitos anticolinérgicos e sedativos que ela). Contudo, ainda interage perigosamente com vasoconstritores adrenérgicos da odontologia.",
     "principleActive": "Nortriptilina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão e dor neuropática.",
     "risks": [
       "ARRHYTHMIA",
@@ -5233,7 +5233,7 @@
     "name": "Imipramina",
     "description": "O primeiro antidepressivo tricíclico desenvolvido. Possui intensa ação de bloqueio da recaptação de noradrenalina, o que hiper-sensibiliza o sistema cardiovascular às aminas simpatomiméticas (como a epinefrina da anestesia local).",
     "principleActive": "Imipramina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão e enurese noturna.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION",
@@ -5265,7 +5265,7 @@
     "name": "Propranolol",
     "description": "Betabloqueador não seletivo clássico. Bloqueia os receptores beta-1 e beta-2, fazendo com que a injeção de epinefrina (em anestésicos locais) atue apenas nos receptores alfa-1, gerando vasoconstrição severa e bradicardia vagal compensatória.",
     "principleActive": "Propranolol",
-    "medClass": "MED_CLASS_BETABLOQUEADORES",
+    "medClass": "BETABLOQUEADORES",
     "byDisease": "Hipertensão, tremores essenciais, enxaqueca e ansiedade de desempenho.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION"
@@ -5296,7 +5296,7 @@
     "name": "Nadolol",
     "description": "Betabloqueador não seletivo, de ação mais prolongada e sem atividade simpatomimética intrínseca. Apresenta a mesma fisiologia de interação letal do propranolol com os vasoconstritores odontológicos.",
     "principleActive": "Nadolol",
-    "medClass": "MED_CLASS_BETABLOQUEADORES",
+    "medClass": "BETABLOQUEADORES",
     "byDisease": "Hipertensão arterial e angina pectoris.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION"
@@ -5327,7 +5327,7 @@
     "name": "Fenelzina",
     "description": "Antidepressivo inibidor da monoamina oxidase (IMAO). Interage limitando a quebra de aminas exógenas e endógenas, exigindo atenção da odontologia no uso de anestésicos com vasoconstritores.",
     "principleActive": "Fenelzina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão refratária.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION"
@@ -5358,7 +5358,7 @@
     "name": "Tranilcipromina",
     "description": "Antidepressivo inibidor não seletivo da monoamina oxidase (IMAO). Potencializa o risco arrítmico de medicamentos simpatomiméticos utilizados na prática odontológica.",
     "principleActive": "Tranilcipromina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão grave e refratária.",
     "risks": [
       "ARRHYTHMIA"
@@ -5383,7 +5383,7 @@
     "name": "Lauril Sulfato de Sódio",
     "description": "Agente surfactante (detergente) amplamente utilizado na fabricação de cremes dentais comuns. Possui carga aniônica, que interage e inativa agentes catiônicos como a clorexidina.",
     "principleActive": "Lauril Sulfato de Sódio (LSS)",
-    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "medClass": "PRODUTOS_AUXILIARES_BUCAIS",
     "byDisease": "Higiene oral mecânico-química.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -5402,7 +5402,7 @@
     "name": "Fluoreto de Sódio",
     "description": "Agente anticárie presente na grande maioria dos cremes dentais e colutórios. Atua na remineralização do esmalte e interfere no metabolismo bacteriano, mas pode competir quimicamente com a clorexidina nos sítios de ligação do esmalte.",
     "principleActive": "Fluoreto de Sódio",
-    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "medClass": "PRODUTOS_AUXILIARES_BUCAIS",
     "byDisease": "Prevenção da doença cárie.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -5421,7 +5421,7 @@
     "name": "Peróxido de Hidrogênio",
     "description": "Agente oxidante utilizado em odontologia para antissepsia local, irrigação de canais e clareamento dental. Pode alterar o meio químico local e inativar outros agentes.",
     "principleActive": "Peróxido de Hidrogênio",
-    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "medClass": "PRODUTOS_AUXILIARES_BUCAIS",
     "byDisease": "Antissepsia e desbridamento químico.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -5440,7 +5440,7 @@
     "name": "Iodo / Povidona-Iodo",
     "description": "Potente antisséptico de amplo espectro (PVPI). Interage quimicamente com outros antissépticos, podendo causar precipitação e inativação de ambos.",
     "principleActive": "Povidona-Iodo",
-    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "medClass": "PRODUTOS_AUXILIARES_BUCAIS",
     "byDisease": "Antissepsia pré e pós-operatória.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -5459,7 +5459,7 @@
     "name": "Morfina",
     "description": "Potente analgésico opioide. Em idosos, o risco de depressão do SNC e depressão respiratória é extremamente alto, especialmente quando associada a benzodiazepínicos.",
     "principleActive": "Morfina",
-    "medClass": "MED_CLASS_ANALGESICOS_OPIOIDES",
+    "medClass": "ANALGESICOS_OPIOIDES",
     "byDisease": "Dores agudas severas e dores oncológicas.",
     "risks": [
       "RESPIRATORY_DEPRESSION",
@@ -5491,7 +5491,7 @@
     "name": "Oxicodona",
     "description": "Analgésico opioide forte. Apresenta potente efeito sedativo e depressor respiratório. Associações com benzodiazepínicos na odontologia aumentam acentuadamente o risco de quedas em idosos.",
     "principleActive": "Oxicodona",
-    "medClass": "MED_CLASS_ANALGESICOS_OPIOIDES",
+    "medClass": "ANALGESICOS_OPIOIDES",
     "byDisease": "Dores agudas severas.",
     "risks": [
       "RESPIRATORY_DEPRESSION",
@@ -5523,7 +5523,7 @@
     "name": "Omeprazol",
     "description": "Inibidor da bomba de prótons (IBP). Altera o pH gástrico e inibe a enzima CYP2C19. Pode prolongar o efeito sedativo do diazepam e aumentar o risco de infecções oportunistas pela alteração da flora.",
     "principleActive": "Omeprazol",
-    "medClass": "MED_CLASS_IBP",
+    "medClass": "IBP",
     "byDisease": "Doença do refluxo gastroesofágico (DRGE) e proteção gástrica.",
     "risks": [
       "ALTERED_PHARMACOKINETICS",
@@ -5549,7 +5549,7 @@
     "name": "Pantoprazol",
     "description": "Inibidor da bomba de prótons (IBP). Apresenta menor inibição enzimática hepática que o omeprazol, sendo mais seguro farmacocineticamente, porém mantém o risco de disbiose intestinal.",
     "principleActive": "Pantoprazol",
-    "medClass": "MED_CLASS_IBP",
+    "medClass": "IBP",
     "byDisease": "Doença do refluxo gastroesofágico e gastrite.",
     "risks": [
       "GENERAL_GASTROINTESTINAL"
@@ -5568,7 +5568,7 @@
     "name": "Esomeprazol",
     "description": "Inibidor da bomba de prótons (IBP). Isômero do omeprazol, também atua alterando o pH gástrico, podendo favorecer infecções intestinais graves se associado a antibióticos como a clindamicina.",
     "principleActive": "Esomeprazol",
-    "medClass": "MED_CLASS_IBP",
+    "medClass": "IBP",
     "byDisease": "DRGE e proteção da mucosa gástrica.",
     "risks": [
       "GENERAL_GASTROINTESTINAL"
@@ -5587,7 +5587,7 @@
     "name": "Eritromicina",
     "description": "Antibiótico macrolídeo e potente inibidor da enzima CYP3A4. Seu uso odontológico exige extremo cuidado, pois bloqueia a metabolização de sedativos, elevando drasticamente o risco de depressão respiratória.",
     "principleActive": "Eritromicina",
-    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "medClass": "ANTIBIOTICOS_TUBERCULOSTATICOS",
     "byDisease": "Infecções odontogênicas em alérgicos a penicilinas.",
     "risks": [
       "ALTERED_PHARMACOKINETICS",
@@ -5613,7 +5613,7 @@
     "name": "Claritromicina",
     "description": "Antibiótico macrolídeo. Além do risco de antagonismo antimicrobiano, é um inibidor muito forte da CYP3A4 e P-glicoproteína, aumentando perigosamente os níveis de sedativos (midazolam) e anticoagulantes (dabigatrana e rivaroxabana).",
     "principleActive": "Claritromicina",
-    "medClass": "MED_CLASS_ANTIBIOTICOS_TUBERCULOSTATICOS",
+    "medClass": "ANTIBIOTICOS_TUBERCULOSTATICOS",
     "byDisease": "Infecções bacterianas.",
     "risks": [
       "ALTERED_PHARMACOKINETICS",
@@ -5652,7 +5652,7 @@
     "name": "Itraconazol",
     "description": "Antifúngico sistêmico azólico. Age como potente inibidor enzimático da CYP3A4. Associar itraconazol a benzodiazepínicos de metabolização hepática pode resultar em coma sedativo no paciente idoso.",
     "principleActive": "Itraconazol",
-    "medClass": "MED_CLASS_ANTIFUNGICOS",
+    "medClass": "ANTIFUNGICOS",
     "byDisease": "Infecções fúngicas sistêmicas.",
     "risks": [
       "ALTERED_PHARMACOKINETICS"
@@ -5671,7 +5671,7 @@
     "name": "Cetoconazol",
     "description": "Antifúngico azólico. Devido à sua fortíssima inibição da CYP3A4, apresenta interação gravíssima e potencialmente fatal quando administrado sistemicamente em conjunto com midazolam ou anticoagulantes.",
     "principleActive": "Cetoconazol",
-    "medClass": "MED_CLASS_ANTIFUNGICOS",
+    "medClass": "ANTIFUNGICOS",
     "byDisease": "Infecções fúngicas.",
     "risks": [
       "ALTERED_PHARMACOKINETICS"
@@ -5696,7 +5696,7 @@
     "name": "Quetiapina",
     "description": "Antipsicótico atípico. Muito prescrito em idosos com demência para controle comportamental. Possui altíssimo risco de sedação, hipotensão postural (quedas) e prolongamento do intervalo QT.",
     "principleActive": "Quetiapina",
-    "medClass": "MED_CLASS_ANTIPSICOTICOS",
+    "medClass": "ANTIPSICOTICOS",
     "byDisease": "Esquizofrenia, transtorno bipolar e sintomas comportamentais em demências.",
     "risks": [
       "LOSS_OF_BALANCE",
@@ -5734,7 +5734,7 @@
     "name": "Risperidona",
     "description": "Antipsicótico atípico utilizado frequentemente na geriatria. Potencializa fortemente a sedação e a confusão mental (delirium) quando associado a depressores do sistema nervoso central, além de elevar o risco arrítmico.",
     "principleActive": "Risperidona",
-    "medClass": "MED_CLASS_ANTIPSICOTICOS",
+    "medClass": "ANTIPSICOTICOS",
     "byDisease": "Esquizofrenia e agitação associada à demência.",
     "risks": [
       "DELIRIUM",
@@ -5766,7 +5766,7 @@
     "name": "Sotalol",
     "description": "Medicamento antiarrítmico com propriedades bloqueadoras beta-adrenérgicas. O grande alerta na odontologia recai sobre o seu potente efeito de prolongamento do intervalo QT.",
     "principleActive": "Sotalol",
-    "medClass": "MED_CLASS_ANTIARRITMICOS",
+    "medClass": "ANTIARRITMICOS",
     "byDisease": "Arritmias ventriculares e controle do ritmo na fibrilação atrial.",
     "risks": [
       "ARRHYTHMIA"
@@ -5785,7 +5785,7 @@
     "name": "Quinidina",
     "description": "Antiarrítmico de classe I. Possui altíssimo risco de interação com antibióticos macrolídeos (prolongamento do QT) e anestésicos odontológicos contendo epinefrina (instabilidade cardíaca).",
     "principleActive": "Quinidina",
-    "medClass": "MED_CLASS_ANTIARRITMICOS",
+    "medClass": "ANTIARRITMICOS",
     "byDisease": "Prevenção e tratamento de arritmias cardíacas.",
     "risks": [
       "ARRHYTHMIA"
@@ -5822,7 +5822,7 @@
     "name": "Haloperidol",
     "description": "Antipsicótico típico (neuroléptico). Extremo risco na odontogeriatria: inibe completamente os efeitos da Levodopa (travando os movimentos do paciente com Parkinson), causa intensa sedação com benzodiazepínicos e prolonga o intervalo QT.",
     "principleActive": "Haloperidol",
-    "medClass": "MED_CLASS_ANTIPSICOTICOS",
+    "medClass": "ANTIPSICOTICOS",
     "byDisease": "Agitação psicomotora, delirium grave e esquizofrenia.",
     "risks": [
       "GENERAL_NEUROLOGICAL",
@@ -5868,7 +5868,7 @@
     "name": "Diltiazem",
     "description": "Anti-hipertensivo bloqueador de canal de cálcio (não-di-hidropiridínico). Apresenta atividade inibitória enzimática sobre a CYP3A4, podendo prolongar a meia-vida e os efeitos sedativos de benzodiazepínicos como o midazolam.",
     "principleActive": "Diltiazem",
-    "medClass": "MED_CLASS_BLOQUEADORES_CANAL_CALCIO",
+    "medClass": "BLOQUEADORES_CANAL_CALCIO",
     "byDisease": "Hipertensão arterial e controle de frequência cardíaca.",
     "risks": [
       "ALTERED_PHARMACOKINETICS"
@@ -5887,7 +5887,7 @@
     "name": "Verapamil",
     "description": "Bloqueador dos canais de cálcio. Possui efeito inotrópico negativo (reduz a força do coração) e inibe o metabolismo de outros fármacos. Aumenta os riscos cardiovasculares de sedativos anestésicos.",
     "principleActive": "Verapamil",
-    "medClass": "MED_CLASS_BLOQUEADORES_CANAL_CALCIO",
+    "medClass": "BLOQUEADORES_CANAL_CALCIO",
     "byDisease": "Hipertensão, angina e controle de arritmias supraventriculares.",
     "risks": [
       "BLOOD_PRESSURE_ALTERATION"
@@ -5906,7 +5906,7 @@
     "name": "Bussulfano",
     "description": "Agente antineoplásico alquilante. Possui toxicidade sistêmica gravíssima, que é criticamente agravada pelo metronidazol (devido à inibição da depuração metabólica).",
     "principleActive": "Bussulfano",
-    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "medClass": "QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
     "byDisease": "Condicionamento para transplante de medula óssea e quimioterapia.",
     "risks": [
       "ALTERED_PHARMACOKINETICS"
@@ -5925,7 +5925,7 @@
     "name": "Fluorouracil (5-FU)",
     "description": "Quimioterápico antimetabólito amplamente utilizado. A associação com metronidazol é de altíssimo risco, pois a inibição metabólica reduz o clearance do 5-FU, resultando em toxicidade hematológica fulminante.",
     "principleActive": "Fluorouracil",
-    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "medClass": "QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
     "byDisease": "Tratamento de câncer gastrointestinal, de mama e de cabeça e pescoço.",
     "risks": [
       "HEMATOLOGICAL_TOXICITY"
@@ -5944,7 +5944,7 @@
     "name": "Álcool (Etanol)",
     "description": "Substância psicoativa de consumo social. Apresenta interações sistêmicas com depressores do SNC, hepatotóxicos (paracetamol) e, de forma extrema, com o metronidazol (causando o grave efeito antabuse).",
     "principleActive": "Etanol",
-    "medClass": "MED_CLASS_SUBSTANCIAS_QUIMICAS",
+    "medClass": "SUBSTANCIAS_QUIMICAS",
     "byDisease": "Consumo recreativo.",
     "risks": [
       "GENERAL_GASTROINTESTINAL",
@@ -5965,7 +5965,7 @@
     "name": "Atracúrio",
     "description": "Bloqueador neuromuscular (relaxante muscular) não despolarizante utilizado em anestesia geral. Antibióticos como a clindamicina podem prolongar o bloqueio e causar depressão respiratória persistente.",
     "principleActive": "Besilato de Atracúrio",
-    "medClass": "MED_CLASS_RELAXANTES_MUSCULARES",
+    "medClass": "RELAXANTES_MUSCULARES",
     "byDisease": "Relaxamento muscular em anestesia geral e ventilação mecânica.",
     "risks": [
       "RESPIRATORY_DEPRESSION"
@@ -5984,7 +5984,7 @@
     "name": "Vecurônio",
     "description": "Bloqueador neuromuscular não despolarizante para intubação e cirurgias. Assim como o atracúrio, interage com a clindamicina, atrasando a recuperação respiratória do paciente.",
     "principleActive": "Brometo de Vecurônio",
-    "medClass": "MED_CLASS_RELAXANTES_MUSCULARES",
+    "medClass": "RELAXANTES_MUSCULARES",
     "byDisease": "Relaxamento em anestesia cirúrgica.",
     "risks": [
       "RESPIRATORY_DEPRESSION"
@@ -6003,7 +6003,7 @@
     "name": "Cimetidina",
     "description": "Antagonista do receptor H2 usado para reduzir a acidez gástrica. É um potente inibidor enzimático (CYP450), retardando o metabolismo e prolongando os efeitos de benzodiazepínicos.",
     "principleActive": "Cimetidina",
-    "medClass": "MED_CLASS_ANTAGONISTAS_H2",
+    "medClass": "ANTAGONISTAS_H2",
     "byDisease": "Doença do refluxo gastroesofágico e úlceras gástricas.",
     "risks": [
       "ALTERED_PHARMACOKINETICS"
@@ -6022,7 +6022,7 @@
     "name": "Valproato de Sódio / Ácido Valproico",
     "description": "Antiepiléptico e estabilizador de humor. Apresenta forte ação depressora sobre o SNC e risco hepatotóxico. O uso com benzodiazepínicos potencializa acentuadamente a letargia em idosos.",
     "principleActive": "Valproato de Sódio",
-    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "medClass": "ANTIEPILEPTICOS",
     "byDisease": "Epilepsia, transtorno bipolar e enxaqueca.",
     "risks": [
       "CNS_DEPRESSION"
@@ -6041,7 +6041,7 @@
     "name": "Tamoxifeno",
     "description": "Modulador seletivo do receptor de estrogênio, essencial no tratamento do câncer de mama. É um pró-fármaco que precisa da enzima CYP2D6 para ser ativado; a inibição dessa enzima (como pela fluoxetina) corta seu efeito antineoplásico.",
     "principleActive": "Tamoxifeno",
-    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "medClass": "QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
     "byDisease": "Tratamento e prevenção do câncer de mama.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -6060,7 +6060,7 @@
     "name": "Metoprolol",
     "description": "Betabloqueador seletivo (beta-1). Seu metabolismo hepático (CYP2D6) pode ser fortemente bloqueado por antidepressivos como a fluoxetina, resultando em acúmulo sistêmico e bradicardia severa.",
     "principleActive": "Metoprolol",
-    "medClass": "MED_CLASS_BETABLOQUEADORES",
+    "medClass": "BETABLOQUEADORES",
     "byDisease": "Hipertensão, angina, insuficiência cardíaca e arritmias.",
     "risks": [
       "ARRHYTHMIA"
@@ -6079,7 +6079,7 @@
     "name": "Hidroxicloroquina",
     "description": "Antimalárico e imunomodulador utilizado em doenças autoimunes. Possui risco cardiológico intrínseco e sua associação com antibióticos macrolídeos (azitromicina) gera um alerta gravíssimo de arritmia fatal.",
     "principleActive": "Hidroxicloroquina",
-    "medClass": "MED_CLASS_IMUNOMODULADORES_ANTIMALARICOS",
+    "medClass": "IMUNOMODULADORES_ANTIMALARICOS",
     "byDisease": "Artrite reumatoide, lúpus e malária.",
     "risks": [
       "ARRHYTHMIA"
@@ -6098,7 +6098,7 @@
     "name": "Alopurinol",
     "description": "Medicamento inibidor da xantina oxidase utilizado para reduzir os níveis de ácido úrico. Sua associação com amoxicilina está correlacionada a um aumento substancial do risco de reações alérgicas cutâneas no idoso.",
     "principleActive": "Alopurinol",
-    "medClass": "MED_CLASS_ANTIGOTOSOS",
+    "medClass": "ANTIGOTOSOS",
     "byDisease": "Gota e hiperuricemia.",
     "risks": [
       "GENERAL_DERMATOLOGICAL"
@@ -6117,7 +6117,7 @@
     "name": "Micofenolato de Mofetila",
     "description": "Imunossupressor utilizado na prevenção da rejeição de órgãos transplantados. Antibióticos de amplo espectro (como amoxicilina) podem alterar a flora intestinal, prejudicando sua circulação entero-hepática e diminuindo seus níveis no sangue.",
     "principleActive": "Micofenolato de Mofetila",
-    "medClass": "MED_CLASS_QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
+    "medClass": "QUIMIOTERAPICOS_IMUNOSSUPRESSORES",
     "byDisease": "Profilaxia de rejeição em transplantes de órgãos.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -6136,7 +6136,7 @@
     "name": "Probenecida",
     "description": "Agente uricosúrico utilizado no tratamento da gota. Atua inibindo a reabsorção tubular renal de ácido úrico, mecanismo que também bloqueia a excreção de penicilinas, causando aumento de seus níveis sanguíneos.",
     "principleActive": "Probenecida",
-    "medClass": "MED_CLASS_ANTIGOTOSOS",
+    "medClass": "ANTIGOTOSOS",
     "byDisease": "Gota crônica.",
     "risks": [
       "ALTERED_PHARMACOKINETICS"
@@ -6155,7 +6155,7 @@
     "name": "Apixabana",
     "description": "Anticoagulante oral direto (DOAC). Exige alerta máximo na associação com AINEs e ISRS devido ao risco severo de hemorragia sistêmica, digestiva e sangramentos pós-exodontia.",
     "principleActive": "Apixabana",
-    "medClass": "MED_CLASS_ANTICOAGULANTES",
+    "medClass": "ANTICOAGULANTES",
     "byDisease": "Fibrilação atrial, trombose venosa profunda e embolia pulmonar.",
     "risks": [
       "BLEEDING_RISK",
@@ -6253,7 +6253,7 @@
     "name": "Carbonato de Lítio",
     "description": "Estabilizador de humor com estreita margem terapêutica. AINEs (especialmente ibuprofeno e diclofenaco) e diuréticos reduzem sua excreção renal, causando intoxicação neurológica grave (tremores, confusão e convulsões).",
     "principleActive": "Carbonato de Lítio",
-    "medClass": "MED_CLASS_ESTABILIZADORES_HUMOR",
+    "medClass": "ESTABILIZADORES_HUMOR",
     "byDisease": "Transtorno Bipolar.",
     "risks": [
       "GENERAL_NEUROLOGICAL",
@@ -6327,7 +6327,7 @@
     "name": "Clopidogrel",
     "description": "Antiagregante plaquetário profilático. Sofre inativação perigosa (falha terapêutica) se associado ao Omeprazol. Aumenta severamente o risco de sangramento com AINEs e anticoagulantes.",
     "principleActive": "Clopidogrel",
-    "medClass": "MED_CLASS_ANTIAGREGANTES_PLAQUETARIOS",
+    "medClass": "ANTIAGREGANTES_PLAQUETARIOS",
     "byDisease": "Prevenção de eventos aterotrombóticos, pós-infarto e stents.",
     "risks": [
       "BLEEDING_RISK",
@@ -6395,7 +6395,7 @@
     "name": "Digoxina",
     "description": "Glicosídeo cardíaco com margem terapêutica muito estreita. Qualquer medicamento que cause queda de potássio (furosemida, corticoides) ou interaja com macrolídeos (azitromicina) pode precipitar intoxicação digitálica fatal (arritmias).",
     "principleActive": "Digoxina",
-    "medClass": "MED_CLASS_GLICOSIDEOS_CARDIACOS",
+    "medClass": "GLICOSIDEOS_CARDIACOS",
     "byDisease": "Insuficiência cardíaca e fibrilação atrial.",
     "risks": [
       "ARRHYTHMIA",
@@ -6475,7 +6475,7 @@
     "name": "Codeína",
     "description": "Opioide fraco amplamente usado. É um pró-fármaco que precisa ser ativado pela enzima CYP2D6 para virar morfina. ISRS como a fluoxetina e paroxetina impedem essa conversão, causando falha analgésica. Associações com benzodiazepínicos geram depressão respiratória.",
     "principleActive": "Codeína",
-    "medClass": "MED_CLASS_ANALGESICOS_OPIOIDES",
+    "medClass": "ANALGESICOS_OPIOIDES",
     "byDisease": "Dor leve a moderada.",
     "risks": [
       "RESPIRATORY_DEPRESSION",
@@ -6520,7 +6520,7 @@
     "name": "Prednisona",
     "description": "Corticosteroide sintético (pró-fármaco da prednisolona). Aumenta significativamente o risco de sangramento e úlcera gástrica se associado a AINEs, e eleva a glicemia, descompensando pacientes diabéticos.",
     "principleActive": "Prednisona",
-    "medClass": "MED_CLASS_CORTICOIDES",
+    "medClass": "CORTICOIDES",
     "byDisease": "Processos inflamatórios e imunomediados.",
     "risks": [
       "DIABETIC_COMPLICATION",
@@ -6602,7 +6602,7 @@
     "name": "Amilorida",
     "description": "Diurético poupador de potássio. Extremamente perigoso quando associado a IECAs, BRAs ou suplementos de potássio, gerando hipercalemia fatal (excesso de potássio) capaz de parar o coração.",
     "principleActive": "Amilorida",
-    "medClass": "MED_CLASS_DIURETICOS_POUPADORES_POTASSIO",
+    "medClass": "DIURETICOS_POUPADORES_POTASSIO",
     "byDisease": "Hipertensão e edemas (geralmente associada à HCTZ).",
     "risks": [
       "HYPERKALEMIA",
@@ -6658,7 +6658,7 @@
     "name": "Cloreto de Potássio",
     "description": "Suplemento mineral para correção de hipocalemia. Não deve jamais ser prescrito juntamente com medicamentos que retêm potássio (como IECA, BRA e poupadores de potássio), devido ao risco rápido de parada cardíaca por hipercalemia.",
     "principleActive": "Cloreto de Potássio",
-    "medClass": "MED_CLASS_SUPLEMENTOS_MINERAIS",
+    "medClass": "SUPLEMENTOS_MINERAIS",
     "byDisease": "Reposição de potássio.",
     "risks": [
       "HYPERKALEMIA"
@@ -6707,7 +6707,7 @@
     "name": "Insulina (Rápida / NPH)",
     "description": "Hormônio para o tratamento de Diabetes Mellitus. Requer atenção odontológica aos horários das consultas, risco de hipoglicemia e a interações com betabloqueadores (que mascaram sinais de alerta) e corticoides (que causam resistência à insulina e hiperglicemia).",
     "principleActive": "Insulina",
-    "medClass": "MED_CLASS_INSULINAS",
+    "medClass": "INSULINAS",
     "byDisease": "Diabetes Mellitus.",
     "risks": [
       "DIABETIC_COMPLICATION"
@@ -6768,7 +6768,7 @@
     "name": "Glibenclamida",
     "description": "Antidiabético oral (Sulfonilureia) de longa duração. Em idosos, possui altíssimo risco de causar episódios graves de hipoglicemia. O uso de antifúngicos azólicos potencializa essa hipoglicemia, enquanto os corticoides provocam o descontrole oposto (hiperglicemia).",
     "principleActive": "Glibenclamida",
-    "medClass": "MED_CLASS_SULFONILUREIAS",
+    "medClass": "SULFONILUREIAS",
     "byDisease": "Diabetes Mellitus Tipo 2.",
     "risks": [
       "DIABETIC_COMPLICATION"
@@ -6817,7 +6817,7 @@
     "name": "Citalopram",
     "description": "Antidepressivo (ISRS). Seu grande limitante de segurança em idosos, se comparado a outros ISRS, é o risco dose-dependente de prolongamento do intervalo QT. Alerta grave com tramadol e antiarrítmicos.",
     "principleActive": "Citalopram",
-    "medClass": "MED_CLASS_ISRS",
+    "medClass": "ISRS",
     "byDisease": "Depressão e ansiedade.",
     "risks": [
       "SEROTONIN_SYNDROME",
@@ -6905,7 +6905,7 @@
     "name": "Gabapentina",
     "description": "Antiepiléptico e gabapentinoide utilizado para dor neuropática e neuropatia diabética. Seu maior risco na odontogeriatria é a depressão intensa do SNC (sedação, tontura, sonolência profunda e quedas) quando associada a opioides ou benzodiazepínicos.",
     "principleActive": "Gabapentina",
-    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "medClass": "ANTIEPILEPTICOS",
     "byDisease": "Dor neuropática, neuralgia e epilepsia.",
     "risks": [
       "CNS_DEPRESSION",
@@ -6962,7 +6962,7 @@
     "name": "Pregabalina",
     "description": "Análogo da gabapentina (gabapentinoide), mais potente, utilizado para dores neuropáticas severas e fibromialgia. O sinergismo depressor no SNC com benzodiazepínicos e opioides causa sedação incapacitante e perigoso risco de quedas.",
     "principleActive": "Pregabalina",
-    "medClass": "MED_CLASS_ANTIEPILEPTICOS",
+    "medClass": "ANTIEPILEPTICOS",
     "byDisease": "Dor neuropática severa, fibromialgia e Transtorno de Ansiedade Generalizada (TAG).",
     "risks": [
       "CNS_DEPRESSION",
@@ -7019,7 +7019,7 @@
     "name": "Suplementos de Cálcio",
     "description": "Suplementos vitamínicos e minerais. Em odontologia, o cálcio interage de forma direta e física com o Alendronato (impedindo a absorção do bifosfonato) e em altas concentrações pode inativar quimicamente a clorexidina tópica.",
     "principleActive": "Cálcio",
-    "medClass": "MED_CLASS_SUPLEMENTOS_MINERAIS",
+    "medClass": "SUPLEMENTOS_MINERAIS",
     "byDisease": "Osteopenia, osteoporose e reposição nutricional.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -7044,7 +7044,7 @@
     "name": "Carbonato de Cálcio",
     "description": "Forma mais comum de suplementação de cálcio e usado como antiácido leve. Neutraliza o pH estomacal e forma complexos insolúveis com bifosfonatos.",
     "principleActive": "Carbonato de Cálcio",
-    "medClass": "MED_CLASS_SUPLEMENTOS_MINERAIS",
+    "medClass": "SUPLEMENTOS_MINERAIS",
     "byDisease": "Osteoporose e dispepsia.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -7063,7 +7063,7 @@
     "name": "Suplementos de Magnésio",
     "description": "Suplementos minerais catiônicos. Assim como o cálcio, as moléculas de magnésio formam quelatos no sistema digestivo quando em contato com o alendronato, cortando seu efeito.",
     "principleActive": "Magnésio",
-    "medClass": "MED_CLASS_SUPLEMENTOS_MINERAIS",
+    "medClass": "SUPLEMENTOS_MINERAIS",
     "byDisease": "Suplementação nutricional e regulação muscular.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -7082,7 +7082,7 @@
     "name": "Antiácidos (Hidróxido de Alumínio / Magnésio)",
     "description": "Medicamentos de venda livre para alívio da acidez gástrica. Seus componentes metálicos formam quelatos potentes que anulam a absorção oral do alendronato.",
     "principleActive": "Sais de Alumínio, Magnésio e Cálcio",
-    "medClass": "MED_CLASS_ANTIACIDOS",
+    "medClass": "ANTIACIDOS",
     "byDisease": "Azia, dispepsia e má digestão.",
     "risks": [
       "THERAPEUTIC_FAILURE"
@@ -7101,7 +7101,7 @@
     "name": "Ácido Acetilsalicílico (Aspirina)",
     "description": "AINE clássico e antiagregante plaquetário de uso contínuo (AAS) por cardiopatas. Na odontologia, não deve ser suspenso para extrações simples, mas gera alerta máximo de hemorragia e úlcera perfurada quando combinado a outros AINEs, Anticoagulantes, Clopidogrel, Corticoides e Antidepressivos ISRS.",
     "principleActive": "Ácido Acetilsalicílico",
-    "medClass": "MED_CLASS_ANTIAGREGANTES_PLAQUETARIOS",
+    "medClass": "ANTIAGREGANTES_PLAQUETARIOS",
     "byDisease": "Prevenção secundária de IAM (infarto) e AVC, profilaxia de tromboses.",
     "risks": [
       "BLEEDING_RISK",
@@ -7224,7 +7224,7 @@
     "name": "Clortalidona",
     "description": "Diurético tiazídico de longa duração amplamente prescrito para hipertensão. Em idosos, exige muito cuidado com a desidratação e a hipocalemia (perda de potássio), que é perigosa se o paciente usar digoxina.",
     "principleActive": "Clortalidona",
-    "medClass": "MED_CLASS_DIURETICOS_TIAZIDICOS",
+    "medClass": "DIURETICOS_TIAZIDICOS",
     "byDisease": "Hipertensão arterial e insuficiência cardíaca.",
     "risks": [
       "HYPOKALEMIA",
@@ -7263,7 +7263,7 @@
     "name": "Anlodipino",
     "description": "Anti-hipertensivo bloqueador dos canais de cálcio. Causa frequentemente edema de membros inferiores e, mais relevante para a odontologia, pode causar hiperplasia gengival medicamentosa.",
     "principleActive": "Besilato de Anlodipino",
-    "medClass": "MED_CLASS_BLOQUEADORES_CANAL_CALCIO",
+    "medClass": "BLOQUEADORES_CANAL_CALCIO",
     "byDisease": "Hipertensão arterial e angina.",
     "risks": [
       "GINGIVAL_HYPERPLASIA",
@@ -7289,7 +7289,7 @@
     "name": "Gliclazida",
     "description": "Antidiabético oral (Sulfonilureia). Possui alto risco de hipoglicemia no paciente idoso. Antibióticos, antifúngicos e corticoides interferem severamente em sua eficácia.",
     "principleActive": "Gliclazida",
-    "medClass": "MED_CLASS_SULFONILUREIAS",
+    "medClass": "SULFONILUREIAS",
     "byDisease": "Diabetes Mellitus Tipo 2.",
     "risks": [
       "DIABETIC_COMPLICATION"
@@ -7320,7 +7320,7 @@
     "name": "Empagliflozina",
     "description": "Antidiabético inibidor de SGLT2. Elimina a glicose pela urina. Em idosos, exige atenção máxima à hidratação, pois causa diurese osmótica e pode levar a desidratação e infecções urinárias recorrentes.",
     "principleActive": "Empagliflozina",
-    "medClass": "MED_CLASS_INIBIDORES_SGLT2",
+    "medClass": "INIBIDORES_SGLT2",
     "byDisease": "Diabetes Tipo 2 e Insuficiência Cardíaca.",
     "risks": [
       "DEHYDRATION",
@@ -7353,7 +7353,7 @@
     "name": "Sitagliptina",
     "description": "Antidiabético oral inibidor da enzima DPP-4. Possui baixo risco de hipoglicemia se usado isoladamente, sendo muito prescrito em geriatria.",
     "principleActive": "Sitagliptina",
-    "medClass": "MED_CLASS_INIBIDORES_DPP4",
+    "medClass": "INIBIDORES_DPP4",
     "byDisease": "Diabetes Mellitus Tipo 2.",
     "risks": [
       "DIABETIC_COMPLICATION"
@@ -7372,7 +7372,7 @@
     "name": "Rivastigmina",
     "description": "Inibidor da acetilcolinesterase para o tratamento do Alzheimer. Aumenta a disponibilidade de acetilcolina. Sofre antagonismo direto de medicamentos com perfil anticolinérgico, o que piora a demência.",
     "principleActive": "Rivastigmina",
-    "medClass": "MED_CLASS_INIBIDORES_ACETILCOLINESTERASE",
+    "medClass": "INIBIDORES_ACETILCOLINESTERASE",
     "byDisease": "Doença de Alzheimer e demência da Doença de Parkinson.",
     "risks": [
       "DEMENTIA_ALZHEIMER",
@@ -7412,7 +7412,7 @@
     "name": "Galantamina",
     "description": "Inibidor colinérgico para controle do Alzheimer. Possui mecanismo duplo (inibição da colinesterase e modulação de receptores nicotínicos). Perigosamente inativada por anticolinérgicos.",
     "principleActive": "Galantamina",
-    "medClass": "MED_CLASS_INIBIDORES_ACETILCOLINESTERASE",
+    "medClass": "INIBIDORES_ACETILCOLINESTERASE",
     "byDisease": "Demência na Doença de Alzheimer.",
     "risks": [
       "DEMENTIA_ALZHEIMER",
@@ -7445,7 +7445,7 @@
     "name": "Memantina",
     "description": "Antagonista dos receptores NMDA, usado no Alzheimer moderado a grave. Diferente dos inibidores colinérgicos, sua principal complicação medicamentosa na odontologia é a extrema confusão se associada a sedativos.",
     "principleActive": "Memantina",
-    "medClass": "MED_CLASS_ANTAGONISTAS_NMDA",
+    "medClass": "ANTAGONISTAS_NMDA",
     "byDisease": "Doença de Alzheimer (fases moderada e grave).",
     "risks": [
       "DELIRIUM",
@@ -7472,7 +7472,7 @@
     "name": "Risedronato",
     "description": "Bifosfonato oral para osteoporose. Gera um alerta vital na odontologia para o risco de Osteonecrose dos Maxilares (MRONJ) após cirurgias dentárias e implantes.",
     "principleActive": "Risedronato Sódico",
-    "medClass": "MED_CLASS_BIFOSFONATOS",
+    "medClass": "BIFOSFONATOS",
     "byDisease": "Osteoporose e Doença de Paget.",
     "risks": [
       "OSTEONECROSIS_OF_JAW",
@@ -7504,7 +7504,7 @@
     "name": "Colecalciferol (Vitamina D3)",
     "description": "Suplemento essencial para metabolismo ósseo e muscular, muito prescrito para idosos frágeis e sarcopênicos. Corticoides sistêmicos reduzem muito sua absorção e eficácia.",
     "principleActive": "Vitamina D3",
-    "medClass": "MED_CLASS_VITAMINAS",
+    "medClass": "VITAMINAS",
     "byDisease": "Osteoporose, deficiência de vitamina D e fragilidade.",
     "risks": [
       "GENERAL_METABOLIC"
@@ -7529,7 +7529,7 @@
     "name": "Suplementos Proteicos (Whey, Colágeno, etc)",
     "description": "Suplementação nutricional para combate à sarcopenia (perda de massa muscular) no idoso. Em pacientes com Parkinson, grandes refeições proteicas bloqueiam a absorção da Levodopa.",
     "principleActive": "Aminoácidos / Proteínas",
-    "medClass": "MED_CLASS_SUPLEMENTOS_ALIMENTARES",
+    "medClass": "SUPLEMENTOS_ALIMENTARES",
     "byDisease": "Sarcopenia, fragilidade e desnutrição.",
     "risks": [
       "GENERAL_METABOLIC"
@@ -7548,7 +7548,7 @@
     "name": "Mirtazapina",
     "description": "Antidepressivo atípico muito usado na geriatria, pois aumenta o apetite e dá sono (trata insônia e desnutrição juntas). Causa profunda sedação se combinada com ansiolíticos.",
     "principleActive": "Mirtazapina",
-    "medClass": "MED_CLASS_ANTIDEPRESSIVOS",
+    "medClass": "ANTIDEPRESSIVOS",
     "byDisease": "Depressão maior, insônia e baixo peso.",
     "risks": [
       "CNS_DEPRESSION",
@@ -7581,7 +7581,7 @@
     "name": "Carbidopa",
     "description": "Inibidor da descarboxilase sempre associado à Levodopa no tratamento do Parkinson (evita que a levodopa se transforme em dopamina no sangue antes de chegar ao cérebro).",
     "principleActive": "Carbidopa",
-    "medClass": "MED_CLASS_ANTIPARKINSONIANOS",
+    "medClass": "ANTIPARKINSONIANOS",
     "byDisease": "Doença de Parkinson.",
     "risks": [
       "GENERAL_NEUROLOGICAL",
@@ -7613,7 +7613,7 @@
     "name": "Pramipexol",
     "description": "Agonista dopaminérgico usado sozinho ou com a levodopa. Em idosos, possui altíssimo risco de causar alucinações (delirium) e sonolência repentina (ataques de sono).",
     "principleActive": "Pramipexol",
-    "medClass": "MED_CLASS_ANTIPARKINSONIANOS",
+    "medClass": "ANTIPARKINSONIANOS",
     "byDisease": "Doença de Parkinson e Síndrome das Pernas Inquietas.",
     "risks": [
       "DELIRIUM",
@@ -7646,7 +7646,7 @@
     "name": "Selegilina",
     "description": "Inibidor da enzima MAO-B, prolonga o efeito da dopamina no cérebro. Devido à inibição da MAO, tem interações fatais com medicamentos serotoninérgicos (como tramadol e antidepressivos).",
     "principleActive": "Selegilina",
-    "medClass": "MED_CLASS_ANTIPARKINSONIANOS",
+    "medClass": "ANTIPARKINSONIANOS",
     "byDisease": "Doença de Parkinson.",
     "risks": [
       "SEROTONIN_SYNDROME",
@@ -7678,7 +7678,7 @@
     "name": "Salbutamol",
     "description": "Broncodilatador de curta ação (beta-2 agonista) para crises de asma e DPOC. Seu efeito salva-vidas de abrir os pulmões é diretamente bloqueado se o paciente usar um betabloqueador não seletivo.",
     "principleActive": "Salbutamol",
-    "medClass": "MED_CLASS_BRONCODILATADORES",
+    "medClass": "BRONCODILATADORES",
     "byDisease": "Asma e Doença Pulmonar Obstrutiva Crônica (DPOC).",
     "risks": [
       "ARRHYTHMIA",
@@ -7705,7 +7705,7 @@
     "name": "Brometo de Ipratrópio",
     "description": "Broncodilatador anticolinérgico inalatório. Pode exacerbar o ressecamento da boca (xerostomia) em idosos e interagir com outros medicamentos de mesma carga anticolinérgica.",
     "principleActive": "Brometo de Ipratrópio",
-    "medClass": "MED_CLASS_BRONCODILATADORES",
+    "medClass": "BRONCODILATADORES",
     "byDisease": "DPOC e broncoespasmo.",
     "risks": [
       "XEROSTOMIA_HYPOSALIVATION",
@@ -7732,7 +7732,7 @@
     "name": "Budesonida",
     "description": "Corticosteroide inalatório ou nasal. Na cavidade bucal, a falta de enxágue pós-uso frequentemente causa candidíase pseudomembranosa. Inibidores da CYP3A4 acumulam a droga no organismo.",
     "principleActive": "Budesonida",
-    "medClass": "MED_CLASS_CORTICOIDES_INALATORIOS",
+    "medClass": "CORTICOIDES_INALATORIOS",
     "byDisease": "Asma crônica e DPOC.",
     "risks": [
       "ORAL_INFECTION",
@@ -7758,7 +7758,7 @@
     "name": "Formoterol",
     "description": "Broncodilatador de longa ação (beta-2 agonista). Assim como o salbutamol, é antagonizado por betabloqueadores. Adicionalmente, possui leve risco de alterar o intervalo QT do coração.",
     "principleActive": "Formoterol",
-    "medClass": "MED_CLASS_BRONCODILATADORES",
+    "medClass": "BRONCODILATADORES",
     "byDisease": "Controle de manutenção da Asma e DPOC.",
     "risks": [
       "ARRHYTHMIA",
@@ -7785,7 +7785,7 @@
     "name": "Bicalutamida",
     "description": "Antiandrogênio não esteroide para tratamento de câncer de próstata. Apresenta forte ligação às proteínas plasmáticas, podendo deslocar anticoagulantes orais e causar hemorragias.",
     "principleActive": "Bicalutamida",
-    "medClass": "MED_CLASS_ANTIANDROGENIOS",
+    "medClass": "ANTIANDROGENIOS",
     "byDisease": "Câncer de próstata avançado.",
     "risks": [
       "HEPATOTOXICITY",
@@ -7805,7 +7805,7 @@
     "name": "Leuprorrelina",
     "description": "Análogo do GnRH (terapia de privação androgênica). Causa castração química no tratamento do câncer de próstata, acelerando intensamente a perda de massa óssea e risco de fraturas em idosos.",
     "principleActive": "Acetato de Leuprorrelina",
-    "medClass": "MED_CLASS_ANALOGOS_GNRH",
+    "medClass": "ANALOGOS_GNRH",
     "byDisease": "Câncer de próstata e endometriose.",
     "risks": [
       "BONE_FRACTURE",
@@ -7825,7 +7825,7 @@
     "name": "Anastrozol",
     "description": "Inibidor da aromatase não esteroide, suprime o estrogênio no tratamento do câncer de mama pós-menopausa. A deficiência drástica de estrogênio causa dores articulares severas e osteoporose.",
     "principleActive": "Anastrozol",
-    "medClass": "MED_CLASS_INIBIDORES_AROMATASE",
+    "medClass": "INIBIDORES_AROMATASE",
     "byDisease": "Câncer de mama em mulheres pós-menopáusicas.",
     "risks": [
       "BONE_FRACTURE",
@@ -7845,7 +7845,7 @@
     "name": "Eritropoetina (EPO)",
     "description": "Hormônio estimulador de glóbulos vermelhos, fundamental no doente renal crônico. Possui risco inerente de elevar a pressão arterial e causar eventos trombóticos, que pioram com uso de AINEs.",
     "principleActive": "Eritropoetina Humana Recombinante",
-    "medClass": "MED_CLASS_ESTIMULANTES_ERITROPOESE",
+    "medClass": "ESTIMULANTES_ERITROPOESE",
     "byDisease": "Anemia secundária à Doença Renal Crônica ou quimioterapia.",
     "risks": [
       "HYPERTENSION_CRISIS",
@@ -7872,7 +7872,7 @@
     "name": "Sevelamer",
     "description": "Quelante de fosfato não absorvível. Indispensável para pacientes com falência renal. Atua no trato digestivo e, por prender minerais fisicamente, pode inativar diversos remédios orais se tomados juntos.",
     "principleActive": "Cloridrato de Sevelâmer",
-    "medClass": "MED_CLASS_QUELANTES_FOSFATO",
+    "medClass": "QUELANTES_FOSFATO",
     "byDisease": "Hiperfosfatemia na Doença Renal Crônica (Diálise).",
     "risks": [
       "GENERAL_GASTROINTESTINAL",
@@ -7892,7 +7892,7 @@
     "name": "Pilocarpina",
     "description": "Agonista colinérgico paraensempático usado para forçar a produção de saliva e lágrima em pacientes com boca seca e Síndrome de Sjögren. É anulada por qualquer remédio com efeito anticolinérgico.",
     "principleActive": "Cloridrato de Pilocarpina",
-    "medClass": "MED_CLASS_ESTIMULANTES_SALIVARES",
+    "medClass": "ESTIMULANTES_SALIVARES",
     "byDisease": "Xerostomia pós-radioterapia e Síndrome de Sjögren.",
     "risks": [
       "SIALORRHEA",
@@ -7925,7 +7925,7 @@
     "name": "Cevimelina",
     "description": "Análogo sintético da pilocarpina. Estimula os receptores muscarínicos para aumentar o fluxo salivar e combater a xerostomia, sujeita às mesmas interações anticolinérgicas e perigos cardíacos.",
     "principleActive": "Cevimelina",
-    "medClass": "MED_CLASS_ESTIMULANTES_SALIVARES",
+    "medClass": "ESTIMULANTES_SALIVARES",
     "byDisease": "Xerostomia em Síndrome de Sjögren.",
     "risks": [
       "SIALORRHEA",
@@ -7952,7 +7952,7 @@
     "name": "Xilitol",
     "description": "Adoçante de álcool de açúcar utilizado em gomas e pastilhas. Na odontologia, é um ótimo substituto salivar preventivo, não cariogênico, e que reduz o crescimento do Streptococcus mutans.",
     "principleActive": "Xilitol",
-    "medClass": "MED_CLASS_PRODUTOS_AUXILIARES_BUCAIS",
+    "medClass": "PRODUTOS_AUXILIARES_BUCAIS",
     "byDisease": "Prevenção de cáries e alívio de boca seca.",
     "risks": [
       "GENERAL_GASTROINTESTINAL"

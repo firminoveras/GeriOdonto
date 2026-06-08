@@ -15,7 +15,7 @@ class DatabaseSeeder @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val medDao: MedDao,
 ) {
-    private val CURRENT_JSON_VERSION = 9
+    private val CURRENT_JSON_VERSION = 10
 
     suspend fun checkAndSeedDatabase() {
         val prefs = context.getSharedPreferences("geriodonto_prefs", Context.MODE_PRIVATE)

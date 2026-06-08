@@ -30,14 +30,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
+import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.data.medicalConditionsList
-import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.ui.widgets.ExamSearchBar
 import com.firmino.geriodonto.ui.widgets.HighlightedText
 
@@ -117,7 +118,7 @@ fun ExamDiaseseItem(
     ) {
         Column(Modifier.fillMaxWidth()) {
             Box(Modifier.padding(vertical = 12.dp).fillMaxWidth()) {
-                Column(Modifier.padding(start = 16.dp, end = 48.dp)) {
+                Column(Modifier.padding(start = 16.dp, end = 64.dp)) {
                     Text(
                         text = medicalCondition.name,
                         style = MaterialTheme.typography.titleLarge,
@@ -125,13 +126,14 @@ fun ExamDiaseseItem(
                     Text(
                         text = medicalCondition.description,
                         style = MaterialTheme.typography.bodySmall.copy(
-                            fontStyle = FontStyle.Italic,
+                            textAlign = TextAlign.Justify,
+                            hyphens = Hyphens.Auto,
+                            letterSpacing = TextUnit.Unspecified,
                             lineBreak = LineBreak.Paragraph.copy(
                                 strategy = LineBreak.Strategy.HighQuality,
-                                strictness = LineBreak.Strictness.Normal,
-                                wordBreak = LineBreak.WordBreak.Default,
+                                strictness = LineBreak.Strictness.Strict,
+                                wordBreak = LineBreak.WordBreak.Phrase,
                             ),
-                            textAlign = TextAlign.Justify,
                         ),
                     )
                 }
@@ -146,7 +148,6 @@ fun ExamDiaseseItem(
             }
             AnimatedVisibility(isExpanded) {
                 Column {
-                    Text(modifier = Modifier.padding(12.dp), text = "Riscos:", style = MaterialTheme.typography.labelLarge)
                     medicalCondition.commonRisks.forEach {
                         HorizontalDivider(color = MaterialTheme.colorScheme.surface)
                         Row(
@@ -156,8 +157,15 @@ fun ExamDiaseseItem(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
-                            MaterialSymbol("warning")
-                            Text(text = it.text, style = MaterialTheme.typography.labelMedium)
+                            MaterialSymbol(it.category.symbolName)
+                            Column {
+                                Text(
+                                    text = "Risco ${it.category.description}",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.primary,
+                                )
+                                Text(text = it.text, style = MaterialTheme.typography.labelMedium)
+                            }
                         }
 
                     }

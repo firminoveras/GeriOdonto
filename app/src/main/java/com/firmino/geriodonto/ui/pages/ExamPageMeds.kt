@@ -39,6 +39,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.Hyphens
+import androidx.compose.ui.text.style.LineBreak
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.roundedCornerListShape
@@ -134,7 +138,7 @@ fun ExamPageMeds(
                                         }
                                     },
                                     icon = { MaterialSymbol(iconName = "medication") },
-                                    label = { Text(name) },
+                                    label = { Text(name.replaceFirstChar { it.uppercase() }.replace("_", " ")) },
                                 )
                             }
                             item { Spacer(modifier = Modifier.width(0.dp)) }
@@ -169,23 +173,32 @@ fun ExamMedItem(
                     Text(
                         text = med.name,
                         style = MaterialTheme.typography.titleLarge,
+                        maxLines = 1,
                     )
                     Text(
                         text = med.principleActive,
                         style = MaterialTheme.typography.bodySmall,
                     )
                     Text(
-                        modifier = Modifier
-                            .background(color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(32.dp))
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
                         text = med.medClass.text,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.bodySmallEmphasized,
                     )
                     if (med.addedBy.isNotBlank()) {
                         Text(
-                            text = "para ${med.addedBy}",
+                            text = "Para ${med.addedBy}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+
+                    AnimatedVisibility(visible = !isExpanded && med.risks.isNotEmpty()) {
+                        Text(
+                            modifier = Modifier
+                                .padding(top = 8.dp)
+                                .background(color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(32.dp))
+                                .padding(horizontal = 8.dp, vertical = 4.dp),
+                            text = "${med.risks.size} possíveis riscos",
+                            style = MaterialTheme.typography.bodySmall,
                         )
                     }
                 }
@@ -200,7 +213,52 @@ fun ExamMedItem(
             }
             AnimatedVisibility(isExpanded) {
                 Column {
-                    Text(modifier = Modifier.padding(12.dp), text = "Riscos:", style = MaterialTheme.typography.labelLarge)
+                    HorizontalDivider(color = MaterialTheme.colorScheme.surface)
+                    Text(
+                        modifier = Modifier.padding(start = 12.dp, top = 8.dp),
+                        text = "Descrição",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                    Text(
+                        modifier = Modifier
+                            .padding(start = 12.dp, end = 12.dp, bottom = 8.dp)
+                            .fillMaxWidth(1f),
+                        text = med.description,
+                        textAlign = TextAlign.Justify,
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            textAlign = TextAlign.Justify,
+                            hyphens = Hyphens.Auto,
+                            letterSpacing = TextUnit.Unspecified,
+                            lineBreak = LineBreak.Paragraph.copy(
+                                strategy = LineBreak.Strategy.HighQuality,
+                                strictness = LineBreak.Strictness.Strict,
+                                wordBreak = LineBreak.WordBreak.Phrase,
+                            ),
+                        ),
+                    )
+
+                    HorizontalDivider(color = MaterialTheme.colorScheme.surface)
+                    Text(
+                        modifier = Modifier.padding(start = 12.dp, top = 8.dp),
+                        text = "Indicações",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 12.dp, end = 12.dp, bottom = 8.dp),
+                        text = med.byDisease,
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            textAlign = TextAlign.Justify,
+                            hyphens = Hyphens.Auto,
+                            letterSpacing = TextUnit.Unspecified,
+                            lineBreak = LineBreak.Paragraph.copy(
+                                strategy = LineBreak.Strategy.HighQuality,
+                                strictness = LineBreak.Strictness.Strict,
+                                wordBreak = LineBreak.WordBreak.Phrase,
+                            ),
+                        ),
+                    )
                     med.risks.forEach {
                         HorizontalDivider(color = MaterialTheme.colorScheme.surface)
                         Row(
@@ -210,10 +268,16 @@ fun ExamMedItem(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
-                            MaterialSymbol("warning")
-                            Text(text = it.text, style = MaterialTheme.typography.labelMedium)
+                            MaterialSymbol(it.category.symbolName)
+                            Column {
+                                Text(
+                                    text = "Risco ${it.category.description}",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.primary,
+                                )
+                                Text(text = it.text, style = MaterialTheme.typography.labelMedium)
+                            }
                         }
-
                     }
                 }
             }
