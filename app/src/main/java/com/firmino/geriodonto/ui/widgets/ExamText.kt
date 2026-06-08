@@ -49,7 +49,8 @@ fun ExamText(
     text: TextFieldState,
     keyboardType: KeyboardType = KeyboardType.Text,
     suffix: String = "",
-    maxLength: Int = 256,
+    maxLength: Int = 100,
+    editable: Boolean = true,
     suggestions: List<Pair<String, String>> = listOf(),
 ) {
     val focusManager = LocalFocusManager.current
@@ -60,14 +61,15 @@ fun ExamText(
             ignoreCase = true,
         ) && list.first != text.text.toString()
     }
+    val isExtended = isEditing && items.isNotEmpty()
 
     Column(
         modifier = Modifier.background(
-            color = if (isEditing && items.isNotEmpty()) MaterialTheme.colorScheme.surfaceVariant else Color.Transparent,
+            color = if (isExtended) MaterialTheme.colorScheme.surfaceContainerHighest else Color.Transparent,
             shape = MaterialTheme.shapes.large,
         ),
     ) {
-        AnimatedVisibility(visible = isEditing && items.isNotEmpty()) {
+        AnimatedVisibility(visible = isExtended) {
             Column {
                 LazyRow(
                     modifier = Modifier
@@ -101,8 +103,12 @@ fun ExamText(
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .onFocusChanged { focusState -> isEditing = focusState.isFocused },
+                .onFocusChanged { focusState ->
+                    if (!editable && !isEditing && focusState.isFocused) text.clearText()
+                    isEditing = focusState.isFocused
+                },
             state = text,
+            readOnly = !editable,
             label = { label?.let { Text(label) } },
             lineLimits = TextFieldLineLimits.SingleLine,
             leadingIcon = { symbolName?.let { MaterialSymbol(symbolName, filled = isEditing) } },

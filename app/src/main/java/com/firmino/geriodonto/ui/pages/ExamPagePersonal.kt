@@ -39,11 +39,10 @@ fun ExamPagePersonal(
                 label = "Gênero",
                 symbolName = "person_pin",
                 text = genre,
+                editable = false,
                 suggestions = listOf(
                     Pair("Masculino", "male"),
                     Pair("Feminino", "female"),
-                    Pair("Transgênero", "transgender"),
-                    Pair("Agênero", "agender"),
                 ),
             )
         }
@@ -58,7 +57,7 @@ fun ExamPagePersonal(
                 description = {
                     when {
                         it >= 80 -> "Idade Avançada"
-                        else -> ""
+                        else -> "Idade Regular"
                     }
                 },
             )

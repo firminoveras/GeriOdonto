@@ -28,7 +28,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -73,6 +74,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.rememberAppVersion
 import com.firmino.geriodonto.data.MedicalCondition
+import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.data.rememberPatientState
 import com.firmino.geriodonto.ui.pages.ExamPageDiaseses
@@ -113,17 +115,17 @@ class MainActivity : ComponentActivity() {
 fun Content(
     viewModel: MedViewModel = hiltViewModel(),
 ) {
-
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val patient = rememberPatientState()
     val sheetState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
     )
-    val scope = rememberCoroutineScope()
-    var showBottomSheet by remember { mutableStateOf(false) }
     Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
             Menu(
                 viewModel = viewModel,
+                patient = patient,
                 onAddClick = { showBottomSheet = true },
             )
         }
@@ -135,14 +137,8 @@ fun Content(
             ) {
                 Exam(
                     viewModel = viewModel,
-                ) {
-                    scope.launch { sheetState.hide() }.invokeOnCompletion {
-                        if (!sheetState.isVisible) {
-                            showBottomSheet = false
-                        }
-                    }
-                }
-
+                    patient = patient,
+                )
             }
         }
     }
@@ -152,6 +148,7 @@ fun Content(
 @Composable
 fun Menu(
     viewModel: MedViewModel,
+    patient: PatientState,
     onAddClick: () -> Unit,
 ) {
     val seedingState by viewModel.seedingState.collectAsStateWithLifecycle()
@@ -326,12 +323,23 @@ fun Menu(
                     expanded = true,
                     floatingActionButton = {
                         FloatingActionButton(onClick = onAddClick) {
-                            MaterialSymbol(iconName = "add")
+                            MaterialSymbol(iconName = if (patient.isEmpty()) "add" else "edit")
                         }
                     },
                 ) {
                     IconButton(onClick = {}) { MaterialSymbol(iconName = "info") }
                     IconButton(onClick = {}) { MaterialSymbol(iconName = "policy") }
+                    if (patient.isNotEmpty()) {
+                        IconButton(
+                            onClick = {
+                                patient.clear()
+                                onAddClick()
+                            },
+                            content = {
+                                MaterialSymbol(iconName = "add")
+                            },
+                        )
+                    }
                 }
             }
 
@@ -373,15 +381,15 @@ fun PocketAlert(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
+fun Exam(
+    viewModel: MedViewModel,
+    patient: PatientState,
+) {
     val pagerState = rememberPagerState { ExamPages.entries.size }
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
-
     var showTopBar by remember { mutableStateOf(true) }
-
-    val patient = rememberPatientState()
-
+    var showMenuBar by remember { mutableStateOf(true) }
     var deleteDiasese by remember { mutableStateOf<MedicalCondition?>(null) }
     var deleteMed by remember { mutableStateOf<Med?>(null) }
 
@@ -395,7 +403,7 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
                 TextButton(
                     content = { Text("Confirmar") },
                     onClick = {
-                        patient.conditionsList.remove(deleteDiasese)
+                        patient.remove(deleteDiasese!!)
                         deleteDiasese = null
                     },
                 )
@@ -419,7 +427,7 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
                 TextButton(
                     content = { Text("Confirmar") },
                     onClick = {
-                        patient.medList.remove(deleteMed)
+                        patient.remove(deleteMed!!)
                         deleteMed = null
                     },
                 )
@@ -442,21 +450,48 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Row(
+                Box(
                     Modifier
                         .fillMaxWidth()
                         .padding(12.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(text = "Nova prescrição", style = MaterialTheme.typography.titleLarge)
-                    Button(onClick = onDismiss) { Text("Fechar") }
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.CenterStart),
+                    ) {
+                        Text(
+                            text = "Nova prescrição",
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                        if (patient.name.text.isNotEmpty()) {
+                            Text(
+                                text = patient.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
+                                style = MaterialTheme.typography.labelSmall,
+                                maxLines = 1,
+                            )
+                        }
+
+                    }
+                    Row(Modifier.align(Alignment.CenterEnd)) {
+                        IconButton(
+                            onClick = { showMenuBar = !showMenuBar },
+                            content = { MaterialSymbol(iconName = "page_menu_ios", filled = showMenuBar) },
+                        )
+                        IconButton(
+                            onClick = { patient.clear() },
+                            content = { MaterialSymbol(iconName = "delete_forever", filled = patient.isNotEmpty()) },
+                        )
+                    }
                 }
                 HorizontalDivider()
-                ExamMenu(
-                    currentPage = pagerState.currentPage,
-                    onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
-                )
+                AnimatedVisibility(visible = showMenuBar) {
+                    ExamMenu(
+                        currentPage = pagerState.currentPage,
+                        patient = patient,
+                        onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
+                    )
+                }
             }
         }
         Spacer(Modifier.height(8.dp))
@@ -489,7 +524,7 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
                     ExamPageDiaseses(
                         medicalConditionList = patient.conditionsList,
                         onSearchStateChange = { showTopBar = it },
-                        onAdd = { if (!patient.conditionsList.contains(it)) patient.conditionsList.add(it) },
+                        onAdd = { if (!patient.contains(it)) patient.add(it) },
                         onRemove = { deleteDiasese = it },
                     )
                 }
@@ -500,7 +535,7 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
                         viewModel = viewModel,
                         medList = patient.medList,
                         onSearchStateChange = { showTopBar = it },
-                        onAdd = { if (!patient.medList.contains(it)) patient.medList.add(it) },
+                        onAdd = { if (!patient.contains(it)) patient.add(it) },
                         onRemove = { deleteMed = it },
                     )
                 }
@@ -512,14 +547,24 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
 
 
 @Composable
-fun ExamMenu(currentPage: Int, onChange: (Int) -> Unit) {
+fun ExamMenu(
+    currentPage: Int,
+    patient: PatientState,
+    onChange: (Int) -> Unit,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ExamPages.entries.forEach { page ->
-            val color = if (page.ordinal == currentPage) MaterialTheme.colorScheme.primary else Color.Transparent
+            val current = page.ordinal == currentPage
+            val color = if (current) MaterialTheme.colorScheme.primary else Color.Transparent
+            val size = when (page) {
+                ExamPages.PAGE_CONDITIONS -> patient.conditionsList.size
+                ExamPages.PAGE_MEDS -> patient.medList.size
+                else -> 0
+            }
             Surface(
                 shape = MaterialTheme.shapes.extraLarge,
                 color = color,
@@ -530,11 +575,13 @@ fun ExamMenu(currentPage: Int, onChange: (Int) -> Unit) {
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    MaterialSymbol(
-                        iconName = page.symbolName,
-                        filled = page.ordinal == currentPage,
-                        colorFilled = MaterialTheme.colorScheme.onPrimary,
-                    )
+                    BadgedBox(badge = { if (size > 0 && !current) Badge { Text("$size") } }) {
+                        MaterialSymbol(
+                            iconName = page.symbolName,
+                            filled = page.ordinal == currentPage,
+                            colorFilled = MaterialTheme.colorScheme.onPrimary,
+                        )
+                    }
                     AnimatedVisibility(page.ordinal == currentPage) {
                         Text(
                             text = page.text,
