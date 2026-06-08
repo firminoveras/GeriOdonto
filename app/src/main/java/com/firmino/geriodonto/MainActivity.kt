@@ -27,7 +27,6 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -46,12 +45,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.material3.rememberBottomSheetState
-import androidx.compose.material3.rememberSliderState
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -76,19 +72,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.rememberAppVersion
-import com.firmino.geriodonto.data.BaixoPeso
-import com.firmino.geriodonto.data.CreatininaAlta
-import com.firmino.geriodonto.data.CreatininaBaixa
-import com.firmino.geriodonto.data.Fragilidade
-import com.firmino.geriodonto.data.HistoricoQuedas
-import com.firmino.geriodonto.data.IdadeAvancada
 import com.firmino.geriodonto.data.MedicalCondition
-import com.firmino.geriodonto.data.Sobrepeso
-import com.firmino.geriodonto.data.TGOAlta
-import com.firmino.geriodonto.data.TGOBaixa
-import com.firmino.geriodonto.data.TGPAlta
-import com.firmino.geriodonto.data.TGPBaixa
 import com.firmino.geriodonto.data.database.Med
+import com.firmino.geriodonto.data.rememberPatientState
 import com.firmino.geriodonto.ui.pages.ExamPageDiaseses
 import com.firmino.geriodonto.ui.pages.ExamPageExams
 import com.firmino.geriodonto.ui.pages.ExamPageMeds
@@ -394,77 +380,10 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
 
     var showTopBar by remember { mutableStateOf(true) }
 
-    val name = rememberTextFieldState("")
-    val genre = rememberTextFieldState("")
-    val weight = rememberSliderState(value = 30f, valueRange = 30f..200f)
-    val height = rememberSliderState(value = 0f, valueRange = 0f..2f)
-    val age = rememberSliderState(value = 40f, valueRange = 40f..120f)
-    val renalFunction = rememberSliderState(value = 0f, valueRange = 0f..3f)
-    val hepaticTgo = rememberSliderState(value = 0f, valueRange = 0f..100f)
-    val hepaticTgp = rememberSliderState(value = 0f, valueRange = 0f..100f)
-    var hasFallHistory by remember { mutableStateOf(false) }
-    var hasFragile by remember { mutableStateOf(false) }
-
-    val conditionsList = remember { mutableStateListOf<MedicalCondition>() }
-    val medList = remember { mutableStateListOf<Med>() }
+    val patient = rememberPatientState()
 
     var deleteDiasese by remember { mutableStateOf<MedicalCondition?>(null) }
     var deleteMed by remember { mutableStateOf<Med?>(null) }
-
-    LaunchedEffect(hasFragile) {
-        conditionsList.remove(Fragilidade)
-        if (hasFragile) conditionsList.add(Fragilidade)
-    }
-
-    LaunchedEffect(hasFallHistory) {
-        conditionsList.remove(HistoricoQuedas)
-        if (hasFallHistory) conditionsList.add(HistoricoQuedas)
-    }
-
-    LaunchedEffect(age.value) {
-        conditionsList.remove(IdadeAvancada)
-        if (age.value >= 80) conditionsList.add(IdadeAvancada)
-    }
-
-    LaunchedEffect(weight.value, height.value) {
-        conditionsList.removeAll { it == Sobrepeso || it == BaixoPeso }
-        if (height.value > 0) {
-            val imc = weight.value / (height.value * height.value)
-            when {
-                imc < 22.0 -> conditionsList.add(BaixoPeso)
-                imc >= 27.0 -> conditionsList.add(Sobrepeso)
-            }
-        }
-    }
-
-    LaunchedEffect(renalFunction.value, genre.text) {
-        val isFeminino = genre.text.toString() == "Feminino"
-        val limiteBaixo = if (isFeminino) 0.6f else 0.7f
-        val limiteAlto = if (isFeminino) 1.1f else 1.3f
-
-        conditionsList.removeAll { it == CreatininaBaixa || it == CreatininaAlta }
-
-        when {
-            renalFunction.value < limiteBaixo -> conditionsList.add(CreatininaBaixa)
-            renalFunction.value >= limiteAlto -> conditionsList.add(CreatininaAlta)
-        }
-    }
-
-    LaunchedEffect(hepaticTgo.value) {
-        conditionsList.removeAll { it == TGOAlta || it == TGOBaixa }
-        when {
-            hepaticTgo.value < 10 -> conditionsList.add(TGOBaixa)
-            hepaticTgo.value >= 40 -> conditionsList.add(TGOAlta)
-        }
-    }
-
-    LaunchedEffect(hepaticTgp.value) {
-        conditionsList.removeAll { it == TGPAlta || it == TGPBaixa }
-        when {
-            hepaticTgp.value < 8 -> conditionsList.add(TGPBaixa)
-            hepaticTgp.value >= 56 -> conditionsList.add(TGPAlta)
-        }
-    }
 
     if (deleteDiasese != null) {
         AlertDialog(
@@ -476,7 +395,7 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
                 TextButton(
                     content = { Text("Confirmar") },
                     onClick = {
-                        conditionsList.remove(deleteDiasese)
+                        patient.conditionsList.remove(deleteDiasese)
                         deleteDiasese = null
                     },
                 )
@@ -500,7 +419,7 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
                 TextButton(
                     content = { Text("Confirmar") },
                     onClick = {
-                        medList.remove(deleteMed)
+                        patient.medList.remove(deleteMed)
                         deleteMed = null
                     },
                 )
@@ -545,43 +464,43 @@ fun Exam(viewModel: MedViewModel, onDismiss: () -> Unit) {
             when (index) {
                 ExamPages.PAGE_PERSONAL.ordinal -> {
                     ExamPagePersonal(
-                        name = name,
-                        genre = genre,
-                        age = age,
-                        weight = weight,
-                        height = height,
+                        name = patient.name,
+                        genre = patient.genre,
+                        age = patient.age,
+                        weight = patient.weight,
+                        height = patient.height,
                     )
                 }
 
                 ExamPages.PAGE_EXAMS.ordinal -> {
                     ExamPageExams(
-                        genre = genre,
-                        renalFunction = renalFunction,
-                        hepaticTgo = hepaticTgo,
-                        hepaticTgp = hepaticTgp,
-                        hasFragile = hasFragile,
-                        hasFallHistory = hasFallHistory,
-                        onHasFragileChange = { hasFragile = it },
-                        onHasFallHistoryChange = { hasFallHistory = it },
+                        genre = patient.genre,
+                        renalFunction = patient.renalFunction,
+                        hepaticTgo = patient.hepaticTgo,
+                        hepaticTgp = patient.hepaticTgp,
+                        hasFragile = patient.hasFragile,
+                        hasFallHistory = patient.hasFallHistory,
+                        onHasFragileChange = { patient.hasFragile = it },
+                        onHasFallHistoryChange = { patient.hasFallHistory = it },
                     )
                 }
 
                 ExamPages.PAGE_CONDITIONS.ordinal -> {
                     ExamPageDiaseses(
-                        medicalConditionList = conditionsList,
+                        medicalConditionList = patient.conditionsList,
                         onSearchStateChange = { showTopBar = it },
-                        onAdd = { if (!conditionsList.contains(it)) conditionsList.add(it) },
+                        onAdd = { if (!patient.conditionsList.contains(it)) patient.conditionsList.add(it) },
                         onRemove = { deleteDiasese = it },
                     )
                 }
 
                 ExamPages.PAGE_MEDS.ordinal -> {
                     ExamPageMeds(
-                        medicalConditionList = conditionsList,
+                        medicalConditionList = patient.conditionsList,
                         viewModel = viewModel,
-                        medList = medList,
+                        medList = patient.medList,
                         onSearchStateChange = { showTopBar = it },
-                        onAdd = { if (!medList.contains(it)) medList.add(it) },
+                        onAdd = { if (!patient.medList.contains(it)) patient.medList.add(it) },
                         onRemove = { deleteMed = it },
                     )
                 }
