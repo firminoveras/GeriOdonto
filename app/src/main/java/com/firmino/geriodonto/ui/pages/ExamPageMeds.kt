@@ -46,7 +46,7 @@ import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
-import com.firmino.geriodonto.data.MedicalCondition
+import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.ui.widgets.ExamSearchBar
 import com.firmino.geriodonto.viewmodel.MedViewModel
@@ -55,9 +55,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExamPageMeds(
-    medList: List<Med>,
-    medicalConditionList: List<MedicalCondition>,
     viewModel: MedViewModel,
+    patient: PatientState,
     onSearchStateChange: (Boolean) -> Unit,
     onAdd: (Med) -> Unit,
     onRemove: (Med) -> Unit,
@@ -72,11 +71,11 @@ fun ExamPageMeds(
             verticalArrangement = Arrangement.spacedBy(2.dp),
         ) {
             item { Spacer(Modifier.height(58.dp)) }
-            itemsIndexed(items = medList, key = { _, item -> item.name + item.description }) { index, item ->
+            itemsIndexed(items = patient.medList.toList(), key = { _, item -> item.name + item.description }) { index, item ->
                 ExamMedItem(
                     med = item,
                     onRemove = onRemove,
-                    shape = roundedCornerListShape(index = index, total = medList.size),
+                    shape = roundedCornerListShape(index = index, total = patient.medList.size),
                 )
             }
         }
@@ -86,36 +85,38 @@ fun ExamPageMeds(
             content = { query, onDone ->
                 viewModel.onSearchQueryChanged(query)
                 if (query.isNotBlank()) {
-                    meds.take(20).forEach { result ->
-                        ListItem(
-                            modifier = Modifier
-                                .clickable {
-                                    onDone()
-                                    onAdd(result.toMed())
-                                }
-                                .fillMaxWidth(),
+                    LazyColumn {
+                        items(items = meds.take(20), key = { it.med.id }) {
+                            ListItem(
+                                modifier = Modifier
+                                    .clickable {
+                                        onDone()
+                                        onAdd(it.toMed())
+                                    }
+                                    .fillMaxWidth(),
 
-                            colors = ListItemDefaults.colors(
-                                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                            ),
-                            headlineContent = {
-                                Text(highlightedText(result.med.name, query))
-                            },
-                            supportingContent = {
-                                if (result.med.description.isNotBlank()) {
-                                    Text(highlightedText(result.med.description, query))
-                                }
-                            },
-                        )
+                                colors = ListItemDefaults.colors(
+                                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                                ),
+                                headlineContent = {
+                                    Text(highlightedText(it.med.name, query))
+                                },
+                                supportingContent = {
+                                    if (it.med.description.isNotBlank()) {
+                                        Text(highlightedText(it.med.description, query))
+                                    }
+                                },
+                            )
+                        }
                     }
-                } else if (medicalConditionList.map { it.commonMeds to it.name }.isNotEmpty()) {
+                } else if (patient.conditionsList.map { it.commonMeds to it.name }.isNotEmpty()) {
                     Text(
                         modifier = Modifier.padding(12.dp),
                         text = "Sugestões personalizadas",
                         style = MaterialTheme.typography.titleMedium,
                     )
                     val scope = rememberCoroutineScope()
-                    medicalConditionList.map { it.commonMeds to it.name }.forEach { result ->
+                    patient.conditionsList.map { it.commonMeds to it.name }.forEach { result ->
                         Text(
                             modifier = Modifier.padding(start = 12.dp, top = 8.dp),
                             text = result.second,

@@ -83,6 +83,7 @@ import com.firmino.geriodonto.ui.pages.ExamPageDiaseses
 import com.firmino.geriodonto.ui.pages.ExamPageExams
 import com.firmino.geriodonto.ui.pages.ExamPageMeds
 import com.firmino.geriodonto.ui.pages.ExamPagePersonal
+import com.firmino.geriodonto.ui.pages.ExamPagePrescription
 import com.firmino.geriodonto.ui.theme.GeriOdontoTheme
 import com.firmino.geriodonto.ui.theme.fontFamilyBaumans
 import com.firmino.geriodonto.ui.theme.fontFamilyPoiret
@@ -97,6 +98,7 @@ enum class ExamPages(val text: String, val symbolName: String) {
     PAGE_EXAMS("Exames", "labs"),
     PAGE_CONDITIONS("Condições", "medical_information"),
     PAGE_MEDS("Medicamentos", "admin_meds"),
+    PAGE_PRESCRIPTION("Prescrição", "outpatient_med"),
 }
 
 
@@ -385,6 +387,7 @@ fun Exam(
     var showMenuBar by remember { mutableStateOf(true) }
     var deleteDiasese by remember { mutableStateOf<MedicalCondition?>(null) }
     var deleteMed by remember { mutableStateOf<Med?>(null) }
+    var deletePrescription by remember { mutableStateOf<Med?>(null) }
 
     if (deleteDiasese != null) {
         AlertDialog(
@@ -428,6 +431,30 @@ fun Exam(
             dismissButton = {
                 TextButton(
                     onClick = { deleteMed = null },
+                    content = { Text("Cancelar") },
+                )
+            },
+        )
+    }
+
+    if (deletePrescription != null) {
+        AlertDialog(
+            onDismissRequest = { deletePrescription = null },
+            title = { Text("Você deseja deletar essa prescrição?") },
+            text = { Text("Essa ação excluirá a entrada de prescrição selecionada.") },
+            icon = { MaterialSymbol(iconName = "delete") },
+            confirmButton = {
+                TextButton(
+                    content = { Text("Confirmar") },
+                    onClick = {
+                        patient.unprescribe(deletePrescription!!)
+                        deletePrescription = null
+                    },
+                )
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { deletePrescription = null },
                     content = { Text("Cancelar") },
                 )
             },
@@ -494,22 +521,13 @@ fun Exam(
                 when (index) {
                     ExamPages.PAGE_PERSONAL.ordinal -> {
                         ExamPagePersonal(
-                            name = patient.name,
-                            genre = patient.genre,
-                            age = patient.age,
-                            weight = patient.weight,
-                            height = patient.height,
+                            patient = patient,
                         )
                     }
 
                     ExamPages.PAGE_EXAMS.ordinal -> {
                         ExamPageExams(
-                            genre = patient.genre,
-                            renalFunction = patient.renalFunction,
-                            hepaticTgo = patient.hepaticTgo,
-                            hepaticTgp = patient.hepaticTgp,
-                            hasFragile = patient.hasFragile,
-                            hasFallHistory = patient.hasFallHistory,
+                            patient = patient,
                             onHasFragileChange = { patient.hasFragile = it },
                             onHasFallHistoryChange = { patient.hasFallHistory = it },
                         )
@@ -517,21 +535,30 @@ fun Exam(
 
                     ExamPages.PAGE_CONDITIONS.ordinal -> {
                         ExamPageDiaseses(
-                            medicalConditionList = patient.conditionsList.toList(),
+                            patient = patient,
                             onSearchStateChange = { showTopBar = it },
-                            onAdd = { if (!patient.contains(it)) patient.add(it) },
+                            onAdd = { patient.add(it) },
                             onRemove = { deleteDiasese = it },
                         )
                     }
 
                     ExamPages.PAGE_MEDS.ordinal -> {
                         ExamPageMeds(
-                            medicalConditionList = patient.conditionsList.toList(),
                             viewModel = viewModel,
-                            medList = patient.medList.toList(),
+                            patient = patient,
                             onSearchStateChange = { showTopBar = it },
-                            onAdd = { if (!patient.contains(it)) patient.add(it) },
+                            onAdd = { patient.add(it) },
                             onRemove = { deleteMed = it },
+                        )
+                    }
+
+                    ExamPages.PAGE_PRESCRIPTION.ordinal ->{
+                        ExamPagePrescription (
+                            viewModel = viewModel,
+                            patient = patient,
+                            onSearchStateChange = { showTopBar = it },
+                            onAdd = { patient.prescribe(it) },
+                            onRemove = { deletePrescription = it },
                         )
                     }
                 }
@@ -559,6 +586,7 @@ fun ExamMenu(
             val size = when (page) {
                 ExamPages.PAGE_CONDITIONS -> patient.conditionsList.size
                 ExamPages.PAGE_MEDS -> patient.medList.size
+                ExamPages.PAGE_PRESCRIPTION -> patient.prescriptionList.size
                 else -> 0
             }
             Surface(

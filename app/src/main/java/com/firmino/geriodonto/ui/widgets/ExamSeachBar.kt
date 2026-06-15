@@ -1,13 +1,10 @@
 package com.firmino.geriodonto.ui.widgets
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SearchBar
@@ -27,6 +24,7 @@ import com.firmino.geriodonto.companions.MaterialSymbol
 @Composable
 fun ExamSearchBar(
     modifier: Modifier = Modifier,
+    placeholderText: String = "Adicionar...",
     onSearchStateChange: (Boolean) -> Unit,
     content: @Composable (ColumnScope.(query: String, onDone: () -> Unit) -> Unit),
 ) {
@@ -51,7 +49,7 @@ fun ExamSearchBar(
                     onSearch = { expanded = false },
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
-                    placeholder = { Text("Adicionar...") },
+                    placeholder = { Text(placeholderText) },
                     leadingIcon = { MaterialSymbol("search") },
                     trailingIcon = {
                         if (textFieldState.text.isNotBlank()) {
@@ -68,9 +66,7 @@ fun ExamSearchBar(
                 )
             },
             content = {
-                Column(Modifier.verticalScroll(rememberScrollState())) {
-                    content(textFieldState.text.toString(), ::done)
-                }
+                content(textFieldState.text.toString(), ::done)
             },
         )
     }

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.Card
@@ -39,13 +40,14 @@ import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.data.MedicalCondition
+import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.data.medicalConditionsList
 import com.firmino.geriodonto.ui.widgets.ExamSearchBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExamPageDiaseses(
-    medicalConditionList: List<MedicalCondition>,
+    patient: PatientState,
     onSearchStateChange: (Boolean) -> Unit,
     onAdd: (MedicalCondition) -> Unit,
     onRemove: (MedicalCondition) -> Unit,
@@ -60,9 +62,9 @@ fun ExamPageDiaseses(
             item {
                 Spacer(Modifier.height(58.dp))
             }
-            itemsIndexed(items = medicalConditionList, key = { _, item -> item.name}) { index, item ->
+            itemsIndexed(items = patient.conditionsList.toList(), key = { _, item -> item.name }) { index, item ->
                 ExamDiaseseItem(
-                    shape = roundedCornerListShape(index = index, total = medicalConditionList.size),
+                    shape = roundedCornerListShape(index = index, total = patient.conditionsList.size),
                     medicalCondition = item,
                     onRemove = { removeItem -> onRemove(removeItem) },
                 )
@@ -73,30 +75,38 @@ fun ExamPageDiaseses(
             onSearchStateChange = onSearchStateChange,
             content = { query, onDone ->
                 if (query.isNotEmpty()) {
-                    medicalConditionsList.map { it.name to it.description }.filter {
+                    val condList = medicalConditionsList.map { it.name to it.description }.filter {
                         (it.first + " " + it.second).contains(query, ignoreCase = true)
-                    }.take(20).forEach { result ->
-                        ListItem(
-                            modifier = Modifier
-                                .clickable {
-                                    onDone()
-                                    medicalConditionsList.find { it.name == result.first }?.let { condition ->
-                                        onAdd(condition)
-                                    }
-                                }
-                                .fillMaxWidth(),
-                            colors = ListItemDefaults.colors(
-                                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                            ),
-                            headlineContent = {
-                                Text(highlightedText(result.first, query))
-                            },
-                            supportingContent = {
-                                if (result.second.isNotBlank()) {
-                                    Text(highlightedText(result.second, query))
-                                }
-                            },
-                        )
+                    }.take(20)
+
+                    LazyColumn {
+                        items(items = condList, key = { it.first }) {
+                            medicalConditionsList.map { it.name to it.description }.filter {
+                                (it.first + " " + it.second).contains(query, ignoreCase = true)
+                            }.take(20).forEach { result ->
+                                ListItem(
+                                    modifier = Modifier
+                                        .clickable {
+                                            onDone()
+                                            medicalConditionsList.find { it.name == result.first }?.let { condition ->
+                                                onAdd(condition)
+                                            }
+                                        }
+                                        .fillMaxWidth(),
+                                    colors = ListItemDefaults.colors(
+                                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                                    ),
+                                    headlineContent = {
+                                        Text(highlightedText(result.first, query))
+                                    },
+                                    supportingContent = {
+                                        if (result.second.isNotBlank()) {
+                                            Text(highlightedText(result.second, query))
+                                        }
+                                    },
+                                )
+                            }
+                        }
                     }
                 }
             },
@@ -117,7 +127,9 @@ fun ExamDiaseseItem(
         shape = shape,
     ) {
         Column(Modifier.fillMaxWidth()) {
-            Box(Modifier.padding(vertical = 12.dp).fillMaxWidth()) {
+            Box(Modifier
+                .padding(vertical = 12.dp)
+                .fillMaxWidth()) {
                 Column(Modifier.padding(start = 16.dp, end = 64.dp)) {
                     Text(
                         text = medicalCondition.name,

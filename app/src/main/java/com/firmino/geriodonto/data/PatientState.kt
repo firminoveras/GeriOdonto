@@ -4,6 +4,8 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.SliderState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateSetOf
@@ -29,9 +31,14 @@ class PatientState {
     var hasFragile by mutableStateOf(false)
     val conditionsList = mutableStateSetOf<MedicalCondition>()
     val medList = mutableStateSetOf<Med>()
+    val prescriptionList = mutableStateSetOf<Med>()
+    val interactions: State<List<InteractionAlert>> = derivedStateOf {
+        verifyInteractions(medList, prescriptionList)
+    }
 
     var onConditionChanged: (MedicalCondition, PatientStateChangeType) -> Unit = { _, _ -> }
     var onMedChanged: (Med, PatientStateChangeType) -> Unit = { _, _ -> }
+    var onPrescriptionChanged: (Med, PatientStateChangeType) -> Unit = { _, _ -> }
 
     fun clear() {
         name.edit { replace(0, name.text.length, "") }
@@ -46,6 +53,7 @@ class PatientState {
         hasFragile = false
         conditionsList.clear()
         medList.clear()
+        prescriptionList.clear()
     }
 
     fun isEmpty() = name.text.isEmpty() &&
@@ -59,7 +67,8 @@ class PatientState {
             !hasFallHistory &&
             !hasFragile &&
             conditionsList.isEmpty() &&
-            medList.isEmpty()
+            medList.isEmpty() &&
+            prescriptionList.isEmpty()
 
     fun isNotEmpty() = !isEmpty()
 
@@ -73,8 +82,6 @@ class PatientState {
             onMedChanged(med, PatientStateChangeType.REMOVE)
     }
 
-    fun contains(med: Med) = this.medList.contains(med)
-
     fun add(condition: MedicalCondition) {
         if (this.conditionsList.add(condition))
             onConditionChanged(condition, PatientStateChangeType.ADD)
@@ -85,7 +92,15 @@ class PatientState {
             onConditionChanged(condition, PatientStateChangeType.REMOVE)
     }
 
-    fun contains(condition: MedicalCondition) = this.conditionsList.contains(condition)
+    fun prescribe(med: Med) {
+        if (this.prescriptionList.add(med))
+            onPrescriptionChanged(med, PatientStateChangeType.ADD)
+    }
+
+    fun unprescribe(med: Med) {
+        if (this.prescriptionList.remove(med))
+            onPrescriptionChanged(med, PatientStateChangeType.REMOVE)
+    }
 }
 
 @Composable
@@ -197,4 +212,50 @@ fun rememberPatientState(): PatientState {
     }
 
     return state
+}
+
+data class InteractionAlert(
+    val medBase: Med,
+    val medInteracted: Med,
+    val risk: Risk,
+    val description: String,
+    val alertLevel: InteractionAlertLevel
+)
+
+fun verifyInteractions(
+    usoContinuo: Set<Med>,
+    prescricao: Set<Med>
+): List<InteractionAlert> {
+    val todosMedicamentos = usoContinuo + prescricao
+
+    val alertas = mutableListOf<InteractionAlert>()
+    val paresVerificados = mutableSetOf<String>()
+
+    for (med in todosMedicamentos) {
+        for (interacao in med.interactions) {
+            val medInteragente = todosMedicamentos.find { it.id == interacao.interactingMedId }
+
+            if (medInteragente != null) {
+                val id1 = if (med.id < medInteragente.id) med.id else medInteragente.id
+                val id2 = if (med.id < medInteragente.id) medInteragente.id else med.id
+                val chaveUnica = "${id1}_${id2}"
+
+                if (!paresVerificados.contains(chaveUnica)) {
+                    paresVerificados.add(chaveUnica)
+
+                    alertas.add(
+                        InteractionAlert(
+                            medBase = med,
+                            medInteracted = medInteragente,
+                            risk = interacao.risk,
+                            description = interacao.description,
+                            alertLevel = interacao.alertLevel,
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    return alertas.sortedByDescending { it.alertLevel }
 }
