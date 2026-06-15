@@ -24,8 +24,8 @@ interface MedDao {
     suspend fun getMedById(medId: String): MedWithInteractions?
 
     @Transaction
-    @Query("SELECT * FROM medications WHERE name LIKE '%' || :searchQuery || '%' OR principleActive LIKE '%' || :searchQuery || '%'")
-    fun searchMedsByNameOrPrinciple(searchQuery: String): Flow<List<MedWithInteractions>>
+    @Query("SELECT * FROM medications WHERE name LIKE '%' || :searchQuery || '%' OR description LIKE '%' || :searchQuery || '%'")
+    fun searchMedsByNameOrDescription(searchQuery: String): Flow<List<MedWithInteractions>>
 
     @Query("DELETE FROM interactions")
     suspend fun deleteAllInteractions()

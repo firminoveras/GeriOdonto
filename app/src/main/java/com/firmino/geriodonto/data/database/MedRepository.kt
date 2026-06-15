@@ -13,6 +13,6 @@ class MedRepository @Inject constructor(
     }
 
     fun searchMeds(query: String): Flow<List<MedWithInteractions>> {
-        return medDao.searchMedsByNameOrPrinciple(query)
+        return medDao.searchMedsByNameOrDescription(query)
     }
 }

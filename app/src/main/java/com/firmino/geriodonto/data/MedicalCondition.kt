@@ -330,7 +330,7 @@ val medicalConditionsList = listOf(
     CancerMama,
     DoencaRenal,
     Xerostomia,
-    Sarcopenia
+    Sarcopenia,
 )
 
 val Fragilidade = MedicalCondition(
@@ -363,15 +363,15 @@ val HistoricoQuedas = MedicalCondition(
         "hidroclorotiazida",
         "levodopa",
         "quetiapina",
-        "haloperidol"
+        "haloperidol",
     ),
     commonRisks = listOf(
         Risk.LOSS_OF_BALANCE,
         Risk.BONE_FRACTURE,
         Risk.REDUCED_MOBILITY,
         Risk.CNS_DEPRESSION,
-        Risk.DELIRIUM
-    )
+        Risk.DELIRIUM,
+    ),
 )
 
 val IdadeAvancada = MedicalCondition(
@@ -381,24 +381,24 @@ val IdadeAvancada = MedicalCondition(
     commonRisks = listOf(
         Risk.RENAL_IMPAIRMENT,
         Risk.CNS_DEPRESSION,
-        Risk.LOSS_OF_BALANCE
-    )
+        Risk.LOSS_OF_BALANCE,
+    ),
 )
 
-val BaixoPeso= MedicalCondition(
+val BaixoPeso = MedicalCondition(
     name = "Baixo Peso",
     description = "A perda de peso não intencional em idosos é um marcador de vulnerabilidade, indicando reserva metabólica reduzida, risco aumentado de infecções pós-operatórias e retardo na cicatrização tecidual.",
     commonMeds = listOf(
         "suplementos_proteicos",
         "colecalciferol",
-        "multivitaminicos"
+        "multivitaminicos",
     ),
     commonRisks = listOf(
         Risk.MALNUTRITION,
         Risk.MUSCLE_WASTING,
         Risk.ORAL_INFECTION,
         Risk.THERAPEUTIC_FAILURE,
-    )
+    ),
 )
 
 val Sobrepeso = MedicalCondition(
@@ -408,15 +408,15 @@ val Sobrepeso = MedicalCondition(
         "metformina",
         "empagliflozina",
         "losartana",
-        "atorvastatina"
+        "atorvastatina",
     ),
     commonRisks = listOf(
         Risk.HEART_FAILURE,
         Risk.DIABETIC_COMPLICATION,
         Risk.COPD,
         Risk.REDUCED_MOBILITY,
-        Risk.GENERAL_METABOLIC
-    )
+        Risk.GENERAL_METABOLIC,
+    ),
 )
 
 val CreatininaAlta = MedicalCondition(
@@ -426,14 +426,14 @@ val CreatininaAlta = MedicalCondition(
         "enalapril",
         "losartana",
         "furosemida",
-        "espironolactona"
+        "espironolactona",
     ),
     commonRisks = listOf(
         Risk.NEPHROTOXICITY,
         Risk.KIDNEY_FAILURE,
         Risk.RENAL_IMPAIRMENT,
-        Risk.THERAPEUTIC_FAILURE
-    )
+        Risk.THERAPEUTIC_FAILURE,
+    ),
 )
 val CreatininaBaixa = MedicalCondition(
     name = "Creatinina Sérica Baixa",
@@ -441,14 +441,14 @@ val CreatininaBaixa = MedicalCondition(
     commonMeds = listOf(
         "colecalciferol",
         "suplementos_proteicos",
-        "carbonato_calcio"
+        "carbonato_calcio",
     ),
     commonRisks = listOf(
         Risk.MUSCLE_WASTING,
         Risk.REDUCED_MOBILITY,
         Risk.LOSS_OF_BALANCE,
-        Risk.MALNUTRITION
-    )
+        Risk.MALNUTRITION,
+    ),
 )
 
 val TGOAlta = MedicalCondition(
@@ -458,13 +458,13 @@ val TGOAlta = MedicalCondition(
         "paracetamol",
         "atorvastatina",
         "cetoconazol",
-        "fluconazol"
+        "fluconazol",
     ),
     commonRisks = listOf(
         Risk.HEPATOTOXICITY,
         Risk.THERAPEUTIC_FAILURE,
-        Risk.GENERAL_GASTROINTESTINAL
-    )
+        Risk.GENERAL_GASTROINTESTINAL,
+    ),
 )
 
 val TGOBaixa = MedicalCondition(
@@ -473,14 +473,14 @@ val TGOBaixa = MedicalCondition(
     commonMeds = listOf(
         "suplementos_proteicos",
         "colecalciferol",
-        "carbonato_calcio"
+        "carbonato_calcio",
     ),
     commonRisks = listOf(
         Risk.MUSCLE_WASTING,
         Risk.REDUCED_MOBILITY,
         Risk.LOSS_OF_BALANCE,
-        Risk.MALNUTRITION
-    )
+        Risk.MALNUTRITION,
+    ),
 )
 val TGPAlta = MedicalCondition(
     name = "TGP Elevada",
@@ -489,13 +489,13 @@ val TGPAlta = MedicalCondition(
         "paracetamol",
         "atorvastatina",
         "cetoconazol",
-        "fluconazol"
+        "fluconazol",
     ),
     commonRisks = listOf(
         Risk.HEPATOTOXICITY,
         Risk.THERAPEUTIC_FAILURE,
-        Risk.GENERAL_GASTROINTESTINAL
-    )
+        Risk.GENERAL_GASTROINTESTINAL,
+    ),
 )
 val TGPBaixa = MedicalCondition(
     name = "TGP Baixa",
@@ -503,12 +503,25 @@ val TGPBaixa = MedicalCondition(
     commonMeds = listOf(
         "suplementos_proteicos",
         "colecalciferol",
-        "carbonato_calcio"
+        "carbonato_calcio",
     ),
     commonRisks = listOf(
         Risk.MUSCLE_WASTING,
         Risk.REDUCED_MOBILITY,
         Risk.LOSS_OF_BALANCE,
-        Risk.MALNUTRITION
-    )
+        Risk.MALNUTRITION,
+    ),
+)
+
+val Polifarmacia = MedicalCondition(
+    name = "Polifarmácia",
+    description = "Uso concomitante de 5 ou mais medicamentos diários. Esta condição triplica o risco de reações adversas, quedas e interações medicamentosas deletérias na odontologia, além de mascarar sintomas clínicos importantes.",
+    commonMeds = listOf(),
+    commonRisks = listOf(
+        Risk.THERAPEUTIC_FAILURE,
+        Risk.LOSS_OF_BALANCE,
+        Risk.CNS_DEPRESSION,
+        Risk.GASTROINTESTINAL_BLEEDING,
+        Risk.XEROSTOMIA_HYPOSALIVATION,
+    ),
 )

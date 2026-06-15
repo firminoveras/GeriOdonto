@@ -191,5 +191,10 @@ fun rememberPatientState(): PatientState {
             }
         }
     }
+
+    LaunchedEffect(state.medList.size) {
+        if (state.medList.size >= 5) state.add(Polifarmacia) else state.remove(Polifarmacia)
+    }
+
     return state
 }

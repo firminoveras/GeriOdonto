@@ -571,7 +571,7 @@ fun ExamMenu(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    BadgedBox(badge = { if (size > 0 && !current) Badge { Text("$size") } }) {
+                    BadgedBox(badge = { if (size > 0) Badge { Text("$size") } }) {
                         MaterialSymbol(
                             iconName = page.symbolName,
                             filled = page.ordinal == currentPage,
