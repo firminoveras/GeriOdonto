@@ -36,11 +36,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
+import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.data.medicalConditionsList
 import com.firmino.geriodonto.ui.widgets.ExamSearchBar
-import com.firmino.geriodonto.ui.widgets.HighlightedText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -89,11 +89,11 @@ fun ExamPageDiaseses(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                             ),
                             headlineContent = {
-                                HighlightedText(result.first, query)
+                                Text(highlightedText(result.first, query))
                             },
                             supportingContent = {
                                 if (result.second.isNotBlank()) {
-                                    HighlightedText(result.second, query)
+                                    Text(highlightedText(result.second, query))
                                 }
                             },
                         )

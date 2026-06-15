@@ -36,7 +36,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.Hyphens
@@ -45,23 +44,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
+import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.ui.widgets.ExamSearchBar
-import com.firmino.geriodonto.ui.widgets.HighlightedText
 import com.firmino.geriodonto.viewmodel.MedViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExamPageMeds(
+    medList: List<Med>,
     medicalConditionList: List<MedicalCondition>,
     viewModel: MedViewModel,
     onSearchStateChange: (Boolean) -> Unit,
     onAdd: (Med) -> Unit,
     onRemove: (Med) -> Unit,
-    medList: SnapshotStateList<Med>,
 ) {
     val meds by viewModel.medsList.collectAsState()
 
@@ -100,11 +99,11 @@ fun ExamPageMeds(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                             ),
                             headlineContent = {
-                                HighlightedText(result.med.name, query)
+                                Text(highlightedText(result.med.name, query))
                             },
                             supportingContent = {
                                 if (result.med.description.isNotBlank()) {
-                                    HighlightedText(result.med.description, query)
+                                    Text(highlightedText(result.med.description, query))
                                 }
                             },
                         )

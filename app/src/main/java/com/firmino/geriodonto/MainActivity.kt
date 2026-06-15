@@ -30,7 +30,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
@@ -72,9 +71,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.firmino.geriodonto.companions.MaterialSymbol
+import com.firmino.geriodonto.companions.PocketAlert
+import com.firmino.geriodonto.companions.PocketAlertManager
 import com.firmino.geriodonto.companions.rememberAppVersion
 import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.data.PatientState
+import com.firmino.geriodonto.data.PatientStateChangeType
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.data.rememberPatientState
 import com.firmino.geriodonto.ui.pages.ExamPageDiaseses
@@ -96,6 +98,7 @@ enum class ExamPages(val text: String, val symbolName: String) {
     PAGE_CONDITIONS("Condições", "medical_information"),
     PAGE_MEDS("Medicamentos", "admin_meds"),
 }
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -121,6 +124,23 @@ fun Content(
         initialValue = SheetValue.Hidden,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
     )
+
+    patient.onConditionChanged = { condition, type ->
+        PocketAlertManager.show(
+            message = "Condição ${condition.name} ${if (type == PatientStateChangeType.ADD) "adicionada" else "removida"}.",
+            highlight = condition.name,
+            iconName = if (type == PatientStateChangeType.ADD) "add_circle" else "remove_circle",
+        )
+    }
+
+    patient.onMedChanged = { med, type ->
+        PocketAlertManager.show(
+            message = "Medicamento ${med.name} ${if (type == PatientStateChangeType.ADD) "adicionado" else "removido"}.",
+            highlight = med.name,
+            iconName = if (type == PatientStateChangeType.ADD) "add_circle" else "remove_circle",
+        )
+    }
+
     Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
             Menu(
@@ -309,10 +329,9 @@ fun Menu(
             }
 
             SeedingState.Loading -> {
-                PocketAlert(
-                    modifier = Modifier.align(Alignment.BottomCenter),
-                    alertText = "Atualizando medicamentos...",
-                    symbolName = "warning",
+                PocketAlertManager.show(
+                    message = "Atualizando medicamentos...",
+                    iconName = "warning",
                     isLoading = true,
                 )
             }
@@ -335,49 +354,23 @@ fun Menu(
                                 patient.clear()
                                 onAddClick()
                             },
-                            content = {
-                                MaterialSymbol(iconName = "add")
-                            },
+                            content = { MaterialSymbol(iconName = "add") },
                         )
                     }
                 }
             }
 
             is SeedingState.Error -> {
-                PocketAlert(
-                    modifier = Modifier.align(Alignment.BottomCenter),
-                    alertText = "Erro ao atualizar database.",
-                    symbolName = "erro",
+                PocketAlertManager.show(
+                    message = "Erro ao atualizar database.",
+                    iconName = "erro",
                 )
             }
         }
-
+        PocketAlert()
     }
 }
 
-@Composable
-fun PocketAlert(
-    modifier: Modifier = Modifier,
-    alertText: String = "",
-    symbolName: String = "alert",
-    isLoading: Boolean = false,
-) {
-    Surface(
-        modifier = modifier.padding(vertical = 24.dp),
-        shape = MaterialTheme.shapes.extraLarge,
-        color = MaterialTheme.colorScheme.surfaceContainerHighest,
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            if (isLoading) CircularProgressIndicator(modifier = Modifier.size(24.dp))
-            else MaterialSymbol(iconName = symbolName)
-            Text(text = alertText, style = MaterialTheme.typography.titleSmall)
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -441,108 +434,111 @@ fun Exam(
         )
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } },
-    ) {
-        AnimatedVisibility(showTopBar) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(12.dp),
+    Box {
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } },
+        ) {
+            AnimatedVisibility(showTopBar) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Column(
+                    Box(
                         Modifier
                             .fillMaxWidth()
-                            .align(Alignment.CenterStart),
+                            .padding(12.dp),
                     ) {
-                        Text(
-                            text = "Nova prescrição",
-                            style = MaterialTheme.typography.titleLarge,
-                        )
-                        if (patient.name.text.isNotEmpty()) {
+                        Column(
+                            Modifier
+                                .fillMaxWidth()
+                                .align(Alignment.CenterStart),
+                        ) {
                             Text(
-                                text = patient.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
-                                style = MaterialTheme.typography.labelSmall,
-                                maxLines = 1,
+                                text = "Nova prescrição",
+                                style = MaterialTheme.typography.titleLarge,
+                            )
+                            if (patient.name.text.isNotEmpty()) {
+                                Text(
+                                    text = patient.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    maxLines = 1,
+                                )
+                            }
+
+                        }
+                        Row(Modifier.align(Alignment.CenterEnd)) {
+                            IconButton(
+                                onClick = { showMenuBar = !showMenuBar },
+                                content = { MaterialSymbol(iconName = "page_menu_ios", filled = showMenuBar) },
+                            )
+                            IconButton(
+                                onClick = { patient.clear() },
+                                content = { MaterialSymbol(iconName = "delete_forever", filled = patient.isNotEmpty()) },
                             )
                         }
-
                     }
-                    Row(Modifier.align(Alignment.CenterEnd)) {
-                        IconButton(
-                            onClick = { showMenuBar = !showMenuBar },
-                            content = { MaterialSymbol(iconName = "page_menu_ios", filled = showMenuBar) },
-                        )
-                        IconButton(
-                            onClick = { patient.clear() },
-                            content = { MaterialSymbol(iconName = "delete_forever", filled = patient.isNotEmpty()) },
+                    HorizontalDivider()
+                    AnimatedVisibility(visible = showMenuBar) {
+                        ExamMenu(
+                            currentPage = pagerState.currentPage,
+                            patient = patient,
+                            onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
                         )
                     }
                 }
-                HorizontalDivider()
-                AnimatedVisibility(visible = showMenuBar) {
-                    ExamMenu(
-                        currentPage = pagerState.currentPage,
-                        patient = patient,
-                        onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
-                    )
+            }
+            Spacer(Modifier.height(8.dp))
+            HorizontalPager(state = pagerState, userScrollEnabled = false) { index ->
+                when (index) {
+                    ExamPages.PAGE_PERSONAL.ordinal -> {
+                        ExamPagePersonal(
+                            name = patient.name,
+                            genre = patient.genre,
+                            age = patient.age,
+                            weight = patient.weight,
+                            height = patient.height,
+                        )
+                    }
+
+                    ExamPages.PAGE_EXAMS.ordinal -> {
+                        ExamPageExams(
+                            genre = patient.genre,
+                            renalFunction = patient.renalFunction,
+                            hepaticTgo = patient.hepaticTgo,
+                            hepaticTgp = patient.hepaticTgp,
+                            hasFragile = patient.hasFragile,
+                            hasFallHistory = patient.hasFallHistory,
+                            onHasFragileChange = { patient.hasFragile = it },
+                            onHasFallHistoryChange = { patient.hasFallHistory = it },
+                        )
+                    }
+
+                    ExamPages.PAGE_CONDITIONS.ordinal -> {
+                        ExamPageDiaseses(
+                            medicalConditionList = patient.conditionsList.toList(),
+                            onSearchStateChange = { showTopBar = it },
+                            onAdd = { if (!patient.contains(it)) patient.add(it) },
+                            onRemove = { deleteDiasese = it },
+                        )
+                    }
+
+                    ExamPages.PAGE_MEDS.ordinal -> {
+                        ExamPageMeds(
+                            medicalConditionList = patient.conditionsList.toList(),
+                            viewModel = viewModel,
+                            medList = patient.medList.toList(),
+                            onSearchStateChange = { showTopBar = it },
+                            onAdd = { if (!patient.contains(it)) patient.add(it) },
+                            onRemove = { deleteMed = it },
+                        )
+                    }
                 }
             }
         }
-        Spacer(Modifier.height(8.dp))
-        HorizontalPager(state = pagerState, userScrollEnabled = false) { index ->
-            when (index) {
-                ExamPages.PAGE_PERSONAL.ordinal -> {
-                    ExamPagePersonal(
-                        name = patient.name,
-                        genre = patient.genre,
-                        age = patient.age,
-                        weight = patient.weight,
-                        height = patient.height,
-                    )
-                }
-
-                ExamPages.PAGE_EXAMS.ordinal -> {
-                    ExamPageExams(
-                        genre = patient.genre,
-                        renalFunction = patient.renalFunction,
-                        hepaticTgo = patient.hepaticTgo,
-                        hepaticTgp = patient.hepaticTgp,
-                        hasFragile = patient.hasFragile,
-                        hasFallHistory = patient.hasFallHistory,
-                        onHasFragileChange = { patient.hasFragile = it },
-                        onHasFallHistoryChange = { patient.hasFallHistory = it },
-                    )
-                }
-
-                ExamPages.PAGE_CONDITIONS.ordinal -> {
-                    ExamPageDiaseses(
-                        medicalConditionList = patient.conditionsList,
-                        onSearchStateChange = { showTopBar = it },
-                        onAdd = { if (!patient.contains(it)) patient.add(it) },
-                        onRemove = { deleteDiasese = it },
-                    )
-                }
-
-                ExamPages.PAGE_MEDS.ordinal -> {
-                    ExamPageMeds(
-                        medicalConditionList = patient.conditionsList,
-                        viewModel = viewModel,
-                        medList = patient.medList,
-                        onSearchStateChange = { showTopBar = it },
-                        onAdd = { if (!patient.contains(it)) patient.add(it) },
-                        onRemove = { deleteMed = it },
-                    )
-                }
-            }
-        }
+        PocketAlert()
     }
-
 }
 
 

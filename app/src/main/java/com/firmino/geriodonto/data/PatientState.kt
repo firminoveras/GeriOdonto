@@ -5,11 +5,16 @@ import androidx.compose.material3.SliderState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateSetOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.firmino.geriodonto.data.database.Med
+
+enum class PatientStateChangeType {
+    ADD,
+    REMOVE
+}
 
 class PatientState {
     val name = TextFieldState("")
@@ -22,8 +27,11 @@ class PatientState {
     val hepaticTgp = SliderState(value = 0f, valueRange = 0f..100f)
     var hasFallHistory by mutableStateOf(false)
     var hasFragile by mutableStateOf(false)
-    val conditionsList = mutableStateListOf<MedicalCondition>()
-    val medList = mutableStateListOf<Med>()
+    val conditionsList = mutableStateSetOf<MedicalCondition>()
+    val medList = mutableStateSetOf<Med>()
+
+    var onConditionChanged: (MedicalCondition, PatientStateChangeType) -> Unit = { _, _ -> }
+    var onMedChanged: (Med, PatientStateChangeType) -> Unit = { _, _ -> }
 
     fun clear() {
         name.edit { replace(0, name.text.length, "") }
@@ -55,18 +63,29 @@ class PatientState {
 
     fun isNotEmpty() = !isEmpty()
 
-    fun add(med: Med) = this.medList.add(med)
+    fun add(med: Med) {
+        if (this.medList.add(med))
+            onMedChanged(med, PatientStateChangeType.ADD)
+    }
 
-    fun remove(med: Med) = this.medList.remove(med)
+    fun remove(med: Med) {
+        if (this.medList.remove(med))
+            onMedChanged(med, PatientStateChangeType.REMOVE)
+    }
 
     fun contains(med: Med) = this.medList.contains(med)
 
-    fun add(condition: MedicalCondition) = this.conditionsList.add(condition)
+    fun add(condition: MedicalCondition) {
+        if (this.conditionsList.add(condition))
+            onConditionChanged(condition, PatientStateChangeType.ADD)
+    }
 
-    fun remove(condition: MedicalCondition) = this.conditionsList.remove(condition)
+    fun remove(condition: MedicalCondition) {
+        if (this.conditionsList.remove(condition))
+            onConditionChanged(condition, PatientStateChangeType.REMOVE)
+    }
 
     fun contains(condition: MedicalCondition) = this.conditionsList.contains(condition)
-
 }
 
 @Composable
@@ -74,62 +93,101 @@ fun rememberPatientState(): PatientState {
     val state = remember { PatientState() }
 
     LaunchedEffect(state.hasFragile) {
-        state.remove(Fragilidade)
-        if (state.hasFragile) state.add(Fragilidade)
+        if (state.hasFragile) state.add(Fragilidade) else state.remove(Fragilidade)
     }
 
     LaunchedEffect(state.hasFallHistory) {
-        state.remove(HistoricoQuedas)
-        if (state.hasFallHistory) state.add(HistoricoQuedas)
+        if (state.hasFallHistory) state.add(HistoricoQuedas) else state.remove(HistoricoQuedas)
     }
+
     LaunchedEffect(state.age.value) {
-        state.remove(IdadeAvancada)
-        if (state.age.value >= 80) state.add(IdadeAvancada)
+        if (state.age.value >= 80) state.add(IdadeAvancada) else state.remove(IdadeAvancada)
     }
+
     LaunchedEffect(state.weight.value, state.height.value) {
-        state.remove(Sobrepeso)
-        state.remove(BaixoPeso)
         if (state.height.value > state.height.valueRange.start && state.weight.value > state.weight.valueRange.start) {
             val imc = state.weight.value / (state.height.value * state.height.value)
             when {
-                imc < 22.0 -> state.conditionsList.add(BaixoPeso)
-                imc >= 27.0 -> state.conditionsList.add(Sobrepeso)
+                imc < 22.0 -> {
+                    state.remove(Sobrepeso)
+                    state.add(BaixoPeso)
+                }
+
+                imc >= 27.0 -> {
+                    state.remove(BaixoPeso)
+                    state.add(Sobrepeso)
+                }
+
+                else -> {
+                    state.remove(Sobrepeso)
+                    state.remove(BaixoPeso)
+                }
             }
         }
     }
 
     LaunchedEffect(state.renalFunction.value, state.genre.text) {
-        state.remove(CreatininaAlta)
-        state.remove(CreatininaBaixa)
         if (state.renalFunction.value > 0) {
             val isFeminino = state.genre.text.toString() == "Feminino"
             val limiteBaixo = if (isFeminino) 0.6f else 0.7f
             val limiteAlto = if (isFeminino) 1.1f else 1.3f
             when {
-                state.renalFunction.value < limiteBaixo -> state.conditionsList.add(CreatininaBaixa)
-                state.renalFunction.value >= limiteAlto -> state.conditionsList.add(CreatininaAlta)
+                state.renalFunction.value < limiteBaixo -> {
+                    state.remove(CreatininaAlta)
+                    state.add(CreatininaBaixa)
+                }
+
+                state.renalFunction.value >= limiteAlto -> {
+                    state.remove(CreatininaBaixa)
+                    state.add(CreatininaAlta)
+                }
+
+                else -> {
+                    state.remove(CreatininaAlta)
+                    state.remove(CreatininaBaixa)
+                }
             }
         }
     }
 
     LaunchedEffect(state.hepaticTgo.value) {
-        state.remove(TGOAlta)
-        state.remove(TGOBaixa)
         if (state.hepaticTgo.value > 0) {
             when {
-                state.hepaticTgo.value < 10 -> state.conditionsList.add(TGOBaixa)
-                state.hepaticTgo.value >= 40 -> state.conditionsList.add(TGOAlta)
+                state.hepaticTgo.value < 10 -> {
+                    state.remove(TGOAlta)
+                    state.add(TGOBaixa)
+                }
+
+                state.hepaticTgo.value >= 40 -> {
+                    state.remove(TGOBaixa)
+                    state.add(TGOAlta)
+                }
+
+                else -> {
+                    state.remove(TGOAlta)
+                    state.remove(TGOBaixa)
+                }
             }
         }
     }
 
     LaunchedEffect(state.hepaticTgp.value) {
-        state.remove(TGPAlta)
-        state.remove(TGPBaixa)
         if (state.hepaticTgp.value > 0) {
             when {
-                state.hepaticTgp.value < 8 -> state.conditionsList.add(TGPBaixa)
-                state.hepaticTgp.value >= 56 -> state.conditionsList.add(TGPAlta)
+                state.hepaticTgp.value < 8 -> {
+                    state.remove(TGPAlta)
+                    state.add(TGPBaixa)
+                }
+
+                state.hepaticTgp.value >= 56 -> {
+                    state.remove(TGPBaixa)
+                    state.add(TGPAlta)
+                }
+
+                else -> {
+                    state.remove(TGPAlta)
+                    state.remove(TGPBaixa)
+                }
             }
         }
     }

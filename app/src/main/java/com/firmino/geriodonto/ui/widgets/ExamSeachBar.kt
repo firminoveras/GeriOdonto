@@ -10,7 +10,6 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
@@ -22,10 +21,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import com.firmino.geriodonto.companions.MaterialSymbol
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -79,27 +74,4 @@ fun ExamSearchBar(
             },
         )
     }
-}
-
-@Composable
-fun HighlightedText(
-    fullText: String,
-    target: String,
-) {
-    val annotatedString = buildAnnotatedString {
-        var startIndex = 0
-        while (startIndex < fullText.length) {
-            val index = fullText.indexOf(target, startIndex, ignoreCase = true)
-            if (index == -1) {
-                append(fullText.substring(startIndex))
-                break
-            }
-            append(fullText.substring(startIndex, index))
-            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)) {
-                append(fullText.substring(index, index + target.length))
-            }
-            startIndex = index + target.length
-        }
-    }
-    Text(text = annotatedString)
 }
