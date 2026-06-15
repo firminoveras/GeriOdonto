@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateSetOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateSet
 import com.firmino.geriodonto.data.database.Med
 
 enum class PatientStateChangeType {
@@ -34,6 +35,9 @@ class PatientState {
     val prescriptionList = mutableStateSetOf<Med>()
     val interactions: State<List<InteractionAlert>> = derivedStateOf {
         verifyInteractions(medList, prescriptionList)
+    }
+    val risks: State<List<RiskAlert>> = derivedStateOf {
+        verifyRisks(medList, prescriptionList, conditionsList, interactions)
     }
 
     var onConditionChanged: (MedicalCondition, PatientStateChangeType) -> Unit = { _, _ -> }
@@ -73,7 +77,7 @@ class PatientState {
     fun isNotEmpty() = !isEmpty()
 
     fun add(med: Med) {
-        if (this.medList.add(med))
+        if (!medList.map { it.id }.contains(med.id) && this.medList.add(med))
             onMedChanged(med, PatientStateChangeType.ADD)
     }
 
@@ -83,7 +87,7 @@ class PatientState {
     }
 
     fun add(condition: MedicalCondition) {
-        if (this.conditionsList.add(condition))
+        if (!conditionsList.map { it.name }.contains(condition.name) && this.conditionsList.add(condition))
             onConditionChanged(condition, PatientStateChangeType.ADD)
     }
 
@@ -93,7 +97,7 @@ class PatientState {
     }
 
     fun prescribe(med: Med) {
-        if (this.prescriptionList.add(med))
+        if (!prescriptionList.map { it.id }.contains(med.id) && this.prescriptionList.add(med))
             onPrescriptionChanged(med, PatientStateChangeType.ADD)
     }
 
@@ -219,12 +223,12 @@ data class InteractionAlert(
     val medInteracted: Med,
     val risk: Risk,
     val description: String,
-    val alertLevel: InteractionAlertLevel
+    val alertLevel: InteractionAlertLevel,
 )
 
 fun verifyInteractions(
     usoContinuo: Set<Med>,
-    prescricao: Set<Med>
+    prescricao: Set<Med>,
 ): List<InteractionAlert> {
     val todosMedicamentos = usoContinuo + prescricao
 
@@ -250,12 +254,83 @@ fun verifyInteractions(
                             risk = interacao.risk,
                             description = interacao.description,
                             alertLevel = interacao.alertLevel,
-                        )
+                        ),
                     )
                 }
             }
         }
     }
 
-    return alertas.sortedByDescending { it.alertLevel }
+    return alertas.sortedBy { it.alertLevel }
+}
+
+enum class RiskAlertType(val iconName: String, val text: String){
+    MED("medication", "Medicamento"),
+    PRESCRIPTION("outpatient_med", "Prescrição"),
+    CONDITION("medical_information", "Condição"),
+    INTERACTION("brightness_alert", "Interação")
+}
+
+data class RiskAlert(
+    val risk: Risk,
+    val type: RiskAlertType,
+    val description: String,
+)
+
+fun verifyRisks(
+    medList: SnapshotStateSet<Med>,
+    prescriptionList: SnapshotStateSet<Med>,
+    conditions: SnapshotStateSet<MedicalCondition>,
+    interactions: State<List<InteractionAlert>>,
+): List<RiskAlert> {
+    val risks = mutableListOf<RiskAlert>()
+
+    medList.map { it.risks to it.name }.forEach { map ->
+        map.first.forEach {
+            risks.add(
+                RiskAlert(
+                    risk = it,
+                    type = RiskAlertType.MED,
+                    description = map.second,
+                ),
+            )
+        }
+    }
+
+    prescriptionList.map { it.risks to it.name }.forEach { map ->
+        map.first.forEach {
+            risks.add(
+                RiskAlert(
+                    risk = it,
+                    type = RiskAlertType.PRESCRIPTION,
+                    description = map.second,
+                ),
+            )
+        }
+    }
+
+    conditions.map { it.commonRisks to it.name }.forEach { map ->
+        map.first.forEach {
+            risks.add(
+                RiskAlert(
+                    risk = it,
+                    type = RiskAlertType.CONDITION,
+                    description = map.second,
+                ),
+            )
+        }
+    }
+
+
+    interactions.value.map { it.risk to it.medBase.name + " e " + it.medInteracted.name }.forEach { map ->
+        risks.add(
+            RiskAlert(
+                risk = map.first,
+                type = RiskAlertType.INTERACTION,
+                description = map.second,
+            ),
+        )
+    }
+
+    return risks.sortedByDescending { it.risk.name }
 }

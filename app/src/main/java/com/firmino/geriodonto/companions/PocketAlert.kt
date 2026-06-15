@@ -83,7 +83,7 @@ fun BoxScope.PocketAlert(
     AnimatedVisibility(
         modifier = modifier
             .align(Alignment.BottomCenter)
-            .padding(12.dp),
+            .padding(bottom = 92.dp),
         visible = alertConfig != null,
         enter = fadeIn(),
         exit = fadeOut(),
@@ -94,6 +94,7 @@ fun BoxScope.PocketAlert(
                 shape = MaterialTheme.shapes.extraLarge,
                 color = MaterialTheme.colorScheme.surfaceContainerHighest,
                 tonalElevation = 6.dp,
+                shadowElevation = 6.dp,
             ) {
                 Row(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
@@ -102,7 +103,11 @@ fun BoxScope.PocketAlert(
                 ) {
                     if (config.isLoading) CircularProgressIndicator(modifier = Modifier.size(24.dp))
                     else MaterialSymbol(iconName = config.iconName)
-                    Text(text = highlightedText(config.message, config.highlight), style = MaterialTheme.typography.titleSmall)
+                    if (config.highlight.isNotEmpty()) {
+                        Text(text = highlightedText(config.message, config.highlight), style = MaterialTheme.typography.titleSmall)
+                    } else {
+                        Text(text = config.message, style = MaterialTheme.typography.titleSmall)
+                    }
                 }
             }
         }

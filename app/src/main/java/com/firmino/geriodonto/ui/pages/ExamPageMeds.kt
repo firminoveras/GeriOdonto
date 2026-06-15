@@ -110,13 +110,8 @@ fun ExamPageMeds(
                         }
                     }
                 } else if (patient.conditionsList.map { it.commonMeds to it.name }.isNotEmpty()) {
-                    Text(
-                        modifier = Modifier.padding(12.dp),
-                        text = "Sugestões personalizadas",
-                        style = MaterialTheme.typography.titleMedium,
-                    )
                     val scope = rememberCoroutineScope()
-                    patient.conditionsList.map { it.commonMeds to it.name }.forEach { result ->
+                    patient.conditionsList.map { it.commonMeds to it.name }.filter { it.first.isNotEmpty() }.forEach { result ->
                         Text(
                             modifier = Modifier.padding(start = 12.dp, top = 8.dp),
                             text = result.second,

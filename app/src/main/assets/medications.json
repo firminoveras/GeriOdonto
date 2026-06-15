@@ -25,7 +25,7 @@
       {
         "interactingMedId": "fenitoina",
         "risk": "HEPATOTOXICITY",
-        "description": "Aumenta la formação de metabólitos tóxicos (NAPQI) do paracetamol. Conduta: evitar doses elevadas e limitar a duração do tratamento.",
+        "description": "Aumenta a formação de metabólitos tóxicos (NAPQI) do paracetamol. Conduta: evitar doses elevadas e limitar a duração do tratamento.",
         "alertLevel": "HIGH"
       },
       {

@@ -2,10 +2,10 @@ package com.firmino.geriodonto.data
 
 import androidx.compose.ui.graphics.Color
 
-enum class InteractionAlertLevel(symbolName: String, color: Color){
-    HIGH("brightness_alert", Color(0xFFEF5350)),
-    NORMAL("warning", Color(0xFFFFCA28)),
-    LOW("error", Color(0xFF26C6DA)),
+enum class InteractionAlertLevel(val symbolName: String, val color: Color, val text: String) {
+    HIGH(symbolName = "brightness_alert", color = Color(0xFFEF5350), text = "Alto"),
+    NORMAL(symbolName = "warning", color = Color(0xFFFFCA28), text = "Normal"),
+    LOW(symbolName = "error", color = Color(0xFF26C6DA), text = "Baixo"),
 }
 
 enum class RiskCategory(val description: String, val symbolName: String = "") {
