@@ -82,6 +82,7 @@ fun ExamPageMeds(
 
         ExamSearchBar(
             onSearchStateChange = onSearchStateChange,
+            placeholderText = "Adicionar medicamento...",
             content = { query, onDone ->
                 viewModel.onSearchQueryChanged(query)
                 if (query.isNotBlank()) {

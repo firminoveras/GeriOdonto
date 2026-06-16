@@ -25,6 +25,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,15 +64,21 @@ fun ExamSheet(
     viewModel: MedViewModel,
     patient: PatientState,
     onInteractionButtonClick: () -> Unit,
+    onShowTopBarChange: (Boolean) -> Unit,
 ) {
     val pagerState = rememberPagerState { ExamPages.entries.size }
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
     var showTopBar by remember { mutableStateOf(true) }
     var showMenuBar by remember { mutableStateOf(true) }
+    var showAlerts by remember { mutableStateOf(false) }
     var deleteDiasese by remember { mutableStateOf<MedicalCondition?>(null) }
     var deleteMed by remember { mutableStateOf<Med?>(null) }
     var deletePrescription by remember { mutableStateOf<Med?>(null) }
+
+    LaunchedEffect(showTopBar) {
+        onShowTopBarChange(showTopBar)
+    }
 
     if (deleteDiasese != null) {
         AlertDialog(
@@ -184,6 +191,10 @@ fun ExamSheet(
                                 content = { MaterialSymbol(iconName = "page_menu_ios", filled = showMenuBar) },
                             )
                             IconButton(
+                                onClick = { showAlerts = !showAlerts },
+                                content = { MaterialSymbol(iconName = if (showAlerts) "notifications_active" else "notifications_off", filled = showAlerts) },
+                            )
+                            IconButton(
                                 onClick = { patient.clear() },
                                 content = { MaterialSymbol(iconName = "delete_forever", filled = patient.isNotEmpty()) },
                             )
@@ -219,7 +230,7 @@ fun ExamSheet(
                     ExamPages.PAGE_CONDITIONS.ordinal -> {
                         ExamPageDiaseses(
                             patient = patient,
-                            onSearchStateChange = { showTopBar = it },
+                            onSearchStateChange = { showTopBar = !it },
                             onAdd = { patient.add(it) },
                             onRemove = { deleteDiasese = it },
                         )
@@ -229,7 +240,7 @@ fun ExamSheet(
                         ExamPageMeds(
                             viewModel = viewModel,
                             patient = patient,
-                            onSearchStateChange = { showTopBar = it },
+                            onSearchStateChange = { showTopBar = !it },
                             onAdd = { patient.add(it) },
                             onRemove = { deleteMed = it },
                         )
@@ -239,7 +250,7 @@ fun ExamSheet(
                         ExamPagePrescription(
                             viewModel = viewModel,
                             patient = patient,
-                            onSearchStateChange = { showTopBar = it },
+                            onSearchStateChange = { showTopBar = !it },
                             onAdd = { patient.prescribe(it) },
                             onRemove = { deletePrescription = it },
                         )
@@ -266,7 +277,7 @@ fun ExamSheet(
 
             },
         )
-        PocketAlert()
+        if (showAlerts) PocketAlert()
     }
 }
 

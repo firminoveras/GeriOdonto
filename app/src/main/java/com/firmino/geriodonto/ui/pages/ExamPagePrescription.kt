@@ -71,7 +71,7 @@ fun ExamPagePrescription(
 
         ExamSearchBar(
             onSearchStateChange = onSearchStateChange,
-            placeholderText = "Prescrever...",
+            placeholderText = "Prescrever medicamento...",
             content = { query, onDone ->
                 viewModel.onSearchQueryChanged(query)
                 if (query.isNotBlank()) {

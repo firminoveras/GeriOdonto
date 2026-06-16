@@ -11,7 +11,6 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -30,38 +29,42 @@ fun ExamSearchBar(
 ) {
     val textFieldState = rememberTextFieldState()
     var expanded by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(expanded) { onSearchStateChange(!expanded) }
+    val updateExpansion = { isExpanded: Boolean ->
+        expanded = isExpanded
+        onSearchStateChange(isExpanded)
+    }
 
     fun done() {
         textFieldState.clearText()
-        expanded = false
+        updateExpansion(false)
     }
 
     Box(modifier.fillMaxSize()) {
         SearchBar(
             modifier = Modifier.align(TopCenter),
             expanded = expanded,
-            onExpandedChange = { expanded = it },
+            onExpandedChange = updateExpansion,
             inputField = {
                 SearchBarDefaults.InputField(
                     query = textFieldState.text.toString(),
                     onQueryChange = { textFieldState.edit { replace(0, length, it) } },
-                    onSearch = { expanded = false },
+                    onSearch = { updateExpansion(false) },
                     expanded = expanded,
-                    onExpandedChange = { expanded = it },
+                    onExpandedChange = updateExpansion,
                     placeholder = { Text(placeholderText) },
-                    leadingIcon = { MaterialSymbol("search") },
-                    trailingIcon = {
-                        if (textFieldState.text.isNotBlank()) {
-                            IconButton(
-                                onClick = {
-                                    textFieldState.edit { replace(0, length, "") }
-                                    expanded = false
-                                },
-                            ) {
-                                MaterialSymbol("clear")
-                            }
+                    leadingIcon = {
+                        if (expanded) {
+                            IconButton(onClick = ::done) { MaterialSymbol("arrow_back") }
+                        } else {
+                            MaterialSymbol("search")
                         }
+                    },
+                    trailingIcon = {
+                        if (expanded && textFieldState.text.isNotEmpty())
+                            IconButton(
+                                onClick = { textFieldState.clearText() },
+                                content = { MaterialSymbol("clear") },
+                            )
                     },
                 )
             },

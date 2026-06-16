@@ -73,6 +73,7 @@ fun ExamPageDiaseses(
 
         ExamSearchBar(
             onSearchStateChange = onSearchStateChange,
+            placeholderText = "Adicionar condição...",
             content = { query, onDone ->
                 if (query.isNotEmpty()) {
                     val condList = medicalConditionsList.map { it.name to it.description }.filter {

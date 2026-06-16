@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
@@ -127,6 +128,8 @@ fun Content(
         )
     }
 
+    var focusMode by remember {mutableStateOf(false)}
+
     Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
             Menu(
@@ -140,11 +143,13 @@ fun Content(
             ModalBottomSheet(
                 onDismissRequest = { showExamSheet = false },
                 sheetState = sheetExamState,
+                containerColor = if(!focusMode) MaterialTheme.colorScheme.surfaceContainerHigh else BottomSheetDefaults.ContainerColor
             ) {
                 ExamSheet(
                     viewModel = viewModel,
                     patient = patient,
                     onInteractionButtonClick = { showInteractionSheet = true },
+                    onShowTopBarChange = { focusMode = it }
                 )
             }
         }
