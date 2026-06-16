@@ -39,6 +39,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -70,6 +71,7 @@ import com.firmino.geriodonto.ui.theme.fontFamilyPoiret
 import com.firmino.geriodonto.viewmodel.MedViewModel
 import com.firmino.geriodonto.viewmodel.SeedingState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -92,8 +94,10 @@ fun Content(
     patient: PatientState,
     viewModel: MedViewModel = hiltViewModel(),
 ) {
+    val scope = rememberCoroutineScope()
     var showExamSheet by remember { mutableStateOf(false) }
     var showInteractionSheet by remember { mutableStateOf(false) }
+    var focusMode by remember { mutableStateOf(false) }
     val sheetExamState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
@@ -128,7 +132,6 @@ fun Content(
         )
     }
 
-    var focusMode by remember {mutableStateOf(false)}
 
     Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
@@ -143,13 +146,13 @@ fun Content(
             ModalBottomSheet(
                 onDismissRequest = { showExamSheet = false },
                 sheetState = sheetExamState,
-                containerColor = if(!focusMode) MaterialTheme.colorScheme.surfaceContainerHigh else BottomSheetDefaults.ContainerColor
+                containerColor = if (!focusMode) MaterialTheme.colorScheme.surfaceContainerHigh else BottomSheetDefaults.ContainerColor,
             ) {
                 ExamSheet(
                     viewModel = viewModel,
                     patient = patient,
                     onInteractionButtonClick = { showInteractionSheet = true },
-                    onShowTopBarChange = { focusMode = it }
+                    onShowTopBarChange = { focusMode = it },
                 )
             }
         }
@@ -162,7 +165,13 @@ fun Content(
             ) {
                 InteractionSheet(
                     patient = patient,
-                    onClose = { showInteractionSheet = false },
+                    onClose = {
+                        scope.launch { sheetInteractionSheet.hide() }.invokeOnCompletion {
+                            if (!sheetInteractionSheet.isVisible) {
+                                showInteractionSheet = false
+                            }
+                        }
+                    },
                 )
             }
         }
