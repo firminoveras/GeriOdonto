@@ -36,12 +36,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.PocketAlert
 import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.data.database.Med
+import com.firmino.geriodonto.data.database.MedListType
 import com.firmino.geriodonto.ui.pages.ExamPageDiaseses
 import com.firmino.geriodonto.ui.pages.ExamPageExams
 import com.firmino.geriodonto.ui.pages.ExamPageMeds
@@ -50,12 +52,12 @@ import com.firmino.geriodonto.ui.pages.ExamPagePrescription
 import com.firmino.geriodonto.viewmodel.MedViewModel
 import kotlinx.coroutines.launch
 
-enum class ExamPages(val text: String, val symbolName: String) {
-    PAGE_PERSONAL("Pessoal", "account_box"),
-    PAGE_EXAMS("Exames", "labs"),
-    PAGE_CONDITIONS("Condições", "medical_information"),
-    PAGE_MEDS("Medicamentos", "admin_meds"),
-    PAGE_PRESCRIPTION("Prescrição", "outpatient_med"),
+enum class ExamPages(val text: String, val symbolName: String, val description: String) {
+    PAGE_PERSONAL("Pessoal", "account_box", "Informe os dados pessoais do paciente."),
+    PAGE_EXAMS("Exames", "labs", "Informe os valores de inportantes exames clínicos do paciente."),
+    PAGE_CONDITIONS("Condições", "medical_information", "Adicione quais as condições médicas, comorbidades ou doenças crônicas no paciente."),
+    PAGE_MEDS("Medicamentos", "admin_meds", "Adicione os medicamentos de uso contínuo que o paciente já faz uso."),
+    PAGE_PRESCRIPTION("Prescrição", "outpatient_med", "Adicione medicamentos a serem prescritos ao paciente."),
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -138,7 +140,7 @@ fun ExamSheet(
                 TextButton(
                     content = { Text("Confirmar") },
                     onClick = {
-                        patient.unprescribe(deletePrescription!!)
+                        patient.remove(deletePrescription!!)
                         deletePrescription = null
                     },
                 )
@@ -187,12 +189,12 @@ fun ExamSheet(
                         }
                         Row(Modifier.align(Alignment.CenterEnd)) {
                             IconButton(
-                                onClick = { showMenuBar = !showMenuBar },
-                                content = { MaterialSymbol(iconName = "page_menu_ios", filled = showMenuBar) },
-                            )
-                            IconButton(
                                 onClick = { showAlerts = !showAlerts },
                                 content = { MaterialSymbol(iconName = if (showAlerts) "notifications_active" else "notifications_off", filled = showAlerts) },
+                            )
+                            IconButton(
+                                onClick = { showMenuBar = !showMenuBar },
+                                content = { MaterialSymbol(iconName = "page_menu_ios", filled = showMenuBar) },
                             )
                             IconButton(
                                 onClick = { patient.clear() },
@@ -251,7 +253,7 @@ fun ExamSheet(
                             viewModel = viewModel,
                             patient = patient,
                             onSearchStateChange = { showTopBar = !it },
-                            onAdd = { patient.prescribe(it) },
+                            onAdd = { patient.add(it) },
                             onRemove = { deletePrescription = it },
                         )
                     }
@@ -288,45 +290,62 @@ fun ExamMenu(
     patient: PatientState,
     onChange: (Int) -> Unit,
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
-        verticalAlignment = Alignment.CenterVertically,
+    var expanded by remember { mutableStateOf(false) }
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        ExamPages.entries.forEach { page ->
-            val current = page.ordinal == currentPage
-            val color = if (current) MaterialTheme.colorScheme.primary else Color.Transparent
-            val size = when (page) {
-                ExamPages.PAGE_CONDITIONS -> patient.conditionsList.size
-                ExamPages.PAGE_MEDS -> patient.medList.size
-                ExamPages.PAGE_PRESCRIPTION -> patient.prescriptionList.size
-                else -> 0
-            }
-            Surface(
-                shape = MaterialTheme.shapes.extraLarge,
-                color = color,
-                onClick = { onChange(page.ordinal) },
-            ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            ExamPages.entries.forEach { page ->
+                val current = page.ordinal == currentPage
+                val color = if (current) MaterialTheme.colorScheme.primary else Color.Transparent
+                val size = when (page) {
+                    ExamPages.PAGE_CONDITIONS -> patient.conditionsList.size
+                    ExamPages.PAGE_MEDS -> patient.medList.filter { it.type == MedListType.PRE }.size
+                    ExamPages.PAGE_PRESCRIPTION -> patient.medList.filter { it.type == MedListType.POS }.size
+                    else -> 0
+                }
+                Surface(
+                    shape = MaterialTheme.shapes.extraLarge,
+                    color = color,
+                    onClick = {
+                        if (currentPage == page.ordinal) expanded = !expanded
+                        onChange(page.ordinal)
+                    },
                 ) {
-                    BadgedBox(badge = { if (size > 0) Badge { Text("$size") } }) {
-                        MaterialSymbol(
-                            iconName = page.symbolName,
-                            filled = page.ordinal == currentPage,
-                            colorFilled = MaterialTheme.colorScheme.onPrimary,
-                        )
-                    }
-                    AnimatedVisibility(page.ordinal == currentPage) {
-                        Text(
-                            text = page.text,
-                            style = MaterialTheme.typography.labelLarge,
-                        )
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        BadgedBox(badge = { if (size > 0) Badge { Text("$size") } }) {
+                            MaterialSymbol(
+                                iconName = page.symbolName,
+                                filled = page.ordinal == currentPage,
+                                colorFilled = MaterialTheme.colorScheme.onPrimary,
+                            )
+                        }
+                        AnimatedVisibility(page.ordinal == currentPage) {
+                            Text(
+                                text = page.text,
+                                style = MaterialTheme.typography.labelLarge,
+                            )
+                        }
                     }
                 }
             }
+        }
+        AnimatedVisibility(visible = expanded) {
+            Text(
+                modifier = Modifier.padding(horizontal = 24.dp),
+                text = ExamPages.entries[currentPage].description,
+                style = MaterialTheme.typography.labelSmall,
+                textAlign = TextAlign.Center,
+            )
         }
     }
 }

@@ -32,12 +32,11 @@ class PatientState {
     var hasFragile by mutableStateOf(false)
     val conditionsList = mutableStateSetOf<MedicalCondition>()
     val medList = mutableStateSetOf<Med>()
-    val prescriptionList = mutableStateSetOf<Med>()
     val interactions: State<List<InteractionAlert>> = derivedStateOf {
-        verifyInteractions(medList, prescriptionList)
+        verifyInteractions(medList)
     }
     val risks: State<List<RiskAlert>> = derivedStateOf {
-        verifyRisks(medList, prescriptionList, conditionsList, interactions)
+        verifyRisks(medList, conditionsList, interactions)
     }
 
     var onConditionChanged: (MedicalCondition, PatientStateChangeType) -> Unit = { _, _ -> }
@@ -57,7 +56,6 @@ class PatientState {
         hasFragile = false
         conditionsList.clear()
         medList.clear()
-        prescriptionList.clear()
     }
 
     fun isEmpty() = name.text.isEmpty() &&
@@ -71,8 +69,7 @@ class PatientState {
             !hasFallHistory &&
             !hasFragile &&
             conditionsList.isEmpty() &&
-            medList.isEmpty() &&
-            prescriptionList.isEmpty()
+            medList.isEmpty()
 
     fun isNotEmpty() = !isEmpty()
 
@@ -94,16 +91,6 @@ class PatientState {
     fun remove(condition: MedicalCondition) {
         if (this.conditionsList.remove(condition))
             onConditionChanged(condition, PatientStateChangeType.REMOVE)
-    }
-
-    fun prescribe(med: Med) {
-        if (!prescriptionList.map { it.id }.contains(med.id) && this.prescriptionList.add(med))
-            onPrescriptionChanged(med, PatientStateChangeType.ADD)
-    }
-
-    fun unprescribe(med: Med) {
-        if (this.prescriptionList.remove(med))
-            onPrescriptionChanged(med, PatientStateChangeType.REMOVE)
     }
 }
 
@@ -227,17 +214,14 @@ data class InteractionAlert(
 )
 
 fun verifyInteractions(
-    usoContinuo: Set<Med>,
-    prescricao: Set<Med>,
+    meds: Set<Med>,
 ): List<InteractionAlert> {
-    val todosMedicamentos = usoContinuo + prescricao
-
     val alertas = mutableListOf<InteractionAlert>()
     val paresVerificados = mutableSetOf<String>()
 
-    for (med in todosMedicamentos) {
+    for (med in meds) {
         for (interacao in med.interactions) {
-            val medInteragente = todosMedicamentos.find { it.id == interacao.interactingMedId }
+            val medInteragente = meds.find { it.id == interacao.interactingMedId }
 
             if (medInteragente != null) {
                 val id1 = if (med.id < medInteragente.id) med.id else medInteragente.id
@@ -266,7 +250,6 @@ fun verifyInteractions(
 
 enum class RiskAlertType(val iconName: String, val text: String){
     MED("medication", "Medicamento"),
-    PRESCRIPTION("outpatient_med", "Prescrição"),
     CONDITION("medical_information", "Condição"),
     INTERACTION("brightness_alert", "Interação")
 }
@@ -279,7 +262,6 @@ data class RiskAlert(
 
 fun verifyRisks(
     medList: SnapshotStateSet<Med>,
-    prescriptionList: SnapshotStateSet<Med>,
     conditions: SnapshotStateSet<MedicalCondition>,
     interactions: State<List<InteractionAlert>>,
 ): List<RiskAlert> {
@@ -291,18 +273,6 @@ fun verifyRisks(
                 RiskAlert(
                     risk = it,
                     type = RiskAlertType.MED,
-                    description = map.second,
-                ),
-            )
-        }
-    }
-
-    prescriptionList.map { it.risks to it.name }.forEach { map ->
-        map.first.forEach {
-            risks.add(
-                RiskAlert(
-                    risk = it,
-                    type = RiskAlertType.PRESCRIPTION,
                     description = map.second,
                 ),
             )

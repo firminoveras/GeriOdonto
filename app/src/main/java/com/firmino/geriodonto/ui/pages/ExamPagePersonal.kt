@@ -18,7 +18,8 @@ fun ExamPagePersonal(
     LazyColumn(
         Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp),
+            .padding(horizontal = 12.dp)
+            .padding(top = 4.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {

@@ -77,36 +77,32 @@ fun ExamPageDiaseses(
             content = { query, onDone ->
                 if (query.isNotEmpty()) {
                     val condList = medicalConditionsList.map { it.name to it.description }.filter {
-                        (it.first + " " + it.second).contains(query, ignoreCase = true)
+                        (it.first + " " + it.second).contains(query, ignoreCase = true) &&
+                                !patient.conditionsList.map { contains -> contains.name }.contains(it.first)
                     }.take(20)
-
                     LazyColumn {
-                        items(items = condList, key = { it.first }) {
-                            medicalConditionsList.map { it.name to it.description }.filter {
-                                (it.first + " " + it.second).contains(query, ignoreCase = true)
-                            }.take(20).forEach { result ->
-                                ListItem(
-                                    modifier = Modifier
-                                        .clickable {
-                                            onDone()
-                                            medicalConditionsList.find { it.name == result.first }?.let { condition ->
-                                                onAdd(condition)
-                                            }
+                        items(items = condList, key = { it.first }) { item ->
+                            ListItem(
+                                modifier = Modifier
+                                    .clickable {
+                                        onDone()
+                                        medicalConditionsList.find { it.name == item.first }?.let { condition ->
+                                            onAdd(condition)
                                         }
-                                        .fillMaxWidth(),
-                                    colors = ListItemDefaults.colors(
-                                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                                    ),
-                                    headlineContent = {
-                                        Text(highlightedText(result.first, query))
-                                    },
-                                    supportingContent = {
-                                        if (result.second.isNotBlank()) {
-                                            Text(highlightedText(result.second, query))
-                                        }
-                                    },
-                                )
-                            }
+                                    }
+                                    .fillMaxWidth(),
+                                colors = ListItemDefaults.colors(
+                                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                                ),
+                                headlineContent = {
+                                    Text(highlightedText(item.first, query))
+                                },
+                                supportingContent = {
+                                    if (item.second.isNotBlank()) {
+                                        Text(highlightedText(item.second, query))
+                                    }
+                                },
+                            )
                         }
                     }
                 }
@@ -128,9 +124,11 @@ fun ExamDiaseseItem(
         shape = shape,
     ) {
         Column(Modifier.fillMaxWidth()) {
-            Box(Modifier
-                .padding(vertical = 12.dp)
-                .fillMaxWidth()) {
+            Box(
+                Modifier
+                    .padding(vertical = 12.dp)
+                    .fillMaxWidth(),
+            ) {
                 Column(Modifier.padding(start = 16.dp, end = 64.dp)) {
                     Text(
                         text = medicalCondition.name,

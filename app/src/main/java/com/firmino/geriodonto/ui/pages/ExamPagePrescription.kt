@@ -41,6 +41,8 @@ import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.data.database.Med
+import com.firmino.geriodonto.data.database.MedListType
+import com.firmino.geriodonto.ui.widgets.ExamMedItem
 import com.firmino.geriodonto.ui.widgets.ExamSearchBar
 import com.firmino.geriodonto.viewmodel.MedViewModel
 import kotlinx.coroutines.launch
@@ -63,11 +65,13 @@ fun ExamPagePrescription(
             verticalArrangement = Arrangement.spacedBy(2.dp),
         ) {
             item { Spacer(Modifier.height(58.dp)) }
-            itemsIndexed(items = patient.prescriptionList.toList(), key = { _, item -> item.name + item.description }) { index, item ->
+            itemsIndexed(items = patient.medList.toList().filter { it.type == MedListType.POS }, key = { _, item -> item.name + item.description }) { index, item ->
                 ExamMedItem(
                     med = item,
                     onRemove = onRemove,
-                    shape = roundedCornerListShape(index = index, total = patient.prescriptionList.size),
+                    shape = roundedCornerListShape(index = index, total = patient.medList.filter { it.type == MedListType.POS }.size),
+                    viewModel = viewModel,
+                    patient = patient,
                 )
             }
         }
@@ -76,7 +80,7 @@ fun ExamPagePrescription(
             onSearchStateChange = onSearchStateChange,
             placeholderText = "Prescrever medicamento...",
             content = { query, onDone ->
-                viewModel.onSearchQueryChanged(query)
+                viewModel.onSearchQueryChanged(query, patient.medList)
                 if (query.isNotBlank()) {
                     LazyColumn {
                         items(items = meds.take(20), key = { it.med.id }) {
@@ -85,7 +89,7 @@ fun ExamPagePrescription(
                                     .fillMaxWidth()
                                     .clickable {
                                         onDone()
-                                        onAdd(it.toMed())
+                                        onAdd(it.toMed(type = MedListType.POS))
                                     },
                                 colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
                                 headlineContent = { Text(highlightedText(it.med.name, query)) },
@@ -127,7 +131,7 @@ fun ExamPagePrescription(
                                         ElevatedSuggestionChip(
                                             onClick = {
                                                 scope.launch {
-                                                    onAdd(med.toMed())
+                                                    onAdd(med.toMed(type = MedListType.POS))
                                                     onDone()
                                                 }
                                             },

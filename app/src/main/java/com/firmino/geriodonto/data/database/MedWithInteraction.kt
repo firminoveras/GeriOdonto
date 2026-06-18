@@ -14,7 +14,7 @@ data class MedWithInteractions(
     )
     val interactions: List<InteractionEntity>,
 ) {
-    fun toMed(addedBy: String = "") = Med(
+    fun toMed(addedBy: String = "", type: MedListType) = Med(
         id = this.med.id,
         name = this.med.name,
         description = this.med.description,
@@ -24,8 +24,11 @@ data class MedWithInteractions(
         risks = this.med.risks,
         interactions = this.interactions,
         addedBy = addedBy,
+        type = type,
     )
 }
+
+enum class MedListType{ PRE, POS }
 
 data class Med(
     val id: String,
@@ -37,5 +40,6 @@ data class Med(
     val risks: List<Risk>,
     val interactions: List<InteractionEntity>,
     val addedBy: String = "",
+    val type: MedListType,
 )
 
