@@ -40,14 +40,13 @@ import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.data.MedicalCondition
-import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.data.medicalConditionsList
 import com.firmino.geriodonto.ui.widgets.ExamSearchBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExamPageDiaseses(
-    patient: PatientState,
+    conditionsList: Set<MedicalCondition>,
     onSearchStateChange: (Boolean) -> Unit,
     onAdd: (MedicalCondition) -> Unit,
     onRemove: (MedicalCondition) -> Unit,
@@ -62,9 +61,9 @@ fun ExamPageDiaseses(
             item {
                 Spacer(Modifier.height(58.dp))
             }
-            itemsIndexed(items = patient.conditionsList.toList(), key = { _, item -> item.name }) { index, item ->
+            itemsIndexed(items = conditionsList.toList(), key = { _, item -> item.name }) { index, item ->
                 ExamDiaseseItem(
-                    shape = roundedCornerListShape(index = index, total = patient.conditionsList.size),
+                    shape = roundedCornerListShape(index = index, total = conditionsList.size),
                     medicalCondition = item,
                     onRemove = { removeItem -> onRemove(removeItem) },
                 )
@@ -78,7 +77,7 @@ fun ExamPageDiaseses(
                 if (query.isNotEmpty()) {
                     val condList = medicalConditionsList.map { it.name to it.description }.filter {
                         (it.first + " " + it.second).contains(query, ignoreCase = true) &&
-                                !patient.conditionsList.map { contains -> contains.name }.contains(it.first)
+                                !conditionsList.map { contains -> contains.name }.contains(it.first)
                     }.take(20)
                     LazyColumn {
                         items(items = condList, key = { it.first }) { item ->

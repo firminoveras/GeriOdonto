@@ -25,15 +25,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
-import com.firmino.geriodonto.data.PatientState
-import com.firmino.geriodonto.ui.pages.InteractionnsPageInteractions
 import com.firmino.geriodonto.ui.pages.InteractionnsPageRisks
+import com.firmino.geriodonto.ui.pages.InteractionsPageInteractions
+import com.firmino.geriodonto.viewmodel.InteractionAlert
+import com.firmino.geriodonto.viewmodel.PatientUiState
+import com.firmino.geriodonto.viewmodel.RiskAlert
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InteractionSheet(
-    patient: PatientState,
+    uiState: PatientUiState,
     onClose: () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
@@ -57,9 +59,9 @@ fun InteractionSheet(
                     text = "Interações e Riscos",
                     style = MaterialTheme.typography.titleLarge,
                 )
-                if (patient.name.text.isNotEmpty()) {
+                if (uiState.name.text.isNotEmpty()) {
                     Text(
-                        text = patient.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
+                        text = uiState.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
                         style = MaterialTheme.typography.labelSmall,
                         maxLines = 1,
                     )
@@ -76,17 +78,18 @@ fun InteractionSheet(
         HorizontalDivider()
         InteractionMenu(
             currentPage = pagerState.currentPage,
-            patient = patient,
+            interactions = uiState.interactions,
+            risks = uiState.risks,
             onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
         )
         HorizontalPager(state = pagerState, userScrollEnabled = false) { index ->
             when (index) {
                 InteractionPages.PAGE_INTERACTIONS.ordinal -> {
-                    InteractionnsPageInteractions(patient)
+                    InteractionsPageInteractions(interactions = uiState.interactions)
                 }
 
                 InteractionPages.PAGE_RISKS.ordinal -> {
-                    InteractionnsPageRisks(patient)
+                    InteractionnsPageRisks(risks = uiState.risks)
                 }
             }
         }
@@ -101,7 +104,8 @@ enum class InteractionPages(val text: String, val symbolName: String) {
 @Composable
 fun InteractionMenu(
     currentPage: Int,
-    patient: PatientState,
+    interactions: List<InteractionAlert>,
+    risks: List<RiskAlert>,
     onChange: (Int) -> Unit,
 ) {
     Row(
@@ -113,8 +117,8 @@ fun InteractionMenu(
             val current = page.ordinal == currentPage
             val color = if (current) MaterialTheme.colorScheme.primary else Color.Transparent
             val size = when (page) {
-                InteractionPages.PAGE_INTERACTIONS -> patient.interactions.value.size
-                InteractionPages.PAGE_RISKS -> patient.risks.value.size
+                InteractionPages.PAGE_INTERACTIONS -> interactions.size
+                InteractionPages.PAGE_RISKS -> risks.size
             }
             Surface(
                 shape = MaterialTheme.shapes.extraLarge,

@@ -4,16 +4,22 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.material3.SliderState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.ui.widgets.ExamChecker
 import com.firmino.geriodonto.ui.widgets.ExamSlider
 
 @Composable
 fun ExamPageExams(
-    patient: PatientState,
+    renalFunction: SliderState,
+    genre: TextFieldState,
+    hepaticTgo: SliderState,
+    hepaticTgp: SliderState,
+    hasFallHistory: Boolean,
+    hasFragile: Boolean,
     onHasFallHistoryChange: (Boolean) -> Unit,
     onHasFragileChange: (Boolean) -> Unit,
 ) {
@@ -30,11 +36,11 @@ fun ExamPageExams(
                 label = "Função renal: Creatinina Sérica",
                 symbolName = "nephrology",
                 suffix = "mg/dL",
-                value = patient.renalFunction,
+                value = renalFunction,
                 decimals = 2,
                 plusIndicator = true,
                 description = {
-                    val isFeminino = patient.genre.text.toString() == "Feminino"
+                    val isFeminino = genre.text.toString() == "Feminino"
                     val limiteBaixo = if (isFeminino) 0.6f else 0.7f
                     val limiteAlto = if (isFeminino) 1.1f else 1.3f
                     when {
@@ -51,7 +57,7 @@ fun ExamPageExams(
                 label = "Função hepática: TGO (AST)",
                 symbolName = "water_do",
                 suffix = "U/L",
-                value = patient.hepaticTgo,
+                value = hepaticTgo,
                 plusIndicator = true,
                 description = {
                     when {
@@ -68,7 +74,7 @@ fun ExamPageExams(
                 label = "Função hepática: TGP (ALT)",
                 symbolName = "water_drop",
                 suffix = "U/L",
-                value = patient.hepaticTgp,
+                value = hepaticTgp,
                 description = {
                     when {
                         it < 7 -> "Abaixo"
@@ -84,7 +90,7 @@ fun ExamPageExams(
             ExamChecker(
                 label = "Histórico de quedas",
                 symbolName = "falling",
-                value = patient.hasFallHistory,
+                value = hasFallHistory,
                 onValueChange = { onHasFallHistoryChange(it) },
             )
         }
@@ -93,7 +99,7 @@ fun ExamPageExams(
             ExamChecker(
                 label = "Fragilidade",
                 symbolName = "sick",
-                value = patient.hasFragile,
+                value = hasFragile,
                 onValueChange = { onHasFragileChange(it) },
             )
         }

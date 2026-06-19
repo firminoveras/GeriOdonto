@@ -39,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
-import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.data.database.InteractionEntity
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.data.database.MedListType
@@ -51,13 +50,15 @@ fun ExamMedItem(
     onRemove: (Med) -> Unit,
     shape: CornerBasedShape,
     viewModel: MedViewModel,
-    patient: PatientState,
+    medList: Set<Med>,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var isInteractionsExpanded by remember { mutableStateOf(false) }
     var isRisksExpanded by remember { mutableStateOf(false) }
     val interactions = remember { mutableStateListOf<Pair<Med, InteractionEntity>>() }
-    var interactionsCount = med.interactions.map { it.interactingMedId }.count { patient.medList.map { medList -> medList.id }.contains(it) }
+    val interactionsCount = medList.map { it.id }.toSet().let { patientMedIds ->
+        med.interactions.count { it.interactingMedId in patientMedIds }
+    }
 
     LaunchedEffect(med) {
         interactions.clear()
@@ -139,7 +140,7 @@ fun ExamMedItem(
                         onIsExpandedChange = { isInteractionsExpanded = it },
                         content = {
                             interactions.sortedBy { it.second.alertLevel }.forEach {
-                                val hasInMedList = patient.medList.contains(it.first)
+                                val hasInMedList = medList.contains(it.first)
                                 ExamMedItemContent(
                                     symbolName = it.second.alertLevel.symbolName,
                                     title = if (hasInMedList) "Em uso" else "",

@@ -4,16 +4,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.material3.SliderState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.ui.widgets.ExamSlider
 import com.firmino.geriodonto.ui.widgets.ExamText
 
 @Composable
 fun ExamPagePersonal(
-    patient: PatientState
+    name: TextFieldState,
+    genre: TextFieldState,
+    age: SliderState,
+    height: SliderState,
+    weight: SliderState,
 ) {
     LazyColumn(
         Modifier
@@ -26,7 +31,7 @@ fun ExamPagePersonal(
             ExamText(
                 label = "Nome",
                 symbolName = "person_edit",
-                text = patient.name,
+                text = name,
             )
         }
 
@@ -34,7 +39,7 @@ fun ExamPagePersonal(
             ExamText(
                 label = "Gênero",
                 symbolName = "person_pin",
-                text = patient.genre,
+                text = genre,
                 editable = false,
                 suggestions = listOf(
                     Pair("Masculino", "male"),
@@ -48,7 +53,7 @@ fun ExamPagePersonal(
                 label = "Idade",
                 symbolName = "elderly",
                 suffix = "anos",
-                value = patient.age,
+                value = age,
                 plusIndicator = true,
                 description = {
                     when {
@@ -64,12 +69,12 @@ fun ExamPagePersonal(
                 label = "Altura",
                 symbolName = "height",
                 suffix = "m",
-                value = patient.height,
+                value = height,
                 decimals = 2,
                 plusIndicator = true,
                 description = {
-                    if (patient.height.value > 0) {
-                        val imc = patient.weight.value / (patient.height.value * patient.height.value)
+                    if (height.value > 0) {
+                        val imc = weight.value / (height.value * height.value)
                         when {
                             imc < 22.0 -> "Abaixo do peso"
                             imc >= 27.0 -> "Acima do peso"
@@ -85,11 +90,11 @@ fun ExamPagePersonal(
                 label = "Peso",
                 symbolName = "weight",
                 suffix = "kg",
-                value = patient.weight,
+                value = weight,
                 plusIndicator = true,
                 description = {
-                    if (patient.height.value > 0) {
-                        val imc = patient.weight.value / (patient.height.value * patient.height.value)
+                    if (height.value > 0) {
+                        val imc = weight.value / (height.value * height.value)
                         when {
                             imc < 22.0 -> "Abaixo do peso"
                             imc >= 27.0 -> "Acima do peso"

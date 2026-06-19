@@ -23,20 +23,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.firmino.geriodonto.companions.MaterialSymbol
-import com.firmino.geriodonto.data.PatientState
-import com.firmino.geriodonto.data.RiskAlert
-import com.firmino.geriodonto.data.RiskAlertType
+import com.firmino.geriodonto.viewmodel.RiskAlert
+import com.firmino.geriodonto.viewmodel.RiskAlertType
 
 
 @Composable
 fun InteractionnsPageRisks(
-    patient: PatientState,
+    risks: List<RiskAlert>,
 ) {
     LazyColumn(
         Modifier.padding(horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        patient.risks.value.groupBy { it.risk.name }.values.sortedBy { it.first().risk.category }.forEach { item ->
+        risks.groupBy { it.risk.name }.values.sortedBy { it.first().risk.category }.forEach { item ->
             item {
                 RisksItem(
                     riskAlert = item.first(),

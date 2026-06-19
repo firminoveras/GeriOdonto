@@ -27,18 +27,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
-import com.firmino.geriodonto.data.InteractionAlert
-import com.firmino.geriodonto.data.PatientState
+import com.firmino.geriodonto.viewmodel.InteractionAlert
 
 @Composable
-fun InteractionnsPageInteractions(
-    patient: PatientState,
+fun InteractionsPageInteractions(
+    interactions: List<InteractionAlert>,
 ) {
     LazyColumn(
         Modifier.padding(horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(items = patient.interactions.value) {
+        items(items = interactions) {
             InteractionItem(interaction = it)
         }
     }

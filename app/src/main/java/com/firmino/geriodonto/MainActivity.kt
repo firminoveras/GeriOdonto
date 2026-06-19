@@ -60,15 +60,15 @@ import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.PocketAlert
 import com.firmino.geriodonto.companions.PocketAlertManager
 import com.firmino.geriodonto.companions.rememberAppVersion
-import com.firmino.geriodonto.data.PatientState
-import com.firmino.geriodonto.data.PatientStateChangeType
-import com.firmino.geriodonto.data.rememberPatientState
 import com.firmino.geriodonto.ui.sheets.ExamSheet
 import com.firmino.geriodonto.ui.sheets.InteractionSheet
 import com.firmino.geriodonto.ui.theme.GeriOdontoTheme
 import com.firmino.geriodonto.ui.theme.fontFamilyBaumans
 import com.firmino.geriodonto.ui.theme.fontFamilyPoiret
 import com.firmino.geriodonto.viewmodel.MedViewModel
+import com.firmino.geriodonto.viewmodel.PatientStateChangeType
+import com.firmino.geriodonto.viewmodel.PatientUiState
+import com.firmino.geriodonto.viewmodel.PatientViewModel
 import com.firmino.geriodonto.viewmodel.SeedingState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -80,9 +80,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val patient = rememberPatientState()
             GeriOdontoTheme {
-                Content(patient)
+                Content()
             }
         }
     }
@@ -91,8 +90,8 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun Content(
-    patient: PatientState,
-    viewModel: MedViewModel = hiltViewModel(),
+    patientViewModel: PatientViewModel = hiltViewModel(),
+    medViewModel: MedViewModel = hiltViewModel(),
 ) {
     val scope = rememberCoroutineScope()
     var showExamSheet by remember { mutableStateOf(false) }
@@ -108,7 +107,7 @@ fun Content(
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
     )
 
-    patient.onConditionChanged = { condition, type ->
+    patientViewModel.onConditionChanged = { condition, type ->
         PocketAlertManager.show(
             message = "Condição ${condition.name} ${if (type == PatientStateChangeType.ADD) "adicionada" else "removida"}.",
             highlight = condition.name,
@@ -116,7 +115,7 @@ fun Content(
         )
     }
 
-    patient.onMedChanged = { med, type ->
+    patientViewModel.onMedChanged = { med, type ->
         PocketAlertManager.show(
             message = "Medicamento ${med.name} ${if (type == PatientStateChangeType.ADD) "adicionado" else "removido"}.",
             highlight = med.name,
@@ -124,21 +123,13 @@ fun Content(
         )
     }
 
-    patient.onPrescriptionChanged = { med, type ->
-        PocketAlertManager.show(
-            message = "Medicamento ${med.name} ${if (type == PatientStateChangeType.ADD) "prescrito" else "removido"}.",
-            highlight = med.name,
-            iconName = if (type == PatientStateChangeType.ADD) "add_circle" else "remove_circle",
-        )
-    }
-
-
     Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
             Menu(
-                viewModel = viewModel,
-                patient = patient,
+                viewModel = medViewModel,
                 onAddClick = { showExamSheet = true },
+                uiState = patientViewModel.uiState.value,
+                onClear = patientViewModel::clear,
             )
         }
 
@@ -149,10 +140,11 @@ fun Content(
                 containerColor = if (!focusMode) MaterialTheme.colorScheme.surfaceContainerHigh else BottomSheetDefaults.ContainerColor,
             ) {
                 ExamSheet(
-                    viewModel = viewModel,
-                    patient = patient,
+                    viewModel = medViewModel,
                     onInteractionButtonClick = { showInteractionSheet = true },
                     onShowTopBarChange = { focusMode = it },
+                    uiState = patientViewModel.uiState.value,
+                    onEvent = patientViewModel::onEvent,
                 )
             }
         }
@@ -164,7 +156,6 @@ fun Content(
                 sheetState = sheetInteractionSheet,
             ) {
                 InteractionSheet(
-                    patient = patient,
                     onClose = {
                         scope.launch { sheetInteractionSheet.hide() }.invokeOnCompletion {
                             if (!sheetInteractionSheet.isVisible) {
@@ -172,6 +163,7 @@ fun Content(
                             }
                         }
                     },
+                    uiState = patientViewModel.uiState.value,
                 )
             }
         }
@@ -182,7 +174,8 @@ fun Content(
 @Composable
 fun Menu(
     viewModel: MedViewModel,
-    patient: PatientState,
+    uiState: PatientUiState,
+    onClear: () -> Unit,
     onAddClick: () -> Unit,
 ) {
     val seedingState by viewModel.seedingState.collectAsStateWithLifecycle()
@@ -356,16 +349,16 @@ fun Menu(
                     expanded = true,
                     floatingActionButton = {
                         FloatingActionButton(onClick = onAddClick) {
-                            MaterialSymbol(iconName = if (patient.isEmpty()) "add" else "edit")
+                            MaterialSymbol(iconName = if (uiState.isEmpty) "add" else "edit")
                         }
                     },
                 ) {
                     IconButton(onClick = {}) { MaterialSymbol(iconName = "info") }
                     IconButton(onClick = {}) { MaterialSymbol(iconName = "policy") }
-                    if (patient.isNotEmpty()) {
+                    if (!uiState.isEmpty) {
                         IconButton(
                             onClick = {
-                                patient.clear()
+                                onClear()
                                 onAddClick()
                             },
                             content = { MaterialSymbol(iconName = "add") },

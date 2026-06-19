@@ -15,10 +15,8 @@ android {
         applicationId = "com.firmino.geriodonto"
         minSdk = 24
         targetSdk = 37
-        versionCode = 1
-        versionName = "v0.1 - Beta"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 2
+        versionName = "v0.2 - Beta"
     }
 
     buildTypes {
@@ -43,6 +41,9 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.gson)
+
+    // JVM
+    ksp(libs.kotlin.metadata.jvm)
 
     // Hilt
     implementation(libs.hilt.android)
@@ -69,6 +70,5 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
     // Debug
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

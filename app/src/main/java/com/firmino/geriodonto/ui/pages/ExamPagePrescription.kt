@@ -39,7 +39,6 @@ import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
-import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.data.database.MedListType
 import com.firmino.geriodonto.ui.widgets.ExamMedItem
@@ -50,7 +49,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun ExamPagePrescription(
     viewModel: MedViewModel,
-    patient: PatientState,
+    medList: Set<Med>,
     onSearchStateChange: (Boolean) -> Unit,
     onAdd: (Med) -> Unit,
     onRemove: (Med) -> Unit,
@@ -65,13 +64,13 @@ fun ExamPagePrescription(
             verticalArrangement = Arrangement.spacedBy(2.dp),
         ) {
             item { Spacer(Modifier.height(58.dp)) }
-            itemsIndexed(items = patient.medList.toList().filter { it.type == MedListType.POS }, key = { _, item -> item.name + item.description }) { index, item ->
+            itemsIndexed(items = medList.filter { it.type == MedListType.POS }, key = { _, item -> item.name + item.description }) { index, item ->
                 ExamMedItem(
                     med = item,
                     onRemove = onRemove,
-                    shape = roundedCornerListShape(index = index, total = patient.medList.filter { it.type == MedListType.POS }.size),
+                    shape = roundedCornerListShape(index = index, total = medList.filter { it.type == MedListType.POS }.size),
                     viewModel = viewModel,
-                    patient = patient,
+                    medList = medList,
                 )
             }
         }
@@ -80,7 +79,7 @@ fun ExamPagePrescription(
             onSearchStateChange = onSearchStateChange,
             placeholderText = "Prescrever medicamento...",
             content = { query, onDone ->
-                viewModel.onSearchQueryChanged(query, patient.medList)
+                viewModel.onSearchQueryChanged(query, medList)
                 if (query.isNotBlank()) {
                     LazyColumn {
                         items(items = meds.take(20), key = { it.med.id }) {

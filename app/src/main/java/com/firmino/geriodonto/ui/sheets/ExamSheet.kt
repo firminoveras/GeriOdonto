@@ -41,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.PocketAlert
 import com.firmino.geriodonto.data.MedicalCondition
-import com.firmino.geriodonto.data.PatientState
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.data.database.MedListType
 import com.firmino.geriodonto.ui.pages.ExamPageDiaseses
@@ -50,6 +49,8 @@ import com.firmino.geriodonto.ui.pages.ExamPageMeds
 import com.firmino.geriodonto.ui.pages.ExamPagePersonal
 import com.firmino.geriodonto.ui.pages.ExamPagePrescription
 import com.firmino.geriodonto.viewmodel.MedViewModel
+import com.firmino.geriodonto.viewmodel.PatientEvent
+import com.firmino.geriodonto.viewmodel.PatientUiState
 import kotlinx.coroutines.launch
 
 enum class ExamPages(val text: String, val symbolName: String, val description: String) {
@@ -63,8 +64,10 @@ enum class ExamPages(val text: String, val symbolName: String, val description: 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExamSheet(
+    uiState: PatientUiState,
+    onEvent: (PatientEvent) -> Unit,
     viewModel: MedViewModel,
-    patient: PatientState,
+
     onInteractionButtonClick: () -> Unit,
     onShowTopBarChange: (Boolean) -> Unit,
 ) {
@@ -92,7 +95,7 @@ fun ExamSheet(
                 TextButton(
                     content = { Text("Confirmar") },
                     onClick = {
-                        patient.remove(deleteDiasese!!)
+                        onEvent(PatientEvent.RemoveCondition(deleteDiasese!!))
                         deleteDiasese = null
                     },
                 )
@@ -116,7 +119,7 @@ fun ExamSheet(
                 TextButton(
                     content = { Text("Confirmar") },
                     onClick = {
-                        patient.remove(deleteMed!!)
+                        onEvent(PatientEvent.RemoveMed(deleteMed!!))
                         deleteMed = null
                     },
                 )
@@ -140,7 +143,7 @@ fun ExamSheet(
                 TextButton(
                     content = { Text("Confirmar") },
                     onClick = {
-                        patient.remove(deletePrescription!!)
+                        onEvent(PatientEvent.RemoveMed(deletePrescription!!))
                         deletePrescription = null
                     },
                 )
@@ -178,9 +181,9 @@ fun ExamSheet(
                                 text = "Nova prescrição",
                                 style = MaterialTheme.typography.titleLarge,
                             )
-                            if (patient.name.text.isNotEmpty()) {
+                            if (uiState.name.text.isNotEmpty()) {
                                 Text(
-                                    text = patient.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
+                                    text = uiState.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
                                     style = MaterialTheme.typography.labelSmall,
                                     maxLines = 1,
                                 )
@@ -197,8 +200,8 @@ fun ExamSheet(
                                 content = { MaterialSymbol(iconName = "page_menu_ios", filled = showMenuBar) },
                             )
                             IconButton(
-                                onClick = { patient.clear() },
-                                content = { MaterialSymbol(iconName = "delete_forever", filled = patient.isNotEmpty()) },
+                                onClick = { onEvent(PatientEvent.ClearAll) },
+                                content = { MaterialSymbol(iconName = "delete_forever", filled = !uiState.isEmpty) },
                             )
                         }
                     }
@@ -206,7 +209,8 @@ fun ExamSheet(
                     AnimatedVisibility(visible = showMenuBar) {
                         ExamMenu(
                             currentPage = pagerState.currentPage,
-                            patient = patient,
+                            medList = uiState.medList,
+                            conditionList = uiState.conditionsList,
                             onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
                         )
                     }
@@ -217,43 +221,53 @@ fun ExamSheet(
                 when (index) {
                     ExamPages.PAGE_PERSONAL.ordinal -> {
                         ExamPagePersonal(
-                            patient = patient,
+                            name = uiState.name,
+                            genre = uiState.genre,
+                            age = uiState.age,
+                            height = uiState.height,
+                            weight = uiState.weight,
                         )
                     }
 
                     ExamPages.PAGE_EXAMS.ordinal -> {
                         ExamPageExams(
-                            patient = patient,
-                            onHasFragileChange = { patient.hasFragile = it },
-                            onHasFallHistoryChange = { patient.hasFallHistory = it },
+                            renalFunction = uiState.renalFunction,
+                            genre = uiState.genre,
+                            hepaticTgo = uiState.hepaticTgo,
+                            hepaticTgp = uiState.hepaticTgp,
+                            hasFallHistory = uiState.hasFallHistory,
+                            hasFragile = uiState.hasFragile,
+                            onHasFragileChange = { onEvent(PatientEvent.UpdateFragile(it)) },
+                            onHasFallHistoryChange = { onEvent(PatientEvent.UpdateFallHistory(it)) },
                         )
                     }
 
                     ExamPages.PAGE_CONDITIONS.ordinal -> {
                         ExamPageDiaseses(
-                            patient = patient,
+                            conditionsList = uiState.conditionsList,
                             onSearchStateChange = { showTopBar = !it },
-                            onAdd = { patient.add(it) },
+                            onAdd = { onEvent(PatientEvent.AddCondition(it)) },
                             onRemove = { deleteDiasese = it },
                         )
                     }
 
                     ExamPages.PAGE_MEDS.ordinal -> {
                         ExamPageMeds(
+                            medList = uiState.medList,
+                            conditionsList = uiState.conditionsList,
                             viewModel = viewModel,
-                            patient = patient,
                             onSearchStateChange = { showTopBar = !it },
-                            onAdd = { patient.add(it) },
+                            onAdd = { onEvent(PatientEvent.AddMed(it)) },
                             onRemove = { deleteMed = it },
                         )
                     }
 
                     ExamPages.PAGE_PRESCRIPTION.ordinal -> {
                         ExamPagePrescription(
+                            medList = uiState.medList,
                             viewModel = viewModel,
-                            patient = patient,
                             onSearchStateChange = { showTopBar = !it },
-                            onAdd = { patient.add(it) },
+                            onAdd = { onEvent(PatientEvent.AddMed(it)) },
                             onRemove = { deletePrescription = it },
                         )
                     }
@@ -266,14 +280,14 @@ fun ExamSheet(
                 .padding(12.dp),
             onClick = { onInteractionButtonClick() },
             text = { Text("Interações") },
-            expanded = patient.interactions.value.isNotEmpty(),
+            expanded = uiState.interactions.isNotEmpty(),
             icon = {
                 BadgedBox(
-                    badge = { if (patient.interactions.value.isNotEmpty()) Badge { Text("${patient.interactions.value.size}") } },
+                    badge = { if (uiState.interactions.isNotEmpty()) Badge { Text("${uiState.interactions.size}") } },
                 ) {
                     MaterialSymbol(
                         iconName = "brightness_alert",
-                        filled = patient.interactions.value.isNotEmpty(),
+                        filled = uiState.interactions.isNotEmpty(),
                     )
                 }
 
@@ -287,7 +301,8 @@ fun ExamSheet(
 @Composable
 fun ExamMenu(
     currentPage: Int,
-    patient: PatientState,
+    medList: Set<Med>,
+    conditionList: Set<MedicalCondition>,
     onChange: (Int) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -304,9 +319,9 @@ fun ExamMenu(
                 val current = page.ordinal == currentPage
                 val color = if (current) MaterialTheme.colorScheme.primary else Color.Transparent
                 val size = when (page) {
-                    ExamPages.PAGE_CONDITIONS -> patient.conditionsList.size
-                    ExamPages.PAGE_MEDS -> patient.medList.filter { it.type == MedListType.PRE }.size
-                    ExamPages.PAGE_PRESCRIPTION -> patient.medList.filter { it.type == MedListType.POS }.size
+                    ExamPages.PAGE_CONDITIONS -> conditionList.size
+                    ExamPages.PAGE_MEDS -> medList.filter { it.type == MedListType.PRE }.size
+                    ExamPages.PAGE_PRESCRIPTION -> medList.filter { it.type == MedListType.POS }.size
                     else -> 0
                 }
                 Surface(
