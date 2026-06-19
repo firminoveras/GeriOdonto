@@ -42,14 +42,14 @@ import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.data.database.InteractionEntity
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.data.database.MedListType
-import com.firmino.geriodonto.viewmodel.MedViewModel
+import com.firmino.geriodonto.data.database.MedWithInteractions
 
 @Composable
 fun ExamMedItem(
     med: Med,
     onRemove: (Med) -> Unit,
     shape: CornerBasedShape,
-    viewModel: MedViewModel,
+    meds: List<MedWithInteractions>,
     medList: Set<Med>,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -63,7 +63,7 @@ fun ExamMedItem(
     LaunchedEffect(med) {
         interactions.clear()
         med.interactions.forEach { inter ->
-            viewModel.getMed(inter.interactingMedId)?.let { add ->
+            meds.firstOrNull { it.med.id == inter.interactingMedId }?.let { add ->
                 interactions.add(add.toMed(type = MedListType.PRE) to inter)
             }
         }

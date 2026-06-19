@@ -36,6 +36,7 @@ import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -93,6 +94,8 @@ fun Content(
     patientViewModel: PatientViewModel = hiltViewModel(),
     medViewModel: MedViewModel = hiltViewModel(),
 ) {
+    val seedingState by medViewModel.seedingState.collectAsStateWithLifecycle()
+    val meds by medViewModel.medsList.collectAsState()
     val scope = rememberCoroutineScope()
     var showExamSheet by remember { mutableStateOf(false) }
     var showInteractionSheet by remember { mutableStateOf(false) }
@@ -126,10 +129,11 @@ fun Content(
     Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
             Menu(
-                viewModel = medViewModel,
                 onAddClick = { showExamSheet = true },
                 uiState = patientViewModel.uiState.value,
                 onClear = patientViewModel::clear,
+                onSeedDatabase = { medViewModel.seedDatabase() },
+                seedingState = seedingState,
             )
         }
 
@@ -140,11 +144,14 @@ fun Content(
                 containerColor = if (!focusMode) MaterialTheme.colorScheme.surfaceContainerHigh else BottomSheetDefaults.ContainerColor,
             ) {
                 ExamSheet(
-                    viewModel = medViewModel,
                     onInteractionButtonClick = { showInteractionSheet = true },
                     onShowTopBarChange = { focusMode = it },
                     uiState = patientViewModel.uiState.value,
                     onEvent = patientViewModel::onEvent,
+                    meds = meds,
+                    onSearchQueryChanged = { newQuery, excludeMeds ->
+                        medViewModel.onSearchQueryChanged(newQuery, excludeMeds)
+                    },
                 )
             }
         }
@@ -173,12 +180,12 @@ fun Content(
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun Menu(
-    viewModel: MedViewModel,
     uiState: PatientUiState,
+    seedingState: SeedingState,
+    onSeedDatabase: () -> Unit,
     onClear: () -> Unit,
     onAddClick: () -> Unit,
 ) {
-    val seedingState by viewModel.seedingState.collectAsStateWithLifecycle()
     val appVersion = rememberAppVersion()
     val gradientBrush = Brush.linearGradient(
         colors = listOf(
@@ -332,7 +339,7 @@ fun Menu(
 
         when (seedingState) {
             SeedingState.Idle -> {
-                viewModel.seedDatabase()
+                onSeedDatabase()
             }
 
             SeedingState.Loading -> {

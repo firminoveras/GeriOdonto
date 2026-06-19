@@ -21,8 +21,6 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -32,22 +30,22 @@ import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.data.database.MedListType
+import com.firmino.geriodonto.data.database.MedWithInteractions
 import com.firmino.geriodonto.ui.widgets.ExamMedItem
 import com.firmino.geriodonto.ui.widgets.ExamSearchBar
-import com.firmino.geriodonto.viewmodel.MedViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExamPageMeds(
-    viewModel: MedViewModel,
     medList: Set<Med>,
+    meds: List<MedWithInteractions>,
     conditionsList: Set<MedicalCondition>,
     onSearchStateChange: (Boolean) -> Unit,
+    onSearchQueryChanged: (String, Set<Med>) -> Unit,
     onAdd: (Med) -> Unit,
     onRemove: (Med) -> Unit,
 ) {
-    val meds by viewModel.medsList.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -62,7 +60,7 @@ fun ExamPageMeds(
                     med = item,
                     onRemove = onRemove,
                     shape = roundedCornerListShape(index = index, total = medList.filter { it.type == MedListType.PRE }.size),
-                    viewModel = viewModel,
+                    meds = meds,
                     medList = medList,
                 )
 
@@ -73,7 +71,7 @@ fun ExamPageMeds(
             onSearchStateChange = onSearchStateChange,
             placeholderText = "Adicionar medicamento...",
             content = { query, onDone ->
-                viewModel.onSearchQueryChanged(query, medList)
+                onSearchQueryChanged(query, medList)
                 if (query.isNotBlank()) {
                     LazyColumn {
                         items(items = meds.take(20), key = { it.med.id }) {
@@ -115,7 +113,7 @@ fun ExamPageMeds(
                                 ElevatedSuggestionChip(
                                     onClick = {
                                         scope.launch {
-                                            val med = viewModel.getMed(name)
+                                            val med = meds.firstOrNull{it.med.id == name}
                                             if (med != null) {
                                                 onAdd(med.toMed(result.second, MedListType.PRE))
                                             }
