@@ -67,7 +67,6 @@ fun ExamSheet(
     uiState: PatientUiState,
     onEvent: (PatientEvent) -> Unit,
     meds: List<MedWithInteractions>,
-    onSearchQueryChanged: (String, Set<Med>) -> Unit,
     onInteractionButtonClick: () -> Unit,
     onShowTopBarChange: (Boolean) -> Unit,
 ) {
@@ -257,7 +256,6 @@ fun ExamSheet(
                             conditionsList = uiState.conditionsList,
                             meds = meds,
                             onSearchStateChange = { showTopBar = !it },
-                            onSearchQueryChanged = onSearchQueryChanged,
                             onAdd = { onEvent(PatientEvent.AddMed(it)) },
                             onRemove = { deleteMed = it },
                         )
@@ -268,7 +266,6 @@ fun ExamSheet(
                             medList = uiState.medList,
                             meds = meds,
                             onSearchStateChange = { showTopBar = !it },
-                            onSearchQueryChanged = onSearchQueryChanged,
                             onAdd = { onEvent(PatientEvent.AddMed(it)) },
                             onRemove = { deletePrescription = it },
                         )

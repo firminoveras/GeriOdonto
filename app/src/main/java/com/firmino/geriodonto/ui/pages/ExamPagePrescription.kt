@@ -47,7 +47,6 @@ fun ExamPagePrescription(
     medList: Set<Med>,
     meds: List<MedWithInteractions>,
     onSearchStateChange: (Boolean) -> Unit,
-    onSearchQueryChanged: (String, Set<Med>) -> Unit,
     onAdd: (Med) -> Unit,
     onRemove: (Med) -> Unit,
 ) {
@@ -66,10 +65,9 @@ fun ExamPagePrescription(
             }
         },
         searchContent = { query, onDone ->
-            onSearchQueryChanged(query, medList)
             if (query.isNotBlank()) {
                 LazyColumn {
-                    items(items = meds.take(20), key = { it.med.id }) {
+                    items(items = meds.filter { "${it.med.name} ${it.med.description}".contains(query, true) }.take(20), key = { it.med.id }) {
                         ListItem(
                             modifier = Modifier
                                 .fillMaxWidth()

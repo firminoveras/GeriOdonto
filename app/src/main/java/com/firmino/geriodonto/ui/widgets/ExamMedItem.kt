@@ -23,9 +23,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,8 +40,13 @@ import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.data.database.InteractionEntity
 import com.firmino.geriodonto.data.database.Med
-import com.firmino.geriodonto.data.database.MedListType
 import com.firmino.geriodonto.data.database.MedWithInteractions
+
+data class ExamMedItemInteraction(
+    val med: MedWithInteractions,
+    val interaction: InteractionEntity,
+    val hasInteraction: Boolean,
+)
 
 @Composable
 fun ExamMedItem(
@@ -55,16 +59,25 @@ fun ExamMedItem(
     var isExpanded by remember { mutableStateOf(false) }
     var isInteractionsExpanded by remember { mutableStateOf(false) }
     var isRisksExpanded by remember { mutableStateOf(false) }
-    val interactions = remember { mutableStateListOf<Pair<Med, InteractionEntity>>() }
-    val interactionsCount = medList.map { it.id }.toSet().let { patientMedIds ->
-        med.interactions.count { it.interactingMedId in patientMedIds }
+
+    val interactionsCount by remember(med, medList) {
+        derivedStateOf {
+            val patientMedIds = medList.map { it.id }.toSet()
+            med.interactions.count { it.interactingMedId in patientMedIds }
+        }
     }
 
-    LaunchedEffect(med) {
-        interactions.clear()
-        med.interactions.forEach { inter ->
-            meds.firstOrNull { it.med.id == inter.interactingMedId }?.let { add ->
-                interactions.add(add.toMed(type = MedListType.PRE) to inter)
+    val interactions: List<ExamMedItemInteraction> by remember(med, meds) {
+        derivedStateOf {
+            med.interactions.mapNotNull { map ->
+                val m = meds.firstOrNull { it.med.id == map.interactingMedId }
+                if (m != null) {
+                    ExamMedItemInteraction(
+                        med = m,
+                        interaction = map,
+                        hasInteraction = map.interactingMedId in medList.map { it.id }
+                    )
+                } else null
             }
         }
     }
@@ -139,13 +152,12 @@ fun ExamMedItem(
                         isExpanded = isInteractionsExpanded,
                         onIsExpandedChange = { isInteractionsExpanded = it },
                         content = {
-                            interactions.sortedBy { it.second.alertLevel }.forEach {
-                                val hasInMedList = medList.contains(it.first)
+                            interactions.sortedBy { it.interaction.alertLevel }.forEach {
                                 ExamMedItemContent(
-                                    symbolName = it.second.alertLevel.symbolName,
-                                    title = if (hasInMedList) "Em uso" else "",
-                                    text = it.first.name,
-                                    color = if (hasInMedList) it.second.alertLevel.color else MaterialTheme.colorScheme.onSurface,
+                                    symbolName = it.interaction.alertLevel.symbolName,
+                                    title = if (it.hasInteraction) "Em uso" else "",
+                                    text = it.med.med.name,
+                                    color = if (it.hasInteraction) it.interaction.alertLevel.color else MaterialTheme.colorScheme.onSurface,
                                 )
                             }
                         },
@@ -216,7 +228,7 @@ private fun ExamMedItemSection(
 ) {
     val rotation by animateFloatAsState(
         targetValue = if (isExpanded) 180f else 0f,
-        animationSpec = tween(durationMillis = 300)
+        animationSpec = tween(durationMillis = 300),
     )
 
     Surface(

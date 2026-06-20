@@ -153,9 +153,6 @@ fun Content(
                     uiState = patientViewModel.uiState.value,
                     onEvent = patientViewModel::onEvent,
                     meds = meds,
-                    onSearchQueryChanged = { newQuery, excludeMeds ->
-                        medViewModel.onSearchQueryChanged(newQuery, excludeMeds)
-                    },
                 )
             }
         }
