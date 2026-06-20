@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -41,26 +38,20 @@ import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.data.medicalConditionsList
-import com.firmino.geriodonto.ui.widgets.ExamSearchBar
+import com.firmino.geriodonto.ui.widgets.ExamSearchPage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExamPageDiaseses(
+fun ExamPageConditions(
     conditionsList: Set<MedicalCondition>,
     onSearchStateChange: (Boolean) -> Unit,
     onAdd: (MedicalCondition) -> Unit,
     onRemove: (MedicalCondition) -> Unit,
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(
-            Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-        ) {
-            item {
-                Spacer(Modifier.height(58.dp))
-            }
+    ExamSearchPage(
+        onSearchStateChange = onSearchStateChange,
+        placeholderText = "Adicionar condição...",
+        lazyContent = {
             itemsIndexed(items = conditionsList.toList(), key = { _, item -> item.name }) { index, item ->
                 ExamDiaseseItem(
                     shape = roundedCornerListShape(index = index, total = conditionsList.size),
@@ -68,46 +59,41 @@ fun ExamPageDiaseses(
                     onRemove = { removeItem -> onRemove(removeItem) },
                 )
             }
-        }
-
-        ExamSearchBar(
-            onSearchStateChange = onSearchStateChange,
-            placeholderText = "Adicionar condição...",
-            content = { query, onDone ->
-                if (query.isNotEmpty()) {
-                    val condList = medicalConditionsList.map { it.name to it.description }.filter {
-                        (it.first + " " + it.second).contains(query, ignoreCase = true) &&
-                                !conditionsList.map { contains -> contains.name }.contains(it.first)
-                    }.take(20)
-                    LazyColumn {
-                        items(items = condList, key = { it.first }) { item ->
-                            ListItem(
-                                modifier = Modifier
-                                    .clickable {
-                                        onDone()
-                                        medicalConditionsList.find { it.name == item.first }?.let { condition ->
-                                            onAdd(condition)
-                                        }
+        },
+        searchContent = { query, onDone ->
+            if (query.isNotEmpty()) {
+                val condList = medicalConditionsList.map { it.name to it.description }.filter {
+                    (it.first + " " + it.second).contains(query, ignoreCase = true) &&
+                            !conditionsList.map { contains -> contains.name }.contains(it.first)
+                }.take(20)
+                LazyColumn {
+                    items(items = condList, key = { it.first }) { item ->
+                        ListItem(
+                            modifier = Modifier
+                                .clickable {
+                                    onDone()
+                                    medicalConditionsList.find { it.name == item.first }?.let { condition ->
+                                        onAdd(condition)
                                     }
-                                    .fillMaxWidth(),
-                                colors = ListItemDefaults.colors(
-                                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                                ),
-                                headlineContent = {
-                                    Text(highlightedText(item.first, query))
-                                },
-                                supportingContent = {
-                                    if (item.second.isNotBlank()) {
-                                        Text(highlightedText(item.second, query))
-                                    }
-                                },
-                            )
-                        }
+                                }
+                                .fillMaxWidth(),
+                            colors = ListItemDefaults.colors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            ),
+                            headlineContent = {
+                                Text(highlightedText(item.first, query))
+                            },
+                            supportingContent = {
+                                if (item.second.isNotBlank()) {
+                                    Text(highlightedText(item.second, query))
+                                }
+                            },
+                        )
                     }
                 }
-            },
-        )
-    }
+            }
+        },
+    )
 }
 
 @Composable

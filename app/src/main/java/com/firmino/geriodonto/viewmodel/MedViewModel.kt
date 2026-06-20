@@ -69,11 +69,6 @@ class MedViewModel @Inject constructor(
         _excludeMedsIds.update { excludeMeds.map { it.id }.toSet() }
         _searchQuery.value = newQuery
     }
-
-
-    suspend fun getMed(id: String): MedWithInteractions? {
-        return repository.getMedById(id)
-    }
 }
 
 sealed interface SeedingState {

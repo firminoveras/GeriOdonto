@@ -8,10 +8,6 @@ class MedRepository @Inject constructor(
 ) {
     val allMedsFlow: Flow<List<MedWithInteractions>> = medDao.getAllMedsWithInteractions()
 
-    suspend fun getMedById(id: String): MedWithInteractions? {
-        return medDao.getMedById(id)
-    }
-
     fun searchMeds(query: String): Flow<List<MedWithInteractions>> {
         return medDao.searchMedsByNameOrDescription(query)
     }

@@ -214,9 +214,10 @@ private fun ExamMedItemSection(
     onIsExpandedChange: (Boolean) -> Unit = {},
     content: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
-
-    val angle = if (isExpanded) 180f else 0f
-    val rotation by animateFloatAsState(targetValue = angle.coerceIn(0f, 180f), animationSpec = tween(durationMillis = 300))
+    val rotation by animateFloatAsState(
+        targetValue = if (isExpanded) 180f else 0f,
+        animationSpec = tween(durationMillis = 300)
+    )
 
     Surface(
         modifier = Modifier.fillMaxWidth(),

@@ -183,8 +183,6 @@ class PatientViewModel @Inject constructor() : ViewModel() {
             conditionsList.isEmpty() &&
             medList.isEmpty()
 
-    fun isNotEmpty() = !isEmpty()
-
     fun add(med: Med) {
         if (!medList.map { it.id }.contains(med.id) && this.medList.add(med))
             onMedChanged(med, PatientStateChangeType.ADD)

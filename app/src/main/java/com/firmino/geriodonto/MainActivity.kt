@@ -15,8 +15,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
@@ -140,6 +143,7 @@ fun Content(
         if (showExamSheet) {
             ModalBottomSheet(
                 onDismissRequest = { showExamSheet = false },
+                contentWindowInsets = { BottomSheetDefaults.modalWindowInsets.exclude(WindowInsets.navigationBars) },
                 sheetState = sheetExamState,
                 containerColor = if (!focusMode) MaterialTheme.colorScheme.surfaceContainerHigh else BottomSheetDefaults.ContainerColor,
             ) {
@@ -292,14 +296,6 @@ fun Menu(
             painter = ColorPainter(MaterialTheme.colorScheme.primary),
             contentDescription = null,
         )
-        Text(
-            modifier = Modifier
-                .padding(horizontal = 18.dp)
-                .align(Alignment.BottomStart),
-            text = appVersion,
-            color = MaterialTheme.colorScheme.onPrimary,
-            style = MaterialTheme.typography.labelMediumEmphasized,
-        )
 
         Column(
             modifier = Modifier.align(Alignment.Center),
@@ -332,6 +328,12 @@ fun Menu(
             Text(
                 text = "Prescrição Segura em Odontogeriatria",
                 style = MaterialTheme.typography.labelMedium,
+            )
+            Text(
+                modifier = Modifier.padding(top = 6.dp),
+                text = appVersion,
+                color = MaterialTheme.colorScheme.outline,
+                style = MaterialTheme.typography.labelSmall,
             )
             Spacer(Modifier.height(128.dp))
         }

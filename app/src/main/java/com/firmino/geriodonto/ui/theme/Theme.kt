@@ -140,7 +140,8 @@ val fontFamilyPoiret = FontFamily(Font(R.font.font_poiret))
 @Composable
 fun GeriOdontoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true, content: @Composable () -> Unit
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit,
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {

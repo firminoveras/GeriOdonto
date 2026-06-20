@@ -15,15 +15,14 @@ class DatabaseSeeder @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val medDao: MedDao,
 ) {
-    private val CURRENT_JSON_VERSION = 13
-
+    private val jsonVersion = 13
     suspend fun checkAndSeedDatabase() {
         val prefs = context.getSharedPreferences("geriodonto_prefs", Context.MODE_PRIVATE)
         val savedVersion = prefs.getInt("json_version", 0)
 
-        if (CURRENT_JSON_VERSION > savedVersion) {
+        if (jsonVersion > savedVersion) {
             populateDatabase()
-            prefs.edit { putInt("json_version", CURRENT_JSON_VERSION) }
+            prefs.edit { putInt("json_version", jsonVersion) }
         }
     }
 

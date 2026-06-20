@@ -30,10 +30,8 @@ fun MaterialSymbol(
     color: Color = MaterialTheme.colorScheme.onSurface,
     colorFilled: Color = MaterialTheme.colorScheme.primary,
 ) {
-    val fill = if (filled) 1f else 0f
-
     val animatedFill by animateFloatAsState(
-        targetValue = fill.coerceIn(0f, 1f),
+        targetValue = if(filled) 1f else 0f,
         animationSpec = tween(durationMillis = 300),
     )
 

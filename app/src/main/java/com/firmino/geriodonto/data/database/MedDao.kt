@@ -20,10 +20,6 @@ interface MedDao {
     fun getAllMedsWithInteractions(): Flow<List<MedWithInteractions>>
 
     @Transaction
-    @Query("SELECT * FROM medications WHERE id = :medId")
-    suspend fun getMedById(medId: String): MedWithInteractions?
-
-    @Transaction
     @Query("SELECT * FROM medications WHERE name LIKE '%' || :searchQuery || '%' OR description LIKE '%' || :searchQuery || '%'")
     fun searchMedsByNameOrDescription(searchQuery: String): Flow<List<MedWithInteractions>>
 

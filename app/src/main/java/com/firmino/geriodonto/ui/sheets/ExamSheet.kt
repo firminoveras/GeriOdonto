@@ -44,7 +44,7 @@ import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.data.database.Med
 import com.firmino.geriodonto.data.database.MedListType
 import com.firmino.geriodonto.data.database.MedWithInteractions
-import com.firmino.geriodonto.ui.pages.ExamPageDiaseses
+import com.firmino.geriodonto.ui.pages.ExamPageConditions
 import com.firmino.geriodonto.ui.pages.ExamPageExams
 import com.firmino.geriodonto.ui.pages.ExamPageMeds
 import com.firmino.geriodonto.ui.pages.ExamPagePersonal
@@ -164,13 +164,11 @@ fun ExamSheet(
                 .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } },
         ) {
             AnimatedVisibility(showTopBar) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Box(
                         Modifier
                             .fillMaxWidth()
-                            .padding(12.dp),
+                            .padding(horizontal = 12.dp),
                     ) {
                         Column(
                             Modifier
@@ -205,14 +203,16 @@ fun ExamSheet(
                             )
                         }
                     }
-                    HorizontalDivider()
                     AnimatedVisibility(visible = showMenuBar) {
-                        ExamMenu(
-                            currentPage = pagerState.currentPage,
-                            medList = uiState.medList,
-                            conditionList = uiState.conditionsList,
-                            onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
-                        )
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            HorizontalDivider()
+                            ExamMenu(
+                                currentPage = pagerState.currentPage,
+                                medList = uiState.medList,
+                                conditionList = uiState.conditionsList,
+                                onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
+                            )
+                        }
                     }
                 }
             }
@@ -243,7 +243,7 @@ fun ExamSheet(
                     }
 
                     ExamPages.PAGE_CONDITIONS.ordinal -> {
-                        ExamPageDiaseses(
+                        ExamPageConditions(
                             conditionsList = uiState.conditionsList,
                             onSearchStateChange = { showTopBar = !it },
                             onAdd = { onEvent(PatientEvent.AddCondition(it)) },
@@ -279,7 +279,7 @@ fun ExamSheet(
         ExtendedFloatingActionButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(12.dp),
+                .padding(horizontal = 12.dp, vertical = 18.dp),
             onClick = { onInteractionButtonClick() },
             text = { Text("Interações") },
             expanded = uiState.interactions.isNotEmpty(),
