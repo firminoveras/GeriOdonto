@@ -39,7 +39,6 @@ import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -98,11 +97,13 @@ fun Content(
     medViewModel: MedViewModel = hiltViewModel(),
 ) {
     val seedingState by medViewModel.seedingState.collectAsStateWithLifecycle()
-    val meds by medViewModel.medsList.collectAsState()
     val scope = rememberCoroutineScope()
     var showExamSheet by remember { mutableStateOf(false) }
     var showInteractionSheet by remember { mutableStateOf(false) }
     var focusMode by remember { mutableStateOf(false) }
+
+    val filteredMeds by medViewModel.filteredMedsList.collectAsStateWithLifecycle()
+
     val sheetExamState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
@@ -152,7 +153,8 @@ fun Content(
                     onShowTopBarChange = { focusMode = it },
                     uiState = patientViewModel.uiState.value,
                     onEvent = patientViewModel::onEvent,
-                    meds = meds,
+                    filteredMeds = filteredMeds,
+                    onSearch = {medViewModel.onSearchQueryChanged(it)}
                 )
             }
         }

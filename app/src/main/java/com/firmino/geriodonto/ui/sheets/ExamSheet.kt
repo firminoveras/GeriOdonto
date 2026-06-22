@@ -41,14 +41,13 @@ import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.PocketAlert
 import com.firmino.geriodonto.data.MedicalCondition
-import com.firmino.geriodonto.data.database.Med
-import com.firmino.geriodonto.data.database.MedListType
-import com.firmino.geriodonto.data.database.MedWithInteractions
 import com.firmino.geriodonto.ui.pages.ExamPageConditions
 import com.firmino.geriodonto.ui.pages.ExamPageExams
 import com.firmino.geriodonto.ui.pages.ExamPageMeds
 import com.firmino.geriodonto.ui.pages.ExamPagePersonal
 import com.firmino.geriodonto.ui.pages.ExamPagePrescription
+import com.firmino.geriodonto.viewmodel.Med
+import com.firmino.geriodonto.viewmodel.MedListType
 import com.firmino.geriodonto.viewmodel.PatientEvent
 import com.firmino.geriodonto.viewmodel.PatientUiState
 import kotlinx.coroutines.launch
@@ -66,7 +65,8 @@ enum class ExamPages(val text: String, val symbolName: String, val description: 
 fun ExamSheet(
     uiState: PatientUiState,
     onEvent: (PatientEvent) -> Unit,
-    meds: List<MedWithInteractions>,
+    filteredMeds: List<Med>,
+    onSearch: (String) -> Unit,
     onInteractionButtonClick: () -> Unit,
     onShowTopBarChange: (Boolean) -> Unit,
 ) {
@@ -254,7 +254,8 @@ fun ExamSheet(
                         ExamPageMeds(
                             medList = uiState.medList,
                             conditionsList = uiState.conditionsList,
-                            meds = meds,
+                            filteredMeds = filteredMeds,
+                            onSearch = onSearch,
                             onSearchStateChange = { showTopBar = !it },
                             onAdd = { onEvent(PatientEvent.AddMed(it)) },
                             onRemove = { deleteMed = it },
@@ -264,7 +265,8 @@ fun ExamSheet(
                     ExamPages.PAGE_PRESCRIPTION.ordinal -> {
                         ExamPagePrescription(
                             medList = uiState.medList,
-                            meds = meds,
+                            filteredMeds = filteredMeds,
+                            onSearch = onSearch,
                             onSearchStateChange = { showTopBar = !it },
                             onAdd = { onEvent(PatientEvent.AddMed(it)) },
                             onRemove = { deletePrescription = it },

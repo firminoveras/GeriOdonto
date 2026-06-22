@@ -24,17 +24,17 @@ import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
 import com.firmino.geriodonto.data.MedicalCondition
-import com.firmino.geriodonto.data.database.Med
-import com.firmino.geriodonto.data.database.MedListType
-import com.firmino.geriodonto.data.database.MedWithInteractions
 import com.firmino.geriodonto.ui.widgets.ExamMedItem
 import com.firmino.geriodonto.ui.widgets.ExamSearchPage
+import com.firmino.geriodonto.viewmodel.Med
+import com.firmino.geriodonto.viewmodel.MedListType
 import kotlinx.coroutines.launch
 
 @Composable
 fun ExamPageMeds(
     medList: Set<Med>,
-    meds: List<MedWithInteractions>,
+    filteredMeds: List<Med>,
+    onSearch: (String) -> Unit,
     conditionsList: Set<MedicalCondition>,
     onSearchStateChange: (Boolean) -> Unit,
     onAdd: (Med) -> Unit,
@@ -49,20 +49,20 @@ fun ExamPageMeds(
                     med = item,
                     onRemove = onRemove,
                     shape = roundedCornerListShape(index = index, total = medList.filter { it.type == MedListType.PRE }.size),
-                    meds = meds,
-                    medList = medList,
+                    usingMedsIds = medList.map { it.id },
                 )
             }
         },
         searchContent = { query, onDone ->
+            onSearch(query)
             if (query.isNotBlank()) {
                 LazyColumn {
-                    items(items = meds.filter { "${it.med.name} ${it.med.description}".contains(query, true) }.take(20), key = { it.med.id }) {
+                    items(items = filteredMeds, key = { it.id }) {
                         ListItem(
                             modifier = Modifier
                                 .clickable {
                                     onDone()
-                                    onAdd(it.toMed(type = MedListType.PRE))
+                                    onAdd(it.copy(type = MedListType.PRE))
                                 }
                                 .fillMaxWidth(),
 
@@ -70,11 +70,11 @@ fun ExamPageMeds(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                             ),
                             headlineContent = {
-                                Text(highlightedText(it.med.name, query))
+                                Text(highlightedText(it.name, query))
                             },
                             supportingContent = {
-                                if (it.med.description.isNotBlank()) {
-                                    Text(highlightedText(it.med.description, query))
+                                if (it.description.isNotBlank()) {
+                                    Text(highlightedText(it.description, query))
                                 }
                             },
                         )
@@ -96,11 +96,11 @@ fun ExamPageMeds(
                             ElevatedSuggestionChip(
                                 onClick = {
                                     scope.launch {
-                                        val med = meds.firstOrNull { it.med.id == name }
-                                        if (med != null) {
-                                            onAdd(med.toMed(result.second, MedListType.PRE))
-                                        }
-                                        onDone()
+//                                        val med = meds.firstOrNull { it.med.id == name }
+//                                        if (med != null) {
+//                                            onAdd(med.toMed(result.second, MedListType.PRE))
+//                                        }
+//                                        onDone()
                                     }
                                 },
                                 icon = { MaterialSymbol(iconName = "medication") },

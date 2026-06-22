@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,49 +37,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
-import com.firmino.geriodonto.data.database.InteractionEntity
-import com.firmino.geriodonto.data.database.Med
-import com.firmino.geriodonto.data.database.MedWithInteractions
-
-data class ExamMedItemInteraction(
-    val med: MedWithInteractions,
-    val interaction: InteractionEntity,
-    val hasInteraction: Boolean,
-)
+import com.firmino.geriodonto.viewmodel.Med
 
 @Composable
 fun ExamMedItem(
     med: Med,
     onRemove: (Med) -> Unit,
     shape: CornerBasedShape,
-    meds: List<MedWithInteractions>,
-    medList: Set<Med>,
+    usingMedsIds: List<String>,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var isInteractionsExpanded by remember { mutableStateOf(false) }
     var isRisksExpanded by remember { mutableStateOf(false) }
-
-    val interactionsCount by remember(med, medList) {
-        derivedStateOf {
-            val patientMedIds = medList.map { it.id }.toSet()
-            med.interactions.count { it.interactingMedId in patientMedIds }
-        }
-    }
-
-    val interactions: List<ExamMedItemInteraction> by remember(med, meds) {
-        derivedStateOf {
-            med.interactions.mapNotNull { map ->
-                val m = meds.firstOrNull { it.med.id == map.interactingMedId }
-                if (m != null) {
-                    ExamMedItemInteraction(
-                        med = m,
-                        interaction = map,
-                        hasInteraction = map.interactingMedId in medList.map { it.id }
-                    )
-                } else null
-            }
-        }
-    }
+    val interactionsCount = med.interactions.map { it.interactingMedId }.count { it in usingMedsIds }
 
     Card(
         onClick = { isExpanded = !isExpanded },
@@ -146,22 +115,27 @@ fun ExamMedItem(
                         text = med.byDisease,
                     )
 
-                    ExamMedItemSection(
-                        title = "Interações",
-                        text = "${interactions.size} possiveis interações.",
-                        isExpanded = isInteractionsExpanded,
-                        onIsExpandedChange = { isInteractionsExpanded = it },
-                        content = {
-                            interactions.sortedBy { it.interaction.alertLevel }.forEach {
-                                ExamMedItemContent(
-                                    symbolName = it.interaction.alertLevel.symbolName,
-                                    title = if (it.hasInteraction) "Em uso" else "",
-                                    text = it.med.med.name,
-                                    color = if (it.hasInteraction) it.interaction.alertLevel.color else MaterialTheme.colorScheme.onSurface,
-                                )
-                            }
-                        },
-                    )
+                    if(med.interactions.isNotEmpty()){
+                        ExamMedItemSection(
+                            title = "Interações",
+                            text = "${med.interactions.size} possiveis interações.",
+                            isExpanded = isInteractionsExpanded,
+                            onIsExpandedChange = { isInteractionsExpanded = it },
+                            content = {
+                                val interactions = med.interactions.map {
+                                    Pair(it, it.interactingMedId in usingMedsIds)
+                                }.sortedByDescending { it.second }
+                                interactions.forEach {
+                                    ExamMedItemContent(
+                                        symbolName = it.first.alertLevel.symbolName,
+                                        title = if (it.second) "Em uso" else "",
+                                        text = it.first.interactingMedName,
+                                        color = if (it.second) it.first.alertLevel.color else MaterialTheme.colorScheme.onSurface,
+                                    )
+                                }
+                            },
+                        )
+                    }
 
                     ExamMedItemSection(
                         title = "Riscos",

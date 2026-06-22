@@ -26,7 +26,6 @@ import com.firmino.geriodonto.data.TGOAlta
 import com.firmino.geriodonto.data.TGOBaixa
 import com.firmino.geriodonto.data.TGPAlta
 import com.firmino.geriodonto.data.TGPBaixa
-import com.firmino.geriodonto.data.database.Med
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
