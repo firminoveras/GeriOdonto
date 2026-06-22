@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,6 +51,9 @@ fun ExamMedItem(
     var isInteractionsExpanded by remember { mutableStateOf(false) }
     var isRisksExpanded by remember { mutableStateOf(false) }
     val interactionsCount = med.interactions.map { it.interactingMedId }.count { it in usingMedsIds }
+    val interactions = med.interactions.map {
+        Pair(it, it.interactingMedId in usingMedsIds)
+    }.sortedByDescending { it.second }
 
     Card(
         onClick = { isExpanded = !isExpanded },
@@ -84,14 +88,32 @@ fun ExamMedItem(
                     }
 
                     AnimatedVisibility(visible = !isExpanded && interactionsCount > 0) {
-                        Text(
-                            modifier = Modifier
-                                .padding(top = 8.dp)
-                                .background(color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(32.dp))
-                                .padding(horizontal = 8.dp, vertical = 4.dp),
-                            text = "$interactionsCount interações",
-                            style = MaterialTheme.typography.bodySmall,
-                        )
+                        FlowRow(
+                            modifier = Modifier.padding(top = 8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        ) {
+                            interactions.filter { it.first.interactingMedId in usingMedsIds }.map { it.first }.forEach {
+                                Row(
+                                    modifier = Modifier
+                                        .background(color = it.alertLevel.color.copy(alpha = .2f), shape = RoundedCornerShape(32.dp))
+                                        .padding(horizontal = 6.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    MaterialSymbol(
+                                        iconName = it.alertLevel.symbolName,
+                                        filled = true,
+                                        colorFilled = it.alertLevel.color,
+                                        size = MaterialTheme.typography.bodySmall.fontSize,
+                                    )
+                                    Text(
+                                        text = it.interactingMedName,
+                                        color = it.alertLevel.color,
+                                        style = MaterialTheme.typography.bodySmall,
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -115,16 +137,13 @@ fun ExamMedItem(
                         text = med.byDisease,
                     )
 
-                    if(med.interactions.isNotEmpty()){
+                    if (med.interactions.isNotEmpty()) {
                         ExamMedItemSection(
                             title = "Interações",
                             text = "${med.interactions.size} possiveis interações.",
                             isExpanded = isInteractionsExpanded,
                             onIsExpandedChange = { isInteractionsExpanded = it },
                             content = {
-                                val interactions = med.interactions.map {
-                                    Pair(it, it.interactingMedId in usingMedsIds)
-                                }.sortedByDescending { it.second }
                                 interactions.forEach {
                                     ExamMedItemContent(
                                         symbolName = it.first.alertLevel.symbolName,
