@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,6 +23,7 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,7 +53,7 @@ fun ExamPageConditions(
     ExamSearchPage(
         onSearchStateChange = onSearchStateChange,
         placeholderText = "Adicionar condição...",
-        lazyContent = {
+        itemsContent = {
             itemsIndexed(items = conditionsList.toList(), key = { _, item -> item.name }) { index, item ->
                 ExamDiaseseItem(
                     shape = roundedCornerListShape(index = index, total = conditionsList.size),
@@ -60,13 +62,15 @@ fun ExamPageConditions(
                 )
             }
         },
-        searchContent = { query, onDone ->
+        suggestionsContent = { query, onDone ->
             if (query.isNotEmpty()) {
+                val lazyState = rememberLazyListState()
                 val condList = medicalConditionsList.map { it.name to it.description }.filter {
                     (it.first + " " + it.second).contains(query, ignoreCase = true) &&
                             !conditionsList.map { contains -> contains.name }.contains(it.first)
                 }.take(20)
-                LazyColumn {
+                LaunchedEffect(condList, query) { if (condList.isNotEmpty()) lazyState.scrollToItem(0) }
+                LazyColumn(state = lazyState) {
                     items(items = condList, key = { it.first }) { item ->
                         ListItem(
                             modifier = Modifier

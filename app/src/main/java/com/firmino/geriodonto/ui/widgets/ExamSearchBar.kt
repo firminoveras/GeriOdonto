@@ -97,8 +97,8 @@ fun ExamSearchBar(
 fun ExamSearchPage(
     onSearchStateChange: (Boolean) -> Unit,
     placeholderText: String = "Adicionar...",
-    lazyContent: LazyListScope.() -> Unit,
-    searchContent: @Composable (ColumnScope.(query: String, onDone: () -> Unit) -> Unit),
+    itemsContent: LazyListScope.() -> Unit,
+    suggestionsContent: @Composable (ColumnScope.(query: String, onDone: () -> Unit) -> Unit),
 ) {
     val state = rememberLazyListState()
     val isFirstItemNotVisible by remember { derivedStateOf { state.firstVisibleItemIndex > 0 } }
@@ -112,7 +112,7 @@ fun ExamSearchPage(
             state = state,
         ) {
             item { Spacer(Modifier.height(82.dp)) }
-            lazyContent()
+            itemsContent()
             item { Spacer(Modifier.height(82.dp)) }
         }
 
@@ -133,7 +133,7 @@ fun ExamSearchPage(
             ExamSearchBar(
                 onSearchStateChange = onSearchStateChange,
                 placeholderText = placeholderText,
-                content = searchContent,
+                content = suggestionsContent,
             )
         }
     }

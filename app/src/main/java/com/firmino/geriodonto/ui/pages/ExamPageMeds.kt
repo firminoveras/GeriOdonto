@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ElevatedSuggestionChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
@@ -17,6 +18,7 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -43,7 +45,7 @@ fun ExamPageMeds(
     ExamSearchPage(
         onSearchStateChange = onSearchStateChange,
         placeholderText = "Adicionar medicamento...",
-        lazyContent = {
+        itemsContent = {
             itemsIndexed(items = medList.filter { it.type == MedListType.PRE }.toList(), key = { _, item -> item.name + item.description }) { index, item ->
                 ExamMedItem(
                     med = item,
@@ -53,10 +55,12 @@ fun ExamPageMeds(
                 )
             }
         },
-        searchContent = { query, onDone ->
+        suggestionsContent = { query, onDone ->
             onSearch(query)
+            val lazyState = rememberLazyListState()
+            LaunchedEffect(filteredMeds, query) { if (filteredMeds.isNotEmpty()) lazyState.scrollToItem(0) }
             if (query.isNotBlank()) {
-                LazyColumn {
+                LazyColumn(state = lazyState) {
                     items(items = filteredMeds, key = { it.id }) {
                         ListItem(
                             modifier = Modifier
@@ -96,11 +100,11 @@ fun ExamPageMeds(
                             ElevatedSuggestionChip(
                                 onClick = {
                                     scope.launch {
-//                                        val med = meds.firstOrNull { it.med.id == name }
-//                                        if (med != null) {
-//                                            onAdd(med.toMed(result.second, MedListType.PRE))
-//                                        }
-//                                        onDone()
+                                        //                                        val med = meds.firstOrNull { it.med.id == name }
+                                        //                                        if (med != null) {
+                                        //                                            onAdd(med.toMed(result.second, MedListType.PRE))
+                                        //                                        }
+                                        //                                        onDone()
                                     }
                                 },
                                 icon = { MaterialSymbol(iconName = "medication") },
