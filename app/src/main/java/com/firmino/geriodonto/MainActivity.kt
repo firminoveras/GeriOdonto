@@ -39,6 +39,7 @@ import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -103,6 +104,14 @@ fun Content(
     var focusMode by remember { mutableStateOf(false) }
 
     val filteredMeds by medViewModel.filteredMedsList.collectAsStateWithLifecycle()
+    val suggestionMedsByClass by medViewModel.medsByClass.collectAsStateWithLifecycle()
+
+    LaunchedEffect(suggestionMedsByClass) {
+        println("AAAAAAAAAAAAAAAAAAAAAAA")
+        suggestionMedsByClass.forEach {
+            println(it.name)
+        }
+    }
 
     val sheetExamState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
@@ -154,7 +163,16 @@ fun Content(
                     uiState = patientViewModel.uiState.value,
                     onEvent = patientViewModel::onEvent,
                     filteredMeds = filteredMeds,
-                    onSearch = {medViewModel.onSearchQueryChanged(it)}
+                    onSearch = { medViewModel.onSearchQueryChanged(it) },
+                    onFindAndAdd = { id, type, addedBy ->
+                        scope.launch {
+                            medViewModel.getMedById(id, type, addedBy)?.let {
+                                patientViewModel.add(it)
+                            }
+                        }
+                    },
+                    suggestionMedList = suggestionMedsByClass,
+                    onSuggestionMedClassChange = { medViewModel.onSuggestionMedsQueryChanged(it) },
                 )
             }
         }

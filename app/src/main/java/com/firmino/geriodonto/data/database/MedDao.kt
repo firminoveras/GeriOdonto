@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import com.firmino.geriodonto.data.MedClass
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -35,6 +36,14 @@ interface MedDao {
 
     @Query("SELECT * FROM medications WHERE id IN (:medIds)")
     suspend fun getMedsByIdsList(medIds: List<String>): List<MedWithInteractions>
+
+    @Transaction
+    @Query("SELECT * FROM medications WHERE id = :id")
+    suspend fun getMedById(id: String): MedWithInteractions?
+
+    @Transaction
+    @Query("SELECT * FROM medications WHERE medClass = :medClass")
+    fun getMedsByClass(medClass: MedClass): Flow<List<MedWithInteractions>>
 
     @Query("DELETE FROM interactions")
     suspend fun deleteAllInteractions()

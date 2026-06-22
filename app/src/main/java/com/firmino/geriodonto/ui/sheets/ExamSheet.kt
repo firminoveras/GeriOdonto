@@ -40,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.PocketAlert
+import com.firmino.geriodonto.data.MedClass
 import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.ui.pages.ExamPageConditions
 import com.firmino.geriodonto.ui.pages.ExamPageExams
@@ -69,6 +70,9 @@ fun ExamSheet(
     onSearch: (String) -> Unit,
     onInteractionButtonClick: () -> Unit,
     onShowTopBarChange: (Boolean) -> Unit,
+    onFindAndAdd: (id: String, type: MedListType, addedBy: String) -> Unit,
+    suggestionMedList: List<Med>,
+    onSuggestionMedClassChange: (MedClass?) -> Unit,
 ) {
     val pagerState = rememberPagerState { ExamPages.entries.size }
     val scope = rememberCoroutineScope()
@@ -259,6 +263,7 @@ fun ExamSheet(
                             onSearchStateChange = { showTopBar = !it },
                             onAdd = { onEvent(PatientEvent.AddMed(it)) },
                             onRemove = { deleteMed = it },
+                            onFindAndAdd = onFindAndAdd,
                         )
                     }
 
@@ -270,6 +275,8 @@ fun ExamSheet(
                             onSearchStateChange = { showTopBar = !it },
                             onAdd = { onEvent(PatientEvent.AddMed(it)) },
                             onRemove = { deletePrescription = it },
+                            suggestionMedList = suggestionMedList,
+                            onSuggestionMedClassChange = onSuggestionMedClassChange,
                         )
                     }
                 }

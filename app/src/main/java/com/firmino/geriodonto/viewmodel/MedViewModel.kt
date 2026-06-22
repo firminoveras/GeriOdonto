@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -28,8 +29,11 @@ class MedViewModel @Inject constructor(
     private val repository: MedRepository,
     private val databaseSeeder: DatabaseSeeder,
 ) : ViewModel() {
+
     private val _searchQuery = MutableStateFlow("")
-    fun onSearchQueryChanged(newQuery: String) { _searchQuery.value = newQuery }
+    fun onSearchQueryChanged(newQuery: String) {
+        _searchQuery.value = newQuery
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     val filteredMedsList: StateFlow<List<Med>> = _searchQuery
@@ -57,6 +61,25 @@ class MedViewModel @Inject constructor(
             }
         }
     }
+
+    private val _suggestionMedsQuery = MutableStateFlow<MedClass?>(null)
+    fun onSuggestionMedsQueryChanged(newQuery: MedClass?) {
+        _suggestionMedsQuery.value = newQuery
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+    val medsByClass: StateFlow<List<Med>> = _suggestionMedsQuery
+        .flatMapLatest { medClass ->
+            if (medClass != null) repository.searchMedsByClass(medClass)
+            else emptyFlow()
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList(),
+        )
+
+    suspend fun getMedById(id: String, type: MedListType, addedBy: String) = repository.getMedById(id)?.copy(type = type, addedBy = addedBy)
 }
 
 sealed interface SeedingState {
@@ -66,8 +89,10 @@ sealed interface SeedingState {
     data class Error(val message: String) : SeedingState
 }
 
-
-enum class MedListType{ PRE, POS }
+enum class MedListType {
+    PRE,
+    POS
+}
 
 data class Med(
     val id: String,
@@ -93,7 +118,7 @@ data class Interaction(
 fun MedWithInteractions.toMed(
     mappedInteractions: List<Interaction>,
     addedBy: String = "",
-    type: MedListType? = null
+    type: MedListType? = null,
 ) = Med(
     id = this.med.id,
     name = this.med.name,

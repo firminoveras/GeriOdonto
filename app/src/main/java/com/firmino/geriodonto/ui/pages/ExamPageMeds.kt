@@ -19,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
@@ -30,7 +29,6 @@ import com.firmino.geriodonto.ui.widgets.ExamMedItem
 import com.firmino.geriodonto.ui.widgets.ExamSearchPage
 import com.firmino.geriodonto.viewmodel.Med
 import com.firmino.geriodonto.viewmodel.MedListType
-import kotlinx.coroutines.launch
 
 @Composable
 fun ExamPageMeds(
@@ -41,6 +39,7 @@ fun ExamPageMeds(
     onSearchStateChange: (Boolean) -> Unit,
     onAdd: (Med) -> Unit,
     onRemove: (Med) -> Unit,
+    onFindAndAdd: (id: String, type: MedListType, addedBy: String) -> Unit,
 ) {
     ExamSearchPage(
         onSearchStateChange = onSearchStateChange,
@@ -85,29 +84,22 @@ fun ExamPageMeds(
                     }
                 }
             } else if (conditionsList.map { it.commonMeds to it.name }.isNotEmpty()) {
-                val scope = rememberCoroutineScope()
                 conditionsList.map { it.commonMeds to it.name }.filter { it.first.isNotEmpty() }.forEach { result ->
                     Text(
                         modifier = Modifier.padding(start = 12.dp, top = 8.dp),
                         text = result.second,
                         style = MaterialTheme.typography.titleSmall,
                     )
-                    LazyRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         item { Spacer(modifier = Modifier.width(0.dp)) }
                         items(result.first) { name ->
                             ElevatedSuggestionChip(
                                 onClick = {
-                                    scope.launch {
-                                        //                                        val med = meds.firstOrNull { it.med.id == name }
-                                        //                                        if (med != null) {
-                                        //                                            onAdd(med.toMed(result.second, MedListType.PRE))
-                                        //                                        }
-                                        //                                        onDone()
-                                    }
+                                    onDone()
+                                    onFindAndAdd(name, MedListType.PRE, result.second)
                                 },
                                 icon = { MaterialSymbol(iconName = "medication") },
+                                // TODO: Fazer isso ficar melhor com um pair, por exemplo
                                 label = { Text(name.replaceFirstChar { it.uppercase() }.replace("_", " ")) },
                             )
                         }
