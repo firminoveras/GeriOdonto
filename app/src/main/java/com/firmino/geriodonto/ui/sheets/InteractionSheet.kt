@@ -2,7 +2,6 @@ package com.firmino.geriodonto.ui.sheets
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +12,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -25,8 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
-import com.firmino.geriodonto.ui.pages.InteractionsPageRisks
 import com.firmino.geriodonto.ui.pages.InteractionsPageInteractions
+import com.firmino.geriodonto.ui.pages.InteractionsPageRisks
+import com.firmino.geriodonto.ui.widgets.SheetHeader
 import com.firmino.geriodonto.viewmodel.InteractionAlert
 import com.firmino.geriodonto.viewmodel.PatientUiState
 import com.firmino.geriodonto.viewmodel.RiskAlert
@@ -45,37 +44,17 @@ fun InteractionSheet(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
-        ) {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterStart),
-            ) {
-                Text(
-                    text = "Interações e Riscos",
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                if (uiState.name.text.isNotEmpty()) {
-                    Text(
-                        text = uiState.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
-                        style = MaterialTheme.typography.labelSmall,
-                        maxLines = 1,
-                    )
-                }
-
-            }
-            Row(Modifier.align(Alignment.CenterEnd)) {
+        SheetHeader(
+            iconName = "brightness_alert",
+            title = "Interações e Riscos",
+            subtitle = uiState.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
+            content = {
                 IconButton(
                     onClick = { onClose() },
                     content = { MaterialSymbol(iconName = "close") },
                 )
             }
-        }
-        HorizontalDivider()
+        )
         InteractionMenu(
             currentPage = pagerState.currentPage,
             interactions = uiState.interactions,

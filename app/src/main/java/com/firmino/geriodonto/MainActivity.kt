@@ -64,7 +64,9 @@ import com.firmino.geriodonto.companions.PocketAlert
 import com.firmino.geriodonto.companions.PocketAlertManager
 import com.firmino.geriodonto.companions.rememberAppVersion
 import com.firmino.geriodonto.ui.sheets.ExamSheet
+import com.firmino.geriodonto.ui.sheets.InfoSheet
 import com.firmino.geriodonto.ui.sheets.InteractionSheet
+import com.firmino.geriodonto.ui.sheets.PolicySheet
 import com.firmino.geriodonto.ui.theme.GeriOdontoTheme
 import com.firmino.geriodonto.ui.theme.fontFamilyBaumans
 import com.firmino.geriodonto.ui.theme.fontFamilyPoiret
@@ -96,24 +98,22 @@ fun Content(
     patientViewModel: PatientViewModel = hiltViewModel(),
     medViewModel: MedViewModel = hiltViewModel(),
 ) {
-    val seedingState by medViewModel.seedingState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
-    var showExamSheet by remember { mutableStateOf(false) }
-    var showInteractionSheet by remember { mutableStateOf(false) }
-    var focusMode by remember { mutableStateOf(false) }
 
+    val seedingState by medViewModel.seedingState.collectAsStateWithLifecycle()
     val filteredMeds by medViewModel.filteredMedsList.collectAsStateWithLifecycle()
     val suggestionMedsByClass by medViewModel.medsByClass.collectAsStateWithLifecycle()
 
-    val sheetExamState = rememberBottomSheetState(
-        initialValue = SheetValue.Hidden,
-        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
-    )
+    val sheetExamState = rememberBottomSheetState(initialValue = SheetValue.Hidden, enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded))
+    val sheetInteractionSheet = rememberBottomSheetState(initialValue = SheetValue.Hidden, enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded))
+    val sheetPolicySheet = rememberBottomSheetState(initialValue = SheetValue.Hidden)
+    val sheetInfoSheet = rememberBottomSheetState(initialValue = SheetValue.Hidden)
 
-    val sheetInteractionSheet = rememberBottomSheetState(
-        initialValue = SheetValue.Hidden,
-        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
-    )
+    var showExamSheet by remember { mutableStateOf(false) }
+    var showInteractionSheet by remember { mutableStateOf(false) }
+    var showPolicySheet by remember { mutableStateOf(false) }
+    var showInfoSheet by remember { mutableStateOf(false) }
+    var focusMode by remember { mutableStateOf(false) }
 
     patientViewModel.onConditionChanged = { condition, type ->
         PocketAlertManager.show(
@@ -134,11 +134,13 @@ fun Content(
     Scaffold { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
             Menu(
-                onAddClick = { showExamSheet = true },
                 uiState = patientViewModel.uiState.value,
-                onClear = patientViewModel::clear,
-                onSeedDatabase = { medViewModel.seedDatabase() },
                 seedingState = seedingState,
+                onSeedDatabase = { medViewModel.seedDatabase() },
+                onClear = patientViewModel::clear,
+                onAddClick = {showExamSheet = true},
+                onInfoClick = {showInfoSheet = true},
+                onPolicyClick = {showPolicySheet = true},
             )
         }
 
@@ -172,6 +174,7 @@ fun Content(
 
         if (showInteractionSheet) {
             ModalBottomSheet(
+                contentWindowInsets = { BottomSheetDefaults.modalWindowInsets.exclude(WindowInsets.navigationBars) },
                 onDismissRequest = { showInteractionSheet = false },
                 sheetState = sheetInteractionSheet,
             ) {
@@ -187,6 +190,26 @@ fun Content(
                 )
             }
         }
+
+        if (showPolicySheet) {
+            ModalBottomSheet(
+                contentWindowInsets = { BottomSheetDefaults.modalWindowInsets.exclude(WindowInsets.navigationBars) },
+                onDismissRequest = { showPolicySheet = false },
+                sheetState = sheetPolicySheet,
+            ) {
+                PolicySheet()
+            }
+        }
+
+        if (showInfoSheet) {
+            ModalBottomSheet(
+                contentWindowInsets = { BottomSheetDefaults.modalWindowInsets.exclude(WindowInsets.navigationBars) },
+                onDismissRequest = { showInfoSheet = false },
+                sheetState = sheetInfoSheet,
+            ) {
+                InfoSheet()
+            }
+        }
     }
 }
 
@@ -198,6 +221,8 @@ fun Menu(
     onSeedDatabase: () -> Unit,
     onClear: () -> Unit,
     onAddClick: () -> Unit,
+    onInfoClick: () -> Unit,
+    onPolicyClick: () -> Unit,
 ) {
     val appVersion = rememberAppVersion()
     var dataVersion by remember { mutableStateOf("") }
@@ -399,8 +424,8 @@ fun Menu(
                         }
                     },
                 ) {
-                    IconButton(onClick = {}) { MaterialSymbol(iconName = "info") }
-                    IconButton(onClick = {}) { MaterialSymbol(iconName = "policy") }
+                    IconButton(onClick = onInfoClick) { MaterialSymbol(iconName = "license") }
+                    IconButton(onClick = onPolicyClick) { MaterialSymbol(iconName = "policy") }
                     if (!uiState.isEmpty) {
                         IconButton(
                             onClick = {
