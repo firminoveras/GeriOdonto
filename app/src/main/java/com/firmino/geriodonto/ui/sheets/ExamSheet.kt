@@ -18,7 +18,6 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -47,6 +46,7 @@ import com.firmino.geriodonto.ui.pages.ExamPageExams
 import com.firmino.geriodonto.ui.pages.ExamPageMeds
 import com.firmino.geriodonto.ui.pages.ExamPagePersonal
 import com.firmino.geriodonto.ui.pages.ExamPagePrescription
+import com.firmino.geriodonto.ui.widgets.SheetHeader
 import com.firmino.geriodonto.viewmodel.Med
 import com.firmino.geriodonto.viewmodel.MedListType
 import com.firmino.geriodonto.viewmodel.PatientEvent
@@ -168,30 +168,12 @@ fun ExamSheet(
         ) {
             AnimatedVisibility(showTopBar) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Box(
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 12.dp),
-                    ) {
-                        Column(
-                            Modifier
-                                .fillMaxWidth()
-                                .align(Alignment.CenterStart),
-                        ) {
-                            Text(
-                                text = "Nova prescrição",
-                                style = MaterialTheme.typography.titleLarge,
-                            )
-                            if (uiState.name.text.isNotEmpty()) {
-                                Text(
-                                    text = uiState.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
-                                    style = MaterialTheme.typography.labelSmall,
-                                    maxLines = 1,
-                                )
-                            }
-
-                        }
-                        Row(Modifier.align(Alignment.CenterEnd)) {
+                    SheetHeader(
+                        iconName = "add",
+                        title = "Nova Prescrição",
+                        compactMode = true,
+                        subtitle = uiState.name.text.toString().split(" ").joinToString(" ", limit = 2, truncated = ""),
+                        content = {
                             IconButton(
                                 onClick = { showAlerts = !showAlerts },
                                 content = { MaterialSymbol(iconName = if (showAlerts) "notifications_active" else "notifications_off", filled = showAlerts) },
@@ -204,18 +186,16 @@ fun ExamSheet(
                                 onClick = { onEvent(PatientEvent.ClearAll) },
                                 content = { MaterialSymbol(iconName = "delete_forever", filled = !uiState.isEmpty) },
                             )
-                        }
-                    }
+                        },
+                    )
+
                     AnimatedVisibility(visible = showMenuBar) {
-                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            HorizontalDivider()
-                            ExamMenu(
-                                currentPage = pagerState.currentPage,
-                                medList = uiState.medList,
-                                conditionList = uiState.conditionsList,
-                                onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
-                            )
-                        }
+                        ExamMenu(
+                            currentPage = pagerState.currentPage,
+                            medList = uiState.medList,
+                            conditionList = uiState.conditionsList,
+                            onChange = { page -> scope.launch { pagerState.animateScrollToPage(page) } },
+                        )
                     }
                 }
             }
