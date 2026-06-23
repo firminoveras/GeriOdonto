@@ -4,9 +4,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.firmino.geriodonto.data.InteractionAlertLevel
-import com.firmino.geriodonto.data.MedClass
-import com.firmino.geriodonto.data.Risk
+import com.firmino.geriodonto.companions.InteractionAlertLevel
+import com.firmino.geriodonto.companions.MedClass
+import com.firmino.geriodonto.companions.Risk
 
 @Entity(tableName = "medications")
 data class MedEntity(

@@ -38,8 +38,8 @@ import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
-import com.firmino.geriodonto.data.MedicalCondition
-import com.firmino.geriodonto.data.medicalConditionsList
+import com.firmino.geriodonto.companions.MedicalCondition
+import com.firmino.geriodonto.companions.medicalConditionsList
 import com.firmino.geriodonto.ui.widgets.ExamSearchPage
 
 @OptIn(ExperimentalMaterial3Api::class)

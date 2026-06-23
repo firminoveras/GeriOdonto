@@ -1,8 +1,8 @@
 package com.firmino.geriodonto.data.database
 
-import com.firmino.geriodonto.data.InteractionAlertLevel
-import com.firmino.geriodonto.data.MedClass
-import com.firmino.geriodonto.data.Risk
+import com.firmino.geriodonto.companions.InteractionAlertLevel
+import com.firmino.geriodonto.companions.MedClass
+import com.firmino.geriodonto.companions.Risk
 import com.google.gson.annotations.SerializedName
 
 data class DatabasePayloadDto(

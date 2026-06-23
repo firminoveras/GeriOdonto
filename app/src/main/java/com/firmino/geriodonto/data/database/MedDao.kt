@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.firmino.geriodonto.data.MedClass
+import com.firmino.geriodonto.companions.MedClass
 import kotlinx.coroutines.flow.Flow
 
 @Dao

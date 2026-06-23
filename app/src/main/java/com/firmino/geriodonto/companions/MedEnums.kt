@@ -1,4 +1,4 @@
-package com.firmino.geriodonto.data
+package com.firmino.geriodonto.companions
 
 import androidx.compose.ui.graphics.Color
 

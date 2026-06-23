@@ -1,9 +1,9 @@
 package com.firmino.geriodonto.data.database
 
 import androidx.room.TypeConverter
-import com.firmino.geriodonto.data.InteractionAlertLevel
-import com.firmino.geriodonto.data.MedClass
-import com.firmino.geriodonto.data.Risk
+import com.firmino.geriodonto.companions.InteractionAlertLevel
+import com.firmino.geriodonto.companions.MedClass
+import com.firmino.geriodonto.companions.Risk
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

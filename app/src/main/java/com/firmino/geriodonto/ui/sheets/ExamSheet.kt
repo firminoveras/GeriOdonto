@@ -38,9 +38,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
+import com.firmino.geriodonto.companions.MedClass
+import com.firmino.geriodonto.companions.MedicalCondition
 import com.firmino.geriodonto.companions.PocketAlert
-import com.firmino.geriodonto.data.MedClass
-import com.firmino.geriodonto.data.MedicalCondition
 import com.firmino.geriodonto.ui.pages.ExamPageConditions
 import com.firmino.geriodonto.ui.pages.ExamPageExams
 import com.firmino.geriodonto.ui.pages.ExamPageMeds
@@ -54,11 +54,11 @@ import com.firmino.geriodonto.viewmodel.PatientUiState
 import kotlinx.coroutines.launch
 
 enum class ExamPages(val text: String, val symbolName: String, val description: String) {
-    PAGE_PERSONAL("Pessoal", "account_box", "Informe os dados pessoais do paciente."),
-    PAGE_EXAMS("Exames", "labs", "Informe os valores de inportantes exames clínicos do paciente."),
-    PAGE_CONDITIONS("Condições", "medical_information", "Adicione quais as condições médicas, comorbidades ou doenças crônicas no paciente."),
-    PAGE_MEDS("Medicamentos", "admin_meds", "Adicione os medicamentos de uso contínuo que o paciente já faz uso."),
-    PAGE_PRESCRIPTION("Prescrição", "outpatient_med", "Adicione medicamentos a serem prescritos ao paciente."),
+    PAGE_PERSONAL("Pessoal", "account_box", "Informe os dados pessoais e de identificação do paciente."),
+    PAGE_EXAMS("Exames", "labs", "Informe os resultados dos principais exames clínicos do paciente."),
+    PAGE_CONDITIONS("Condições", "medical_information", "Registre as condições médicas, comorbidades ou doenças crônicas do paciente."),
+    PAGE_MEDS("Medicamentos", "admin_meds", "Liste os medicamentos de uso contínuo utilizados pelo paciente."),
+    PAGE_PRESCRIPTION("Prescrição", "outpatient_med", "Insira os novos medicamentos a serem prescritos para o paciente."),
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

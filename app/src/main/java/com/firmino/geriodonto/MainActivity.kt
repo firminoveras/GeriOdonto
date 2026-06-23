@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -24,11 +25,14 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -39,6 +43,7 @@ import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,6 +57,7 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -63,6 +69,7 @@ import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.PocketAlert
 import com.firmino.geriodonto.companions.PocketAlertManager
 import com.firmino.geriodonto.companions.rememberAppVersion
+import com.firmino.geriodonto.data.datastorage.SettingsRepository
 import com.firmino.geriodonto.ui.sheets.ExamSheet
 import com.firmino.geriodonto.ui.sheets.InfoSheet
 import com.firmino.geriodonto.ui.sheets.InteractionSheet
@@ -75,6 +82,8 @@ import com.firmino.geriodonto.viewmodel.PatientStateChangeType
 import com.firmino.geriodonto.viewmodel.PatientUiState
 import com.firmino.geriodonto.viewmodel.PatientViewModel
 import com.firmino.geriodonto.viewmodel.SeedingState
+import com.firmino.geriodonto.viewmodel.SettingsUiState
+import com.firmino.geriodonto.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -85,8 +94,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            GeriOdontoTheme {
-                Content()
+            val settingsViewModel: SettingsViewModel = hiltViewModel()
+            val settingsUiState by settingsViewModel.uiState.collectAsState()
+
+            if (settingsUiState is SettingsUiState.Success) {
+                GeriOdontoTheme(
+                    settingLightMode = (settingsUiState as SettingsUiState.Success).settings.lightMode,
+                    settingAccentColor = (settingsUiState as SettingsUiState.Success).settings.accentColor,
+                    content = { Content() },
+                )
             }
         }
     }
@@ -97,12 +113,14 @@ class MainActivity : ComponentActivity() {
 fun Content(
     patientViewModel: PatientViewModel = hiltViewModel(),
     medViewModel: MedViewModel = hiltViewModel(),
+    settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val scope = rememberCoroutineScope()
 
     val seedingState by medViewModel.seedingState.collectAsStateWithLifecycle()
     val filteredMeds by medViewModel.filteredMedsList.collectAsStateWithLifecycle()
     val suggestionMedsByClass by medViewModel.medsByClass.collectAsStateWithLifecycle()
+    val settingsUiState by settingsViewModel.uiState.collectAsState()
 
     val sheetExamState = rememberBottomSheetState(initialValue = SheetValue.Hidden, enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded))
     val sheetInteractionSheet = rememberBottomSheetState(initialValue = SheetValue.Hidden, enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded))
@@ -138,9 +156,13 @@ fun Content(
                 seedingState = seedingState,
                 onSeedDatabase = { medViewModel.seedDatabase() },
                 onClear = patientViewModel::clear,
-                onAddClick = {showExamSheet = true},
-                onInfoClick = {showInfoSheet = true},
-                onPolicyClick = {showPolicySheet = true},
+                onAddClick = { showExamSheet = true },
+                onInfoClick = { showInfoSheet = true },
+                onPolicyClick = { showPolicySheet = true },
+                lightModeSymbol = (settingsUiState as SettingsUiState.Success).settings.lightMode.symbol,
+                onLightModeChange = { settingsViewModel.saveLightMode(it) },
+                accentColorSymbol = (settingsUiState as SettingsUiState.Success).settings.accentColor.symbol,
+                onAccentColorChange = { settingsViewModel.saveAccentColor(it) },
             )
         }
 
@@ -223,6 +245,10 @@ fun Menu(
     onAddClick: () -> Unit,
     onInfoClick: () -> Unit,
     onPolicyClick: () -> Unit,
+    lightModeSymbol: String,
+    onLightModeChange: (String) -> Unit,
+    accentColorSymbol: String,
+    onAccentColorChange: (String) -> Unit,
 ) {
     val appVersion = rememberAppVersion()
     var dataVersion by remember { mutableStateOf("") }
@@ -232,6 +258,7 @@ fun Menu(
             MaterialTheme.colorScheme.onSecondary,
         ),
     )
+    val surfaceColor = MaterialTheme.colorScheme.surface
     val rotationAngle by rememberInfiniteTransition(label = "InfiniteRotationTransition").animateFloat(
         initialValue = 0f,
         targetValue = 360f,
@@ -336,17 +363,61 @@ fun Menu(
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Image(
-                modifier = Modifier
-                    .size(128.dp)
-                    .graphicsLayer(alpha = 0.99f)
-                    .drawWithContent {
-                        drawContent()
-                        drawRect(brush = gradientBrush, blendMode = BlendMode.SrcIn)
-                    },
-                imageVector = ImageVector.vectorResource(R.drawable.ic_icon),
-                contentDescription = null,
-            )
+            Box {
+                Image(
+                    modifier = Modifier
+                        .size(128.dp)
+                        .graphicsLayer(alpha = 0.99f)
+                        .drawWithContent {
+                            drawContent()
+                            drawRect(brush = gradientBrush, blendMode = BlendMode.SrcIn)
+                        },
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_tooth),
+                    contentDescription = null,
+                )
+                Image(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(32.dp)
+                        .offset(y = (-12).dp)
+                        .graphicsLayer(alpha = 0.99f)
+                        .drawWithContent {
+                            drawContent()
+                            drawRect(brush = gradientBrush, blendMode = BlendMode.SrcIn)
+                        },
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_icon_head),
+                    contentDescription = null,
+                )
+
+                Image(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .size(96.dp)
+                        .offset(x = 22.dp, y = (2).dp)
+                        .graphicsLayer(alpha = 0.99f)
+                        .drawWithContent {
+                            drawContent()
+                            drawRect(color = surfaceColor, blendMode = BlendMode.SrcIn)
+                        },
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_pill_bg),
+                    contentDescription = null,
+                )
+
+                Image(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .size(84.dp)
+                        .offset(x = 16.dp, y = (-4).dp)
+                        .graphicsLayer(alpha = 0.99f)
+                        .drawWithContent {
+                            drawContent()
+                            drawRect(brush = gradientBrush, blendMode = BlendMode.SrcIn)
+                        },
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_pill_fg),
+                    contentDescription = null,
+                )
+            }
+
             Row {
                 Text(
                     text = "Geri",
@@ -365,19 +436,16 @@ fun Menu(
                 style = MaterialTheme.typography.labelMedium,
             )
             Text(
-                modifier = Modifier.padding(top = 6.dp),
-                text = appVersion,
-                color = MaterialTheme.colorScheme.outline,
-                style = MaterialTheme.typography.labelSmall,
-            )
-            Text(
-                text = dataVersion,
+                modifier = Modifier.padding(vertical = 6.dp, horizontal = 18.dp),
+                text = "$appVersion • $dataVersion",
                 color = MaterialTheme.colorScheme.outline,
                 style = MaterialTheme.typography.labelSmall,
             )
             Spacer(Modifier.height(128.dp))
         }
 
+        var showLightModeSettings by remember { mutableStateOf(false) }
+        var showAccentColorSettings by remember { mutableStateOf(false) }
 
         when (seedingState) {
             is SeedingState.Idle -> {
@@ -424,14 +492,42 @@ fun Menu(
                         }
                     },
                 ) {
+                    SettingIcon(
+                        symbol = accentColorSymbol,
+                        extend = showAccentColorSettings,
+                        optionsList = SettingsRepository.AccentColor.entries.filter { it.symbol != accentColorSymbol }.map { it.symbol to it.name },
+                        onExtendChange = {
+                            showAccentColorSettings = it
+                            showLightModeSettings = false
+                        },
+                        onClick = { onAccentColorChange(it) },
+                    )
+
+                    AnimatedVisibility(visible = showAccentColorSettings || showLightModeSettings) { HorizontalDivider(Modifier.width(32.dp)) }
+
+                    SettingIcon(
+                        symbol = lightModeSymbol,
+                        extend = showLightModeSettings,
+                        optionsList = SettingsRepository.LightMode.entries.filter { it.symbol != lightModeSymbol }.map { it.symbol to it.name },
+                        onExtendChange = {
+                            showLightModeSettings = it
+                            showAccentColorSettings = false
+                        },
+                        onClick = { onLightModeChange(it) },
+                    )
+
+                    AnimatedVisibility(visible = showAccentColorSettings || showLightModeSettings) { HorizontalDivider(Modifier.width(32.dp)) }
+
                     IconButton(onClick = onInfoClick) { MaterialSymbol(iconName = "license") }
                     IconButton(onClick = onPolicyClick) { MaterialSymbol(iconName = "policy") }
+
                     if (!uiState.isEmpty) {
                         IconButton(
                             onClick = {
                                 onClear()
                                 onAddClick()
                             },
+                            colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
                             content = { MaterialSymbol(iconName = "add") },
                         )
                     }
@@ -440,4 +536,32 @@ fun Menu(
         }
         PocketAlert()
     }
+}
+
+@Composable
+fun SettingIcon(
+    symbol: String,
+    extend: Boolean,
+    onExtendChange: (Boolean) -> Unit,
+    optionsList: List<Pair<String, String>>,
+    onClick: (String) -> Unit,
+) {
+    AnimatedVisibility(visible = extend) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            optionsList.forEach { entry ->
+                IconButton(
+                    onClick = {
+                        onExtendChange(false)
+                        onClick(entry.second)
+                    },
+                    content = { MaterialSymbol(iconName = entry.first) },
+                )
+            }
+        }
+    }
+    IconButton(
+        onClick = { onExtendChange(!extend) },
+        colors = IconButtonDefaults.iconButtonColors(containerColor = if (extend) MaterialTheme.colorScheme.surfaceContainerLow else Color.Unspecified),
+        content = { MaterialSymbol(iconName = symbol, filled = extend) },
+    )
 }

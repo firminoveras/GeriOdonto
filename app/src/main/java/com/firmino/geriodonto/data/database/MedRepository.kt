@@ -1,6 +1,6 @@
 package com.firmino.geriodonto.data.database
 
-import com.firmino.geriodonto.data.MedClass
+import com.firmino.geriodonto.companions.MedClass
 import com.firmino.geriodonto.viewmodel.Interaction
 import com.firmino.geriodonto.viewmodel.Med
 import com.firmino.geriodonto.viewmodel.toMed

@@ -1,4 +1,4 @@
-package com.firmino.geriodonto.data
+package com.firmino.geriodonto.companions
 
 data class MedicalCondition(
     val name: String,
