@@ -1,6 +1,8 @@
 package com.firmino.geriodonto.ui.pages
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,11 +11,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,17 +35,32 @@ import com.firmino.geriodonto.viewmodel.RiskAlertType
 fun InteractionsPageRisks(
     risks: List<RiskAlert>,
 ) {
-    LazyColumn(
-        Modifier.padding(horizontal = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        risks.groupBy { it.risk.name }.values.sortedBy { it.first().risk.category }.forEach { item ->
-            item {
-                RisksItem(
-                    riskAlert = item.first(),
-                    size = item.size,
-                    byItems = item.map { it.type to it.description }.distinct(),
-                )
+    val state = rememberLazyListState()
+    val barVisible by remember { derivedStateOf { state.canScrollBackward } }
+
+    Column {
+        AnimatedVisibility(
+            visible = barVisible,
+            enter = fadeIn(),
+            exit = shrinkHorizontally(),
+            content = {
+                HorizontalDivider()
+            },
+        )
+
+        LazyColumn(
+            modifier = Modifier.padding(horizontal = 12.dp),
+            state = state,
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            risks.groupBy { it.risk.name }.values.sortedBy { it.first().risk.category }.forEach { item ->
+                item {
+                    RisksItem(
+                        riskAlert = item.first(),
+                        size = item.size,
+                        byItems = item.map { it.type to it.description }.distinct(),
+                    )
+                }
             }
         }
     }
