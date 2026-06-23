@@ -101,6 +101,8 @@ class MainActivity : ComponentActivity() {
                 GeriOdontoTheme(
                     settingLightMode = (settingsUiState as SettingsUiState.Success).settings.lightMode,
                     settingAccentColor = (settingsUiState as SettingsUiState.Success).settings.accentColor,
+                    settingOledMode = (settingsUiState as SettingsUiState.Success).settings.oledMode,
+                    settingPallete = (settingsUiState as SettingsUiState.Success).settings.pallete,
                     content = { Content() },
                 )
             }
@@ -160,9 +162,13 @@ fun Content(
                 onInfoClick = { showInfoSheet = true },
                 onPolicyClick = { showPolicySheet = true },
                 lightModeSymbol = (settingsUiState as SettingsUiState.Success).settings.lightMode.symbol,
-                onLightModeChange = { settingsViewModel.saveLightMode(it) },
                 accentColorSymbol = (settingsUiState as SettingsUiState.Success).settings.accentColor.symbol,
+                oledModeSymbol = (settingsUiState as SettingsUiState.Success).settings.oledMode.symbol,
+                palleteSymbol = (settingsUiState as SettingsUiState.Success).settings.pallete.symbol,
+                onLightModeChange = { settingsViewModel.saveLightMode(it) },
                 onAccentColorChange = { settingsViewModel.saveAccentColor(it) },
+                onOledModeChange = { settingsViewModel.saveOledMode(it) },
+                onPalleteChange = {settingsViewModel.savePallete(it)},
             )
         }
 
@@ -235,6 +241,10 @@ fun Content(
     }
 }
 
+enum class ActiveSettingMenu {
+    NONE, ACCENT_COLOR, OLED_MODE, LIGHT_MODE, PALLETE
+}
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun Menu(
@@ -249,6 +259,10 @@ fun Menu(
     onLightModeChange: (String) -> Unit,
     accentColorSymbol: String,
     onAccentColorChange: (String) -> Unit,
+    oledModeSymbol: String,
+    onOledModeChange: (String) -> Unit,
+    palleteSymbol: String,
+    onPalleteChange: (String) -> Unit,
 ) {
     val appVersion = rememberAppVersion()
     var dataVersion by remember { mutableStateOf("") }
@@ -444,8 +458,13 @@ fun Menu(
             Spacer(Modifier.height(128.dp))
         }
 
-        var showLightModeSettings by remember { mutableStateOf(false) }
-        var showAccentColorSettings by remember { mutableStateOf(false) }
+
+        var showSettings by remember { mutableStateOf(false) }
+        var activeMenu by remember { mutableStateOf(ActiveSettingMenu.NONE) }
+
+        if (!showSettings && activeMenu != ActiveSettingMenu.NONE) {
+            activeMenu = ActiveSettingMenu.NONE
+        }
 
         when (seedingState) {
             is SeedingState.Idle -> {
@@ -493,44 +512,72 @@ fun Menu(
                     },
                 ) {
                     SettingIcon(
+                        visible = showSettings && (activeMenu == ActiveSettingMenu.NONE || activeMenu == ActiveSettingMenu.ACCENT_COLOR),
                         symbol = accentColorSymbol,
-                        extend = showAccentColorSettings,
-                        optionsList = SettingsRepository.AccentColor.entries.filter { it.symbol != accentColorSymbol }.map { it.symbol to it.name },
-                        onExtendChange = {
-                            showAccentColorSettings = it
-                            showLightModeSettings = false
-                        },
+                        extend = activeMenu == ActiveSettingMenu.ACCENT_COLOR,
+                        optionsList = SettingsRepository.AccentColor.entries.map { it.symbol to it.name },
                         onClick = { onAccentColorChange(it) },
+                        onExtendChange = { isExtended ->
+                            activeMenu = if (isExtended) ActiveSettingMenu.ACCENT_COLOR else ActiveSettingMenu.NONE
+                        },
                     )
-
-                    AnimatedVisibility(visible = showAccentColorSettings || showLightModeSettings) { HorizontalDivider(Modifier.width(32.dp)) }
 
                     SettingIcon(
-                        symbol = lightModeSymbol,
-                        extend = showLightModeSettings,
-                        optionsList = SettingsRepository.LightMode.entries.filter { it.symbol != lightModeSymbol }.map { it.symbol to it.name },
-                        onExtendChange = {
-                            showLightModeSettings = it
-                            showAccentColorSettings = false
+                        visible = showSettings && (activeMenu == ActiveSettingMenu.NONE || activeMenu == ActiveSettingMenu.PALLETE),
+                        symbol = palleteSymbol,
+                        extend = activeMenu == ActiveSettingMenu.PALLETE,
+                        optionsList = SettingsRepository.Palette.entries.map { it.symbol to it.name },
+                        onClick = { onPalleteChange(it) },
+                        onExtendChange = { isExtended ->
+                            activeMenu = if (isExtended) ActiveSettingMenu.PALLETE else ActiveSettingMenu.NONE
                         },
-                        onClick = { onLightModeChange(it) },
                     )
 
-                    AnimatedVisibility(visible = showAccentColorSettings || showLightModeSettings) { HorizontalDivider(Modifier.width(32.dp)) }
+                    SettingIcon(
+                        visible = showSettings && (activeMenu == ActiveSettingMenu.NONE || activeMenu == ActiveSettingMenu.OLED_MODE),
+                        symbol = oledModeSymbol,
+                        extend = activeMenu == ActiveSettingMenu.OLED_MODE,
+                        optionsList = SettingsRepository.OledMode.entries.map { it.symbol to it.name },
+                        onClick = { onOledModeChange(it) },
+                        onExtendChange = { isExtended ->
+                            activeMenu = if (isExtended) ActiveSettingMenu.OLED_MODE else ActiveSettingMenu.NONE
+                        },
+                    )
 
-                    IconButton(onClick = onInfoClick) { MaterialSymbol(iconName = "license") }
-                    IconButton(onClick = onPolicyClick) { MaterialSymbol(iconName = "policy") }
+                    SettingIcon(
+                        visible = showSettings && (activeMenu == ActiveSettingMenu.NONE || activeMenu == ActiveSettingMenu.LIGHT_MODE),
+                        symbol = lightModeSymbol,
+                        extend = activeMenu == ActiveSettingMenu.LIGHT_MODE,
+                        optionsList = SettingsRepository.LightMode.entries.map { it.symbol to it.name },
+                        onClick = { onLightModeChange(it) },
+                        onExtendChange = { isExtended ->
+                            activeMenu = if (isExtended) ActiveSettingMenu.LIGHT_MODE else ActiveSettingMenu.NONE
+                        },
+                    )
 
-                    if (!uiState.isEmpty) {
-                        IconButton(
-                            onClick = {
-                                onClear()
-                                onAddClick()
-                            },
-                            colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-                            content = { MaterialSymbol(iconName = "add") },
-                        )
+                    IconButton(
+                        onClick = { showSettings = !showSettings },
+                        colors = IconButtonDefaults.iconButtonColors(containerColor = if (showSettings) MaterialTheme.colorScheme.surfaceContainerLow else Color.Unspecified),
+                        content = { MaterialSymbol(iconName = "settings", filled = showSettings) },
+                    )
+
+                    AnimatedVisibility(visible = !showSettings) {
+                        Column {
+                            IconButton(onClick = onInfoClick) { MaterialSymbol(iconName = "license") }
+                            IconButton(onClick = onPolicyClick) { MaterialSymbol(iconName = "policy") }
+                            if (!uiState.isEmpty) {
+                                IconButton(
+                                    onClick = {
+                                        onClear()
+                                        onAddClick()
+                                    },
+                                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
+                                    content = { MaterialSymbol(iconName = "add") },
+                                )
+                            }
+                        }
                     }
+
                 }
             }
         }
@@ -540,28 +587,37 @@ fun Menu(
 
 @Composable
 fun SettingIcon(
+    visible: Boolean,
     symbol: String,
     extend: Boolean,
-    onExtendChange: (Boolean) -> Unit,
     optionsList: List<Pair<String, String>>,
     onClick: (String) -> Unit,
+    onExtendChange: (Boolean) -> Unit,
 ) {
-    AnimatedVisibility(visible = extend) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            optionsList.forEach { entry ->
+    Column {
+        AnimatedVisibility(visible = visible) {
+            Column (horizontalAlignment = Alignment.CenterHorizontally){
+                AnimatedVisibility(visible = extend) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        optionsList.forEach { entry ->
+                            IconButton(
+                                onClick = {
+                                    onExtendChange(false)
+                                    onClick(entry.second)
+                                },
+                                content = { MaterialSymbol(iconName = entry.first) },
+                            )
+                        }
+                        HorizontalDivider(Modifier.width(32.dp))
+                    }
+                }
                 IconButton(
-                    onClick = {
-                        onExtendChange(false)
-                        onClick(entry.second)
-                    },
-                    content = { MaterialSymbol(iconName = entry.first) },
+                    onClick = { onExtendChange(!extend) },
+                    colors = IconButtonDefaults.iconButtonColors(containerColor = if (extend) MaterialTheme.colorScheme.surfaceContainerLow else Color.Unspecified),
+                    content = { MaterialSymbol(iconName = symbol, filled = extend) },
                 )
+
             }
         }
     }
-    IconButton(
-        onClick = { onExtendChange(!extend) },
-        colors = IconButtonDefaults.iconButtonColors(containerColor = if (extend) MaterialTheme.colorScheme.surfaceContainerLow else Color.Unspecified),
-        content = { MaterialSymbol(iconName = symbol, filled = extend) },
-    )
 }

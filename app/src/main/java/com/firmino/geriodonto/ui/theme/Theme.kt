@@ -2,18 +2,23 @@ package com.firmino.geriodonto.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.firmino.geriodonto.data.datastorage.SettingsRepository
+import com.materialkolor.DynamicMaterialTheme
+import com.materialkolor.PaletteStyle
+import com.materialkolor.rememberDynamicMaterialThemeState
 
 @Composable
 fun GeriOdontoTheme(
     settingLightMode: SettingsRepository.LightMode,
     settingAccentColor: SettingsRepository.AccentColor,
     content: @Composable () -> Unit,
+    settingOledMode: SettingsRepository.OledMode,
+    settingPallete: SettingsRepository.Palette,
 ) {
     val darkMode = when (settingLightMode) {
         SettingsRepository.LightMode.DARK -> true
@@ -21,28 +26,36 @@ fun GeriOdontoTheme(
         else -> isSystemInDarkTheme()
     }
 
-    val scheme = when (settingAccentColor) {
-        SettingsRepository.AccentColor.WHITE -> schemeAlgodao.get(darkMode)
-        SettingsRepository.AccentColor.GREEN -> schemeHortela.get(darkMode)
-        SettingsRepository.AccentColor.PURPLE -> schemeLavanda.get(darkMode)
-        SettingsRepository.AccentColor.BLUE -> schemeHortensia.get(darkMode)
-        SettingsRepository.AccentColor.RED -> schemeGuarana.get(darkMode)
-        SettingsRepository.AccentColor.ORANGE -> schemeCitrus.get(darkMode)
-        SettingsRepository.AccentColor.BROWN -> schemeCacau.get(darkMode)
-        SettingsRepository.AccentColor.YELLOW -> schemeMaracuja.get(darkMode)
-        else -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val context = LocalContext.current
-                if (darkMode) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-            } else {
-                schemeHortensia.get(darkMode)
-            }
-        }
-
+    val context = LocalContext.current
+    val seedColorFromSetting = settingAccentColor.color
+    val finalSeedColor = remember(seedColorFromSetting) {
+        seedColorFromSetting ?: if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            dynamicLightColorScheme(context).primary
+        } else Color(33, 150, 243, 255)
     }
 
-    MaterialTheme(
-        colorScheme = scheme,
+    val pallete = when(settingPallete){
+        SettingsRepository.Palette.TONALSPOT -> PaletteStyle.TonalSpot
+        SettingsRepository.Palette.NEUTRAL -> PaletteStyle.Neutral
+        SettingsRepository.Palette.VIBRANT -> PaletteStyle.Vibrant
+        SettingsRepository.Palette.EXPRESSIVE -> PaletteStyle.Expressive
+        SettingsRepository.Palette.RAINBOW -> PaletteStyle.Rainbow
+        SettingsRepository.Palette.FRUITSALAD -> PaletteStyle.FruitSalad
+        SettingsRepository.Palette.MONOCHROME -> PaletteStyle.Monochrome
+        SettingsRepository.Palette.FIDELITY -> PaletteStyle.Fidelity
+        SettingsRepository.Palette.CONTENT -> PaletteStyle.Content
+    }
+
+    val colorSchemeState = rememberDynamicMaterialThemeState(
+        seedColor = finalSeedColor,
+        isDark = darkMode,
+        isAmoled = settingOledMode == SettingsRepository.OledMode.ON,
+        style = pallete,
+    )
+
+    DynamicMaterialTheme(
+        state = colorSchemeState,
+        animate = true,
         typography = Typography,
         content = content,
     )

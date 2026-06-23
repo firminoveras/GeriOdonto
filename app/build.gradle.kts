@@ -36,6 +36,9 @@ android {
 }
 
 dependencies {
+    // Material Kolor
+    implementation(libs.material.kolor)
+
     // DataStore
     implementation(libs.androidx.datastore.preferences)
 

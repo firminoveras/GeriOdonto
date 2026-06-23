@@ -1,6 +1,7 @@
 package com.firmino.geriodonto.data.datastorage
 
 import android.content.Context
+import androidx.compose.ui.graphics.Color
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -18,6 +19,13 @@ class SettingsRepository @Inject constructor(@ApplicationContext private val con
     companion object {
         val LIGHT_MODE = stringPreferencesKey("light_mode")
         val ACCENT_COLOR = stringPreferencesKey("accent_color")
+        val OLED_MODE = stringPreferencesKey("oled_mode")
+        val PALLETE = stringPreferencesKey("opallete")
+    }
+
+    enum class OledMode(val symbol: String) {
+        ON("contrast"),
+        OFF("contrast_rtl_off"),
     }
 
     enum class LightMode(val symbol: String) {
@@ -26,21 +34,35 @@ class SettingsRepository @Inject constructor(@ApplicationContext private val con
         LIGHT("light_mode"),
     }
 
-    enum class AccentColor(val symbol: String) {
-        AUTO("colorize"),
-        GREEN("eco"),
-        PURPLE("air"),
-        BLUE("water_drop"),
-        RED("local_fire_department"),
-        ORANGE("nutrition"),
-        BROWN("cookie"),
-        YELLOW("wb_sunny"),
-        WHITE("cloud")
+    enum class AccentColor(val symbol: String, val color: Color?) {
+        AUTO("colorize", null),
+        GREEN("eco", Color(76, 175, 80, 255)),
+        PURPLE("air", Color(103, 58, 183, 255)),
+        BLUE("water_drop", Color(33, 150, 243, 255)),
+        RED("local_fire_department", Color(244, 67, 54, 255)),
+        ORANGE("nutrition", Color(255, 152, 0, 255)),
+        BROWN("cookie", Color(140, 75, 30, 255)),
+        YELLOW("wb_sunny", Color(255, 235, 59, 255)),
+        WHITE("cloud", Color(255, 255, 255, 255))
+    }
+
+    enum class Palette(val symbol: String) {
+        TONALSPOT("palette"),
+        NEUTRAL("tonality"),
+        VIBRANT("flare"),
+        EXPRESSIVE("brush"),
+        RAINBOW("gradient"),
+        FRUITSALAD("bubble_chart"),
+        MONOCHROME("filter_b_and_w"),
+        FIDELITY("colorize"),
+        CONTENT("image")
     }
 
     data class UserSettings(
         val lightMode: LightMode,
         val accentColor: AccentColor,
+        val oledMode: OledMode,
+        val pallete: Palette
     )
 
     val settings: Flow<UserSettings> = context.dataStore.data.catch { e ->
@@ -49,6 +71,8 @@ class SettingsRepository @Inject constructor(@ApplicationContext private val con
         UserSettings(
             lightMode = LightMode.entries.find { it.name == preferences[LIGHT_MODE] } ?: LightMode.AUTO,
             accentColor = AccentColor.entries.find { it.name == preferences[ACCENT_COLOR] } ?: AccentColor.AUTO,
+            oledMode = OledMode.entries.find { it.name == preferences[OLED_MODE] } ?: OledMode.OFF,
+            pallete = Palette.entries.find { it.name == preferences[PALLETE] } ?: Palette.TONALSPOT,
         )
     }
 
@@ -58,5 +82,13 @@ class SettingsRepository @Inject constructor(@ApplicationContext private val con
 
     suspend fun saveAccentColor(value: String) = context.dataStore.edit { preferences ->
         preferences[ACCENT_COLOR] = AccentColor.entries.find { it.name == value }?.name ?: AccentColor.AUTO.name
+    }
+
+    suspend fun saveOledMode(value: String) = context.dataStore.edit { preferences ->
+        preferences[OLED_MODE] = OledMode.entries.find { it.name == value }?.name ?: OledMode.OFF.name
+    }
+
+    suspend fun savePallete(value: String) = context.dataStore.edit { preferences ->
+        preferences[PALLETE] = Palette.entries.find { it.name == value }?.name ?: Palette.TONALSPOT.name
     }
 }
