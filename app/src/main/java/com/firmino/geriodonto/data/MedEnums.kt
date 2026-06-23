@@ -21,7 +21,7 @@ enum class RiskCategory(val description: String, val symbolName: String = "") {
     PSYCHIATRIC("Psiquiátrico e Psicológico", "psychology"),
     INFECTIOUS_HEMATOLOGICAL("Infeccioso, Imunológico e Hematológico", "microbiology"),
     ORAL_AND_SPEECH("Bucal e Fonoaudiológica", "oral_disease"),
-    GENERAL("Geral", "stethoscope")
+    GENERAL("Geral", "stethoscope"),
 }
 
 enum class Risk(val text: String, val category: RiskCategory) {
@@ -88,12 +88,14 @@ enum class Risk(val text: String, val category: RiskCategory) {
     PEPTIC_ULCER("Úlcera Gástrica/Péptica", RiskCategory.GASTROINTESTINAL),
     HEPATOTOXICITY("Hepatotoxicidade / Lesão Hepática", RiskCategory.GASTROINTESTINAL),
     GENERAL_GASTROINTESTINAL("Outras Complicações Gastrointestinais", RiskCategory.GASTROINTESTINAL),
+    LIVER_ENZYME_ELEVATION(text = "Elevação das enzimas hepáticas (risco de hepatotoxicidade).", category = RiskCategory.GASTROINTESTINAL),
 
     // MUSCULOESQUELÉTICO
     MUSCLE_TOXICITY("Toxicidade Muscular / Miopatia", RiskCategory.MUSCULOSKELETAL),
     BONE_FRACTURE("Fratura Óssea", RiskCategory.MUSCULOSKELETAL),
     REDUCED_MOBILITY("Redução de Movimento", RiskCategory.MUSCULOSKELETAL),
     MUSCLE_WASTING("Perda de Massa Muscular (Sarcopenia)", RiskCategory.MUSCULOSKELETAL),
+    MYOPATHY(text = "Miopatia e fraqueza muscular induzida por estatinas.", category = RiskCategory.MUSCULOSKELETAL),
 
     // SENSORIAL
     VISION_LOSS("Complicações Visuais / Cegueira", RiskCategory.SENSORY),
@@ -115,7 +117,7 @@ enum class Risk(val text: String, val category: RiskCategory) {
     BLEEDING_RISK("Risco de Hemorragia / Sangramento", RiskCategory.GENERAL),
     MALNUTRITION("Desnutrição", RiskCategory.GENERAL),
     ALTERED_PHARMACOKINETICS("Alteração na Absorção ou Eficácia", RiskCategory.GENERAL),
-    THERAPEUTIC_FAILURE("Falha Terapêutica / Redução de Eficácia", RiskCategory.GENERAL)
+    THERAPEUTIC_FAILURE("Falha Terapêutica / Redução de Eficácia", RiskCategory.GENERAL),
 }
 
 enum class MedClass(val text: String) {
@@ -177,5 +179,6 @@ enum class MedClass(val text: String) {
     QUELANTES_FOSFATO(text = "Quelantes de Fosfato"),
     ESTIMULANTES_SALIVARES(text = "Estimulantes Salivares"),
     PRODUTOS_AUXILIARES_BUCAIS(text = "Produtos Auxiliares e Substitutos Salivares"),
-    SUPLEMENTOS_ALIMENTARES(text = "Suplementos e Aminoácidos")
+    SUPLEMENTOS_ALIMENTARES(text = "Suplementos e Aminoácidos"),
+    ESTATINAS_AGENTES(text = "Estatinas (Hipolipemiantes)"),
 }

@@ -28,19 +28,19 @@ class MedRepository @Inject constructor(private val medDao: MedDao) {
 
         val allInteractingIds = listFromDb
             .flatMap { it.interactions }
-            .map { it.interactingMedId }
+            .map { it.interaction.interactingMedId }
             .distinct()
 
         val namesMap = medDao.getMedsByIdsList(allInteractingIds).associate { it.med.id to it.med.name }
 
         return listFromDb.map { medWithInt ->
-            val mappedInteractions = medWithInt.interactions.map { dbInt ->
+            val mappedInteractions = medWithInt.interactions.sortedBy { it.interaction.alertLevel } .map { dbInt ->
                 Interaction(
-                    interactingMedName = namesMap[dbInt.interactingMedId] ?: "Desconhecido",
-                    interactingMedId = dbInt.interactingMedId,
-                    risk = dbInt.risk,
-                    description = dbInt.description,
-                    alertLevel = dbInt.alertLevel,
+                    interactingMedName = namesMap[dbInt.interaction.interactingMedId] ?: "Desconhecido",
+                    interactingMedId = dbInt.interaction.interactingMedId,
+                    risk = dbInt.interaction.risk,
+                    description = dbInt.interaction.description,
+                    alertLevel = dbInt.interaction.alertLevel,
                 )
             }
             medWithInt.toMed(mappedInteractions)

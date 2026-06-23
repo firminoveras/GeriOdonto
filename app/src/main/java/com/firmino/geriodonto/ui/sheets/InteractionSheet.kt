@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
-import com.firmino.geriodonto.ui.pages.InteractionnsPageRisks
+import com.firmino.geriodonto.ui.pages.InteractionsPageRisks
 import com.firmino.geriodonto.ui.pages.InteractionsPageInteractions
 import com.firmino.geriodonto.viewmodel.InteractionAlert
 import com.firmino.geriodonto.viewmodel.PatientUiState
@@ -89,7 +89,7 @@ fun InteractionSheet(
                 }
 
                 InteractionPages.PAGE_RISKS.ordinal -> {
-                    InteractionnsPageRisks(risks = uiState.risks)
+                    InteractionsPageRisks(risks = uiState.risks)
                 }
             }
         }

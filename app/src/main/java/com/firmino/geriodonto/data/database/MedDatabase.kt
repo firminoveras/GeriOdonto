@@ -1,4 +1,5 @@
 package com.firmino.geriodonto.data.database
+
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -7,8 +8,8 @@ import androidx.room.TypeConverters
 
 @Database(
     entities = [MedEntity::class, InteractionEntity::class],
-    version = 1,
-    exportSchema = false
+    version = 2,
+    exportSchema = false,
 )
 @TypeConverters(GeriodontoConverters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -24,8 +25,9 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "geriodonto_database"
+                    "geriodonto_database",
                 )
+                    .fallbackToDestructiveMigration(true)
                     .build()
 
                 INSTANCE = instance

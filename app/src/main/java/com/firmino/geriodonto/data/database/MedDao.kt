@@ -34,6 +34,7 @@ interface MedDao {
     """)
     fun searchMeds(query: String): Flow<List<MedWithInteractions>>
 
+    @Transaction
     @Query("SELECT * FROM medications WHERE id IN (:medIds)")
     suspend fun getMedsByIdsList(medIds: List<String>): List<MedWithInteractions>
 
@@ -44,6 +45,14 @@ interface MedDao {
     @Transaction
     @Query("SELECT * FROM medications WHERE medClass = :medClass")
     fun getMedsByClass(medClass: MedClass): Flow<List<MedWithInteractions>>
+
+    @Transaction
+    suspend fun wipeAndSeedDatabase(meds: List<MedEntity>, interactions: List<InteractionEntity>) {
+        deleteAllInteractions()
+        deleteAllMeds()
+        if (meds.isNotEmpty()) insertMeds(meds)
+        if (interactions.isNotEmpty()) insertInteractions(interactions)
+    }
 
     @Query("DELETE FROM interactions")
     suspend fun deleteAllInteractions()

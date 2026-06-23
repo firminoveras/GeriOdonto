@@ -8,10 +8,12 @@ import com.firmino.geriodonto.data.Risk
 import com.firmino.geriodonto.data.database.DatabaseSeeder
 import com.firmino.geriodonto.data.database.MedRepository
 import com.firmino.geriodonto.data.database.MedWithInteractions
+import com.firmino.geriodonto.data.database.SeederData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -22,7 +24,9 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.cancellation.CancellationException
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class MedViewModel @Inject constructor(
@@ -49,15 +53,24 @@ class MedViewModel @Inject constructor(
 
     private val _seedingState = MutableStateFlow<SeedingState>(SeedingState.Idle)
     val seedingState: StateFlow<SeedingState> = _seedingState.asStateFlow()
+
     fun seedDatabase() {
-        if (_seedingState.value is SeedingState.Loading || _seedingState.value is SeedingState.Success) return
-        _seedingState.value = SeedingState.Loading
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                databaseSeeder.checkAndSeedDatabase()
-                _seedingState.value = SeedingState.Success
-            } catch (e: Exception) {
-                _seedingState.value = SeedingState.Error(e.message ?: "Erro desconhecido")
+        if (_seedingState.compareAndSet(SeedingState.Idle, SeedingState.Verifying)) {
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    var seedData = databaseSeeder.getSeedData()
+                    if (seedData.jsonVersion > seedData.localVersion) {
+                        _seedingState.value = SeedingState.Updating(seedData)
+                        seedData = databaseSeeder.populateDatabase()
+                        _seedingState.value = SeedingState.Updated(seedData)
+                        delay(3.seconds)
+                    }
+                    _seedingState.value = SeedingState.Done(seedData)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Throwable) {
+                    _seedingState.value = SeedingState.Error(e.localizedMessage ?: "Erro fatal desconhecido")
+                }
             }
         }
     }
@@ -83,9 +96,11 @@ class MedViewModel @Inject constructor(
 }
 
 sealed interface SeedingState {
-    object Loading : SeedingState
-    object Success : SeedingState
     object Idle : SeedingState
+    object Verifying : SeedingState
+    data class Updating(val seederData: SeederData) : SeedingState
+    data class Updated(val seederData: SeederData) : SeedingState
+    data class Done(val seederData: SeederData) : SeedingState
     data class Error(val message: String) : SeedingState
 }
 

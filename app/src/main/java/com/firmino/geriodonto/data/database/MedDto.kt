@@ -3,21 +3,28 @@ package com.firmino.geriodonto.data.database
 import com.firmino.geriodonto.data.InteractionAlertLevel
 import com.firmino.geriodonto.data.MedClass
 import com.firmino.geriodonto.data.Risk
+import com.google.gson.annotations.SerializedName
+
+data class DatabasePayloadDto(
+    @SerializedName("version") val version: Int,
+    @SerializedName("medications") val medications: List<MedSeedDto>,
+    @SerializedName("interactions") val interactions: List<InteractionSeedDto>
+)
 
 data class MedSeedDto(
-    val id: String,
-    val name: String,
-    val description: String,
-    val principleActive: String,
-    val medClass: MedClass,
-    val byDisease: String,
-    val risks: List<Risk>,
-    val interactions: List<InteractionSeedDto>
+    @SerializedName("id") val id: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("principleActive") val principleActive: String,
+    @SerializedName("medClass") val medClass: MedClass,
+    @SerializedName("byDisease") val byDisease: String,
+    @SerializedName("risks") val risks: List<Risk>
 )
 
 data class InteractionSeedDto(
-    val interactingMedId: String,
-    val risk: Risk,
-    val description: String,
-    val alertLevel: InteractionAlertLevel
+    @SerializedName("id1") val id1: String,
+    @SerializedName("id2") val id2: String,
+    @SerializedName("risk") val risk: Risk,
+    @SerializedName("description") val description: String,
+    @SerializedName("alertLevel") val alertLevel: InteractionAlertLevel
 )

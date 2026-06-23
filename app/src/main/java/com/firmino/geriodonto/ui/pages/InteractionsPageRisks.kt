@@ -28,7 +28,7 @@ import com.firmino.geriodonto.viewmodel.RiskAlertType
 
 
 @Composable
-fun InteractionnsPageRisks(
+fun InteractionsPageRisks(
     risks: List<RiskAlert>,
 ) {
     LazyColumn(

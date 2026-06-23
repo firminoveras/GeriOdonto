@@ -53,7 +53,7 @@ fun ExamMedItem(
     val interactionsCount = med.interactions.map { it.interactingMedId }.count { it in usingMedsIds }
     val interactions = med.interactions.map {
         Pair(it, it.interactingMedId in usingMedsIds)
-    }.sortedByDescending { it.second }
+    }
 
     Card(
         onClick = { isExpanded = !isExpanded },

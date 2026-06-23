@@ -18,7 +18,6 @@ data class MedEntity(
     val byDisease: String,
     val risks: List<Risk>,
 )
-
 @Entity(
     tableName = "interactions",
     foreignKeys = [
@@ -27,11 +26,16 @@ data class MedEntity(
             parentColumns = ["id"],
             childColumns = ["ownerMedId"],
             onDelete = ForeignKey.CASCADE,
+        ),
+        ForeignKey(
+            entity = MedEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["interactingMedId"],
+            onDelete = ForeignKey.CASCADE,
         )
     ],
-    indices = [Index("ownerMedId")],
+    indices = [Index("ownerMedId"), Index("interactingMedId")],
 )
-
 data class InteractionEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val ownerMedId: String,

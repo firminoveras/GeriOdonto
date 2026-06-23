@@ -39,7 +39,6 @@ import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -105,13 +104,6 @@ fun Content(
 
     val filteredMeds by medViewModel.filteredMedsList.collectAsStateWithLifecycle()
     val suggestionMedsByClass by medViewModel.medsByClass.collectAsStateWithLifecycle()
-
-    LaunchedEffect(suggestionMedsByClass) {
-        println("AAAAAAAAAAAAAAAAAAAAAAA")
-        suggestionMedsByClass.forEach {
-            println(it.name)
-        }
-    }
 
     val sheetExamState = rememberBottomSheetState(
         initialValue = SheetValue.Hidden,
@@ -208,6 +200,7 @@ fun Menu(
     onAddClick: () -> Unit,
 ) {
     val appVersion = rememberAppVersion()
+    var dataVersion by remember { mutableStateOf("") }
     val gradientBrush = Brush.linearGradient(
         colors = listOf(
             MaterialTheme.colorScheme.primary,
@@ -352,16 +345,26 @@ fun Menu(
                 color = MaterialTheme.colorScheme.outline,
                 style = MaterialTheme.typography.labelSmall,
             )
+            Text(
+                text = dataVersion,
+                color = MaterialTheme.colorScheme.outline,
+                style = MaterialTheme.typography.labelSmall,
+            )
             Spacer(Modifier.height(128.dp))
         }
 
 
         when (seedingState) {
-            SeedingState.Idle -> {
+            is SeedingState.Idle -> {
                 onSeedDatabase()
             }
 
-            SeedingState.Loading -> {
+            SeedingState.Verifying -> {
+                dataVersion = "Verificando MedData..."
+            }
+
+            is SeedingState.Updating -> {
+                dataVersion = "Atualizando MedData de v${seedingState.seederData.localVersion} para v${seedingState.seederData.jsonVersion}..."
                 PocketAlertManager.show(
                     message = "Atualizando medicamentos...",
                     iconName = "warning",
@@ -369,7 +372,24 @@ fun Menu(
                 )
             }
 
-            SeedingState.Success -> {
+            is SeedingState.Error -> {
+                dataVersion = "Erro ao Atualizar MedData"
+                PocketAlertManager.show(
+                    message = "Erro ao atualizar MedData: ${seedingState.message}",
+                    iconName = "warning",
+                )
+            }
+
+            is SeedingState.Updated -> {
+                dataVersion = "MedData v${seedingState.seederData.jsonVersion}"
+                PocketAlertManager.show(
+                    message = "MedData atualizado para v${seedingState.seederData.localVersion}",
+                    iconName = "check",
+                )
+            }
+
+            is SeedingState.Done -> {
+                dataVersion = "MedData v${seedingState.seederData.localVersion}"
                 VerticalFloatingToolbar(
                     modifier = Modifier.align(Alignment.BottomEnd),
                     expanded = true,
@@ -391,13 +411,6 @@ fun Menu(
                         )
                     }
                 }
-            }
-
-            is SeedingState.Error -> {
-                PocketAlertManager.show(
-                    message = "Erro ao atualizar database.",
-                    iconName = "erro",
-                )
             }
         }
         PocketAlert()
