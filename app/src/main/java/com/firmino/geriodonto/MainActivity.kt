@@ -218,21 +218,21 @@ fun Menu(
     settingsState: MenuSettingsState,
     onEvent: (MenuEvent) -> Unit,
 ) {
-    var dataVersion by remember { mutableStateOf("") }
+    var medDataVersion by remember { mutableStateOf("") }
 
     Box(Modifier.fillMaxSize()) {
-        ExamMenuLogo(dataVersion)
+        ExamMenuLogo(medDataVersion)
         when (seedingState) {
             is SeedingState.Idle -> {
                 onEvent(MenuEvent.SeedDatabase)
             }
 
             SeedingState.Verifying -> {
-                dataVersion = "Verificando MedData..."
+                medDataVersion = "[Verificando]"
             }
 
             is SeedingState.Updating -> {
-                dataVersion = "Atualizando MedData de v${seedingState.seederData.localVersion} para v${seedingState.seederData.jsonVersion}..."
+                medDataVersion = "[Atualizando v${seedingState.seederData.localVersion} > v${seedingState.seederData.jsonVersion}]"
                 PocketAlertManager.show(
                     message = "Atualizando medicamentos...",
                     iconName = "warning",
@@ -241,7 +241,7 @@ fun Menu(
             }
 
             is SeedingState.Error -> {
-                dataVersion = "Erro ao Atualizar MedData"
+                medDataVersion = "[Erro]"
                 PocketAlertManager.show(
                     message = "Erro ao atualizar MedData: ${seedingState.message}",
                     iconName = "warning",
@@ -249,7 +249,7 @@ fun Menu(
             }
 
             is SeedingState.Updated -> {
-                dataVersion = "MedData v${seedingState.seederData.jsonVersion}"
+                medDataVersion = "v${seedingState.seederData.jsonVersion}"
                 PocketAlertManager.show(
                     message = "MedData atualizado para v${seedingState.seederData.localVersion}",
                     iconName = "check",
@@ -257,7 +257,7 @@ fun Menu(
             }
 
             is SeedingState.Done -> {
-                dataVersion = "MedData v${seedingState.seederData.localVersion}"
+                medDataVersion = "v${seedingState.seederData.localVersion}"
                 ExamMenuToolbar(
                     uiState = uiState,
                     onEvent = onEvent,

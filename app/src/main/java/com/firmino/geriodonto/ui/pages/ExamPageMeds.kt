@@ -22,9 +22,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
+import com.firmino.geriodonto.companions.MedicalCondition
 import com.firmino.geriodonto.companions.highlightedText
 import com.firmino.geriodonto.companions.roundedCornerListShape
-import com.firmino.geriodonto.companions.MedicalCondition
 import com.firmino.geriodonto.ui.widgets.ExamMedItem
 import com.firmino.geriodonto.ui.widgets.ExamSearchPage
 import com.firmino.geriodonto.viewmodel.Med
@@ -99,7 +99,6 @@ fun ExamPageMeds(
                                     onFindAndAdd(name, MedListType.PRE, result.second)
                                 },
                                 icon = { MaterialSymbol(iconName = "medication") },
-                                // TODO: Fazer isso ficar melhor com um pair, por exemplo
                                 label = { Text(name.replaceFirstChar { it.uppercase() }.replace("_", " ")) },
                             )
                         }

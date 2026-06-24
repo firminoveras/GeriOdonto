@@ -45,7 +45,7 @@ import com.firmino.geriodonto.ui.theme.fontFamilyPoiret
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun BoxScope.ExamMenuLogo(
-    dataVersion: String,
+    medDataVersion: String,
 ){
     val appVersion = rememberAppVersion()
     val gradientBrush = Brush.linearGradient(
@@ -232,7 +232,7 @@ fun BoxScope.ExamMenuLogo(
         )
         Text(
             modifier = Modifier.padding(vertical = 6.dp, horizontal = 18.dp),
-            text = "$appVersion • $dataVersion",
+            text = "MedData $medDataVersion • App v$appVersion",
             color = MaterialTheme.colorScheme.outline,
             style = MaterialTheme.typography.labelSmall,
         )

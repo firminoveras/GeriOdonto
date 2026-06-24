@@ -2,11 +2,12 @@ package com.firmino.geriodonto.ui.widgets
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FloatingActionButton
@@ -176,7 +177,7 @@ fun BoxScope.ExamMenuToolbar(
             .padding(end = 76.dp)
             .align(Alignment.BottomEnd),
         visible = !showSettings && !uiState.isEmpty,
-        title = "Continuar Edição",
+        title = "Continuar",
         subtitle = uiState.name.text.toString(),
     )
 }
@@ -188,29 +189,27 @@ fun SettingLabel(
     title: String,
     subtitle: String = "",
 ) {
-    Row(modifier = modifier) {
-        AnimatedVisibility(visible = visible) {
-            Column(
-                modifier = Modifier
-                    .height(56.dp)
-                    .background(color = MaterialTheme.colorScheme.surfaceContainer, shape = MaterialTheme.shapes.extraLarge)
-                    .padding(horizontal = 32.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.End,
-            ) {
+    AnimatedVisibility(modifier = modifier, visible = visible, enter = fadeIn(), exit = fadeOut()) {
+        Column(
+            modifier = Modifier
+                .height(56.dp)
+                .background(color = MaterialTheme.colorScheme.surfaceContainer, shape = MaterialTheme.shapes.extraLarge)
+                .padding(horizontal = 32.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.End,
+        ) {
+            Text(
+                modifier = Modifier.animateContentSize(),
+                text = title,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            AnimatedVisibility(visible = subtitle.isNotEmpty()) {
                 Text(
                     modifier = Modifier.animateContentSize(),
-                    text = title,
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = subtitle,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary,
                 )
-                AnimatedVisibility(visible = subtitle.isNotEmpty()) {
-                    Text(
-                        modifier = Modifier.animateContentSize(),
-                        text = subtitle,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
-                }
             }
         }
     }
@@ -244,7 +243,7 @@ fun SettingIcon(
                 IconButton(
                     onClick = { onExtendChange(!extend) },
                     colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = if (extend) MaterialTheme.colorScheme.surfaceContainerLow else Color.Unspecified
+                        containerColor = if (extend) MaterialTheme.colorScheme.surfaceContainerLow else Color.Unspecified,
                     ),
                     content = { MaterialSymbol(iconName = symbol, filled = extend) },
                 )

@@ -79,7 +79,7 @@ fun ExamSheet(
     val focusManager = LocalFocusManager.current
     var showTopBar by remember { mutableStateOf(true) }
     var showMenuBar by remember { mutableStateOf(true) }
-    var showAlerts by remember { mutableStateOf(false) }
+    var showAlerts by remember { mutableStateOf(true) }
     var deleteDiasese by remember { mutableStateOf<MedicalCondition?>(null) }
     var deleteMed by remember { mutableStateOf<Med?>(null) }
     var deletePrescription by remember { mutableStateOf<Med?>(null) }
@@ -265,7 +265,7 @@ fun ExamSheet(
         ExtendedFloatingActionButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(horizontal = 12.dp, vertical = 18.dp),
+                .padding(horizontal = 12.dp, vertical = 26.dp),
             onClick = { onInteractionButtonClick() },
             text = { Text("Interações") },
             expanded = uiState.interactions.isNotEmpty(),
@@ -281,7 +281,7 @@ fun ExamSheet(
 
             },
         )
-        if (showAlerts) PocketAlert()
+        if (showAlerts) PocketAlert(bottomPadding = 26.dp)
     }
 }
 
