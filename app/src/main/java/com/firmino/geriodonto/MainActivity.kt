@@ -4,44 +4,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetValue
-import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.material3.rememberBottomSheetState
-import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -49,34 +26,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.companions.PocketAlert
 import com.firmino.geriodonto.companions.PocketAlertManager
-import com.firmino.geriodonto.companions.rememberAppVersion
-import com.firmino.geriodonto.data.datastorage.SettingsRepository
 import com.firmino.geriodonto.ui.sheets.ExamSheet
 import com.firmino.geriodonto.ui.sheets.InfoSheet
 import com.firmino.geriodonto.ui.sheets.InteractionSheet
 import com.firmino.geriodonto.ui.sheets.PolicySheet
 import com.firmino.geriodonto.ui.theme.GeriOdontoTheme
-import com.firmino.geriodonto.ui.theme.fontFamilyBaumans
-import com.firmino.geriodonto.ui.theme.fontFamilyPoiret
+import com.firmino.geriodonto.ui.widgets.ExamMenuLogo
+import com.firmino.geriodonto.ui.widgets.ExamMenuToolbar
+import com.firmino.geriodonto.ui.widgets.MenuEvent
+import com.firmino.geriodonto.ui.widgets.MenuSettingsState
 import com.firmino.geriodonto.viewmodel.MedViewModel
 import com.firmino.geriodonto.viewmodel.PatientStateChangeType
 import com.firmino.geriodonto.viewmodel.PatientUiState
@@ -156,19 +119,25 @@ fun Content(
             Menu(
                 uiState = patientViewModel.uiState.value,
                 seedingState = seedingState,
-                onSeedDatabase = { medViewModel.seedDatabase() },
-                onClear = patientViewModel::clear,
-                onAddClick = { showExamSheet = true },
-                onInfoClick = { showInfoSheet = true },
-                onPolicyClick = { showPolicySheet = true },
-                lightModeSymbol = (settingsUiState as SettingsUiState.Success).settings.lightMode.symbol,
-                accentColorSymbol = (settingsUiState as SettingsUiState.Success).settings.accentColor.symbol,
-                oledModeSymbol = (settingsUiState as SettingsUiState.Success).settings.oledMode.symbol,
-                palleteSymbol = (settingsUiState as SettingsUiState.Success).settings.pallete.symbol,
-                onLightModeChange = { settingsViewModel.saveLightMode(it) },
-                onAccentColorChange = { settingsViewModel.saveAccentColor(it) },
-                onOledModeChange = { settingsViewModel.saveOledMode(it) },
-                onPalleteChange = {settingsViewModel.savePallete(it)},
+                settingsState = MenuSettingsState(
+                    lightMode = (settingsUiState as SettingsUiState.Success).settings.lightMode,
+                    accentColor = (settingsUiState as SettingsUiState.Success).settings.accentColor,
+                    oledMode = (settingsUiState as SettingsUiState.Success).settings.oledMode,
+                    palette = (settingsUiState as SettingsUiState.Success).settings.pallete,
+                ),
+                onEvent = { event ->
+                    when (event) {
+                        is MenuEvent.AccentColorChange -> settingsViewModel.saveAccentColor(event.color)
+                        is MenuEvent.LightModeChange -> settingsViewModel.saveLightMode(event.mode)
+                        is MenuEvent.OledModeChange -> settingsViewModel.saveOledMode(event.mode)
+                        is MenuEvent.PaletteChange -> settingsViewModel.savePallete(event.palette)
+                        MenuEvent.SeedDatabase -> medViewModel.seedDatabase()
+                        MenuEvent.Clear -> patientViewModel.clear()
+                        MenuEvent.AddClick -> showExamSheet = true
+                        MenuEvent.InfoClick -> showInfoSheet = true
+                        MenuEvent.PolicyClick -> showPolicySheet = true
+                    }
+                },
             )
         }
 
@@ -198,7 +167,6 @@ fun Content(
                 )
             }
         }
-
 
         if (showInteractionSheet) {
             ModalBottomSheet(
@@ -241,234 +209,22 @@ fun Content(
     }
 }
 
-enum class ActiveSettingMenu {
-    NONE, ACCENT_COLOR, OLED_MODE, LIGHT_MODE, PALLETE
-}
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun Menu(
     uiState: PatientUiState,
     seedingState: SeedingState,
-    onSeedDatabase: () -> Unit,
-    onClear: () -> Unit,
-    onAddClick: () -> Unit,
-    onInfoClick: () -> Unit,
-    onPolicyClick: () -> Unit,
-    lightModeSymbol: String,
-    onLightModeChange: (String) -> Unit,
-    accentColorSymbol: String,
-    onAccentColorChange: (String) -> Unit,
-    oledModeSymbol: String,
-    onOledModeChange: (String) -> Unit,
-    palleteSymbol: String,
-    onPalleteChange: (String) -> Unit,
+    settingsState: MenuSettingsState,
+    onEvent: (MenuEvent) -> Unit,
 ) {
-    val appVersion = rememberAppVersion()
     var dataVersion by remember { mutableStateOf("") }
-    val gradientBrush = Brush.linearGradient(
-        colors = listOf(
-            MaterialTheme.colorScheme.primary,
-            MaterialTheme.colorScheme.onSecondary,
-        ),
-    )
-    val surfaceColor = MaterialTheme.colorScheme.surface
-    val rotationAngle by rememberInfiniteTransition(label = "InfiniteRotationTransition").animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 20000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart,
-        ),
-        label = "RotationAngleAnimation",
-    )
 
     Box(Modifier.fillMaxSize()) {
-        Image(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .offset(y = (-400).dp, x = 400.dp)
-                .requiredSize(800.dp)
-                .alpha(.1f)
-                .rotate(rotationAngle)
-                .clip(MaterialShapes.Cookie6Sided.toShape()),
-            painter = ColorPainter(MaterialTheme.colorScheme.primary),
-            contentDescription = null,
-        )
-        Image(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .offset(y = (-300).dp, x = 300.dp)
-                .requiredSize(600.dp)
-                .alpha(.1f)
-                .rotate(rotationAngle)
-                .clip(MaterialShapes.Cookie7Sided.toShape()),
-            painter = ColorPainter(MaterialTheme.colorScheme.primary),
-            contentDescription = null,
-        )
-        Image(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .offset(y = (-150).dp, x = 150.dp)
-                .requiredSize(300.dp)
-                .alpha(.1f)
-                .rotate(rotationAngle)
-                .clip(MaterialShapes.Cookie9Sided.toShape()),
-            painter = ColorPainter(MaterialTheme.colorScheme.primary),
-            contentDescription = null,
-        )
-        Image(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .offset(y = (-200).dp, x = 200.dp)
-                .requiredSize(400.dp)
-                .alpha(.1f)
-                .rotate(rotationAngle)
-                .clip(MaterialShapes.Cookie12Sided.toShape()),
-            painter = ColorPainter(MaterialTheme.colorScheme.primary),
-            contentDescription = null,
-        )
-        Image(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .offset(y = 400.dp, x = (-400).dp)
-                .requiredSize(800.dp)
-                .alpha(.1f)
-                .rotate(rotationAngle)
-                .clip(MaterialShapes.Cookie6Sided.toShape()),
-            painter = ColorPainter(MaterialTheme.colorScheme.primary),
-            contentDescription = null,
-        )
-        Image(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .offset(y = 300.dp, x = (-300).dp)
-                .requiredSize(600.dp)
-                .alpha(.1f)
-                .rotate(rotationAngle)
-                .clip(MaterialShapes.Cookie7Sided.toShape()),
-            painter = ColorPainter(MaterialTheme.colorScheme.primary),
-            contentDescription = null,
-        )
-        Image(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .offset(y = 150.dp, x = (-150).dp)
-                .requiredSize(300.dp)
-                .alpha(.1f)
-                .rotate(rotationAngle)
-                .clip(MaterialShapes.Cookie9Sided.toShape()),
-            painter = ColorPainter(MaterialTheme.colorScheme.primary),
-            contentDescription = null,
-        )
-        Image(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .offset(y = 200.dp, x = (-200).dp)
-                .requiredSize(400.dp)
-                .alpha(.1f)
-                .rotate(rotationAngle)
-                .clip(MaterialShapes.Cookie12Sided.toShape()),
-            painter = ColorPainter(MaterialTheme.colorScheme.primary),
-            contentDescription = null,
-        )
-
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Box {
-                Image(
-                    modifier = Modifier
-                        .size(128.dp)
-                        .graphicsLayer(alpha = 0.99f)
-                        .drawWithContent {
-                            drawContent()
-                            drawRect(brush = gradientBrush, blendMode = BlendMode.SrcIn)
-                        },
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_tooth),
-                    contentDescription = null,
-                )
-                Image(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(32.dp)
-                        .offset(y = (-12).dp)
-                        .graphicsLayer(alpha = 0.99f)
-                        .drawWithContent {
-                            drawContent()
-                            drawRect(brush = gradientBrush, blendMode = BlendMode.SrcIn)
-                        },
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_icon_head),
-                    contentDescription = null,
-                )
-
-                Image(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .size(96.dp)
-                        .offset(x = 22.dp, y = (2).dp)
-                        .graphicsLayer(alpha = 0.99f)
-                        .drawWithContent {
-                            drawContent()
-                            drawRect(color = surfaceColor, blendMode = BlendMode.SrcIn)
-                        },
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_pill_bg),
-                    contentDescription = null,
-                )
-
-                Image(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .size(84.dp)
-                        .offset(x = 16.dp, y = (-4).dp)
-                        .graphicsLayer(alpha = 0.99f)
-                        .drawWithContent {
-                            drawContent()
-                            drawRect(brush = gradientBrush, blendMode = BlendMode.SrcIn)
-                        },
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_pill_fg),
-                    contentDescription = null,
-                )
-            }
-
-            Row {
-                Text(
-                    text = "Geri",
-                    fontFamily = fontFamilyBaumans,
-                    style = MaterialTheme.typography.displayLarge,
-                )
-                Text(
-                    text = "Odonto",
-                    fontFamily = fontFamilyPoiret,
-                    style = MaterialTheme.typography.displayLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Text(
-                text = "Prescrição Segura em Odontogeriatria",
-                style = MaterialTheme.typography.labelMedium,
-            )
-            Text(
-                modifier = Modifier.padding(vertical = 6.dp, horizontal = 18.dp),
-                text = "$appVersion • $dataVersion",
-                color = MaterialTheme.colorScheme.outline,
-                style = MaterialTheme.typography.labelSmall,
-            )
-            Spacer(Modifier.height(128.dp))
-        }
-
-
-        var showSettings by remember { mutableStateOf(false) }
-        var activeMenu by remember { mutableStateOf(ActiveSettingMenu.NONE) }
-
-        if (!showSettings && activeMenu != ActiveSettingMenu.NONE) {
-            activeMenu = ActiveSettingMenu.NONE
-        }
-
+        ExamMenuLogo(dataVersion)
         when (seedingState) {
             is SeedingState.Idle -> {
-                onSeedDatabase()
+                onEvent(MenuEvent.SeedDatabase)
             }
 
             SeedingState.Verifying -> {
@@ -502,122 +258,13 @@ fun Menu(
 
             is SeedingState.Done -> {
                 dataVersion = "MedData v${seedingState.seederData.localVersion}"
-                VerticalFloatingToolbar(
-                    modifier = Modifier.align(Alignment.BottomEnd),
-                    expanded = true,
-                    floatingActionButton = {
-                        FloatingActionButton(onClick = onAddClick) {
-                            MaterialSymbol(iconName = if (uiState.isEmpty) "add" else "edit")
-                        }
-                    },
-                ) {
-                    SettingIcon(
-                        visible = showSettings && (activeMenu == ActiveSettingMenu.NONE || activeMenu == ActiveSettingMenu.ACCENT_COLOR),
-                        symbol = accentColorSymbol,
-                        extend = activeMenu == ActiveSettingMenu.ACCENT_COLOR,
-                        optionsList = SettingsRepository.AccentColor.entries.map { it.symbol to it.name },
-                        onClick = { onAccentColorChange(it) },
-                        onExtendChange = { isExtended ->
-                            activeMenu = if (isExtended) ActiveSettingMenu.ACCENT_COLOR else ActiveSettingMenu.NONE
-                        },
-                    )
-
-                    SettingIcon(
-                        visible = showSettings && (activeMenu == ActiveSettingMenu.NONE || activeMenu == ActiveSettingMenu.PALLETE),
-                        symbol = palleteSymbol,
-                        extend = activeMenu == ActiveSettingMenu.PALLETE,
-                        optionsList = SettingsRepository.Palette.entries.map { it.symbol to it.name },
-                        onClick = { onPalleteChange(it) },
-                        onExtendChange = { isExtended ->
-                            activeMenu = if (isExtended) ActiveSettingMenu.PALLETE else ActiveSettingMenu.NONE
-                        },
-                    )
-
-                    SettingIcon(
-                        visible = showSettings && (activeMenu == ActiveSettingMenu.NONE || activeMenu == ActiveSettingMenu.OLED_MODE),
-                        symbol = oledModeSymbol,
-                        extend = activeMenu == ActiveSettingMenu.OLED_MODE,
-                        optionsList = SettingsRepository.OledMode.entries.map { it.symbol to it.name },
-                        onClick = { onOledModeChange(it) },
-                        onExtendChange = { isExtended ->
-                            activeMenu = if (isExtended) ActiveSettingMenu.OLED_MODE else ActiveSettingMenu.NONE
-                        },
-                    )
-
-                    SettingIcon(
-                        visible = showSettings && (activeMenu == ActiveSettingMenu.NONE || activeMenu == ActiveSettingMenu.LIGHT_MODE),
-                        symbol = lightModeSymbol,
-                        extend = activeMenu == ActiveSettingMenu.LIGHT_MODE,
-                        optionsList = SettingsRepository.LightMode.entries.map { it.symbol to it.name },
-                        onClick = { onLightModeChange(it) },
-                        onExtendChange = { isExtended ->
-                            activeMenu = if (isExtended) ActiveSettingMenu.LIGHT_MODE else ActiveSettingMenu.NONE
-                        },
-                    )
-
-                    IconButton(
-                        onClick = { showSettings = !showSettings },
-                        colors = IconButtonDefaults.iconButtonColors(containerColor = if (showSettings) MaterialTheme.colorScheme.surfaceContainerLow else Color.Unspecified),
-                        content = { MaterialSymbol(iconName = "settings", filled = showSettings) },
-                    )
-
-                    AnimatedVisibility(visible = !showSettings) {
-                        Column {
-                            IconButton(onClick = onInfoClick) { MaterialSymbol(iconName = "license") }
-                            IconButton(onClick = onPolicyClick) { MaterialSymbol(iconName = "policy") }
-                            if (!uiState.isEmpty) {
-                                IconButton(
-                                    onClick = {
-                                        onClear()
-                                        onAddClick()
-                                    },
-                                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-                                    content = { MaterialSymbol(iconName = "add") },
-                                )
-                            }
-                        }
-                    }
-
-                }
+                ExamMenuToolbar(
+                    uiState = uiState,
+                    onEvent = onEvent,
+                    settingsState = settingsState,
+                )
             }
         }
         PocketAlert()
-    }
-}
-
-@Composable
-fun SettingIcon(
-    visible: Boolean,
-    symbol: String,
-    extend: Boolean,
-    optionsList: List<Pair<String, String>>,
-    onClick: (String) -> Unit,
-    onExtendChange: (Boolean) -> Unit,
-) {
-    Column {
-        AnimatedVisibility(visible = visible) {
-            Column (horizontalAlignment = Alignment.CenterHorizontally){
-                AnimatedVisibility(visible = extend) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        optionsList.forEach { entry ->
-                            IconButton(
-                                onClick = {
-                                    onExtendChange(false)
-                                    onClick(entry.second)
-                                },
-                                content = { MaterialSymbol(iconName = entry.first) },
-                            )
-                        }
-                        HorizontalDivider(Modifier.width(32.dp))
-                    }
-                }
-                IconButton(
-                    onClick = { onExtendChange(!extend) },
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = if (extend) MaterialTheme.colorScheme.surfaceContainerLow else Color.Unspecified),
-                    content = { MaterialSymbol(iconName = symbol, filled = extend) },
-                )
-
-            }
-        }
     }
 }

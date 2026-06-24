@@ -22,10 +22,10 @@ class SettingsViewModel @Inject constructor(private val repository: SettingsRepo
         initialValue = SettingsUiState.Loading,
     )
 
-    fun saveLightMode(value: String) = viewModelScope.launch { repository.saveLightMode(value) }
-    fun saveAccentColor(value: String) = viewModelScope.launch { repository.saveAccentColor(value) }
-    fun saveOledMode(value: String) = viewModelScope.launch { repository.saveOledMode(value) }
-    fun savePallete(value: String) = viewModelScope.launch { repository.savePallete(value) }
+    fun saveLightMode(value: SettingsRepository.LightMode) = viewModelScope.launch { repository.saveLightMode(value) }
+    fun saveAccentColor(value: SettingsRepository.AccentColor) = viewModelScope.launch { repository.saveAccentColor(value) }
+    fun saveOledMode(value: SettingsRepository.OledMode) = viewModelScope.launch { repository.saveOledMode(value) }
+    fun savePallete(value: SettingsRepository.Palette) = viewModelScope.launch { repository.savePallete(value) }
 }
 
 sealed interface SettingsUiState {

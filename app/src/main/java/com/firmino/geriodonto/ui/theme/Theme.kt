@@ -29,12 +29,11 @@ fun GeriOdontoTheme(
     val context = LocalContext.current
     val seedColorFromSetting = settingAccentColor.color
     val finalSeedColor = remember(seedColorFromSetting) {
-        seedColorFromSetting ?: if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            dynamicLightColorScheme(context).primary
-        } else Color(33, 150, 243, 255)
+        seedColorFromSetting ?: if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) dynamicLightColorScheme(context).primary
+        else Color(33, 150, 243, 255)
     }
 
-    val pallete = when(settingPallete){
+    val pallete = when (settingPallete) {
         SettingsRepository.Palette.TONALSPOT -> PaletteStyle.TonalSpot
         SettingsRepository.Palette.NEUTRAL -> PaletteStyle.Neutral
         SettingsRepository.Palette.VIBRANT -> PaletteStyle.Vibrant
