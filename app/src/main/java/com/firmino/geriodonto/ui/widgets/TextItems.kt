@@ -1,6 +1,9 @@
 package com.firmino.geriodonto.ui.widgets
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +19,7 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import com.firmino.geriodonto.companions.roundedCornerListShape
 
 fun LazyListScope.textParagraph(text: String) {
@@ -83,7 +87,7 @@ fun LazyListScope.textBox(title: String, text: String) {
     }
 }
 
-fun LazyListScope.textBoxTiple(title: String, text: String, text2: String) {
+fun LazyListScope.textBoxTiple(title: String, text: String, text2: String, context: Context) {
     item {
         val shape: @Composable (index: Int) -> CornerBasedShape = { index ->
             roundedCornerListShape(index, 3, MaterialTheme.shapes.extraSmall, MaterialTheme.shapes.medium)
@@ -100,6 +104,7 @@ fun LazyListScope.textBoxTiple(title: String, text: String, text2: String) {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clickable { context.startActivity(Intent(Intent.ACTION_VIEW, "https://${text}".toUri())) }
                     .background(color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = shape(1))
                     .padding(12.dp),
                 text = text,

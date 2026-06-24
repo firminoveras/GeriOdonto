@@ -22,7 +22,6 @@ import androidx.core.net.toUri
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.ui.widgets.SheetHeader
 import com.firmino.geriodonto.ui.widgets.textBoxTiple
-import com.firmino.geriodonto.ui.widgets.textParagraph
 import com.firmino.geriodonto.ui.widgets.textTitle
 
 @Composable
@@ -48,17 +47,26 @@ fun InfoSheet() {
                 title = "Room",
                 text = "developer.android.com/training/data-storage/room",
                 text2 = "A biblioteca de persistência Room oferece uma camada de abstração sobre o SQLite para permitir um acesso mais robusto ao banco de dados, aproveitando toda a capacidade do SQLite.",
+                context = context,
             )
 
             textBoxTiple(
                 title = "Hilt",
                 text = "github.com/google/dagger",
                 text2 = "Hilt é um framework de injeção de dependências em tempo de compilação. Ele não utiliza reflexão nem geração de bytecode em tempo de execução, realiza toda a análise em tempo de compilação e gera código-fonte puro.",
+                context = context,
             )
 
-            // TODO: Revisar essas informações
-            textTitle("Informações")
-            textParagraph("O aplicativo GeriOdonto foi desenvolvido por Firmino Veras e servirá como base operacional e ferramenta de suporte para o trabalho de pós-graduação de Eugênio. Esta pesquisa científica e plataforma digital estão sendo conduzidas e vinculadas institucionalmente junto à XXXX, unindo a inovação tecnológica aplicada à Odontogeriatria com o rigor acadêmico.")
+            textBoxTiple(
+                title = "Material Kolor",
+                text = "github.com/jordond/materialkolor",
+                text2 = "Uma biblioteca Compose Multiplatforma para criar paletas de cores dinâmicas do Material Design 3 a partir de qualquer cor.",
+                context = context,
+            )
+
+          //TODO: Revisar essas informações
+          //textTitle("Informações")
+          //textParagraph("O aplicativo GeriOdonto foi desenvolvido por Firmino Veras e servirá como base operacional e ferramenta de suporte para o trabalho de pós-graduação de Eugênio. Esta pesquisa científica e plataforma digital estão sendo conduzidas e vinculadas institucionalmente junto à XXXX, unindo a inovação tecnológica aplicada à Odontogeriatria com o rigor acadêmico.")
 
             item {
                 Button(

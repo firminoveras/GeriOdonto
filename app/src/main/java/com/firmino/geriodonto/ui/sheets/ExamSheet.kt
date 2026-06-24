@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.AlertDialog
@@ -35,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
@@ -51,14 +54,15 @@ import com.firmino.geriodonto.viewmodel.Med
 import com.firmino.geriodonto.viewmodel.MedListType
 import com.firmino.geriodonto.viewmodel.PatientEvent
 import com.firmino.geriodonto.viewmodel.PatientUiState
+import com.materialkolor.ktx.darken
 import kotlinx.coroutines.launch
 
 enum class ExamPages(val text: String, val symbolName: String, val description: String) {
-    PAGE_PERSONAL("Pessoal", "account_box", "Informe os dados pessoais e de identificação do paciente."),
-    PAGE_EXAMS("Exames", "labs", "Informe os resultados dos principais exames clínicos do paciente."),
-    PAGE_CONDITIONS("Condições", "medical_information", "Registre as condições médicas, comorbidades ou doenças crônicas do paciente."),
-    PAGE_MEDS("Medicamentos", "admin_meds", "Liste os medicamentos de uso contínuo utilizados pelo paciente."),
-    PAGE_PRESCRIPTION("Prescrição", "outpatient_med", "Insira os novos medicamentos a serem prescritos para o paciente."),
+    PAGE_PERSONAL("Pessoal", "badge", "Informe os dados pessoais e de identificação do paciente."),
+    PAGE_EXAMS("Exames", "medical_services", "Informe os resultados dos principais exames clínicos do paciente."),
+    PAGE_CONDITIONS("Condições", "diagnosis", "Registre as condições médicas, comorbidades ou doenças crônicas do paciente."),
+    PAGE_MEDS("Medicamentos", "medication", "Liste os medicamentos de uso contínuo utilizados pelo paciente."),
+    PAGE_PRESCRIPTION("Prescrição", "prescriptions", "Insira os novos medicamentos a serem prescritos para o paciente."),
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,6 +81,9 @@ fun ExamSheet(
     val pagerState = rememberPagerState { ExamPages.entries.size }
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
+    val localWindowsInfo = LocalWindowInfo.current
+    val screenWidthDp = localWindowsInfo.containerDpSize.width
+
     var showTopBar by remember { mutableStateOf(true) }
     var showMenuBar by remember { mutableStateOf(true) }
     var showAlerts by remember { mutableStateOf(true) }
@@ -201,63 +208,75 @@ fun ExamSheet(
             }
             Spacer(Modifier.height(8.dp))
             HorizontalPager(state = pagerState, userScrollEnabled = false) { index ->
-                when (index) {
-                    ExamPages.PAGE_PERSONAL.ordinal -> {
-                        ExamPagePersonal(
-                            name = uiState.name,
-                            genre = uiState.genre,
-                            age = uiState.age,
-                            height = uiState.height,
-                            weight = uiState.weight,
-                        )
-                    }
+                Box(Modifier.fillMaxSize()) {
+                    MaterialSymbol(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(top = 64.dp),
+                        iconName = ExamPages.entries[index].symbolName,
+                        size = screenWidthDp - 24.dp,
+                        filled = true,
+                        colorFilled = MaterialTheme.colorScheme.surfaceContainerLow.darken(1.02f),
+                    )
 
-                    ExamPages.PAGE_EXAMS.ordinal -> {
-                        ExamPageExams(
-                            renalFunction = uiState.renalFunction,
-                            genre = uiState.genre,
-                            hepaticTgo = uiState.hepaticTgo,
-                            hepaticTgp = uiState.hepaticTgp,
-                            hasFallHistory = uiState.hasFallHistory,
-                            hasFragile = uiState.hasFragile,
-                            onHasFragileChange = { onEvent(PatientEvent.UpdateFragile(it)) },
-                            onHasFallHistoryChange = { onEvent(PatientEvent.UpdateFallHistory(it)) },
-                        )
-                    }
+                    when (index) {
+                        ExamPages.PAGE_PERSONAL.ordinal -> {
+                            ExamPagePersonal(
+                                name = uiState.name,
+                                genre = uiState.genre,
+                                age = uiState.age,
+                                height = uiState.height,
+                                weight = uiState.weight,
+                            )
+                        }
 
-                    ExamPages.PAGE_CONDITIONS.ordinal -> {
-                        ExamPageConditions(
-                            conditionsList = uiState.conditionsList,
-                            onSearchStateChange = { showTopBar = !it },
-                            onAdd = { onEvent(PatientEvent.AddCondition(it)) },
-                            onRemove = { deleteDiasese = it },
-                        )
-                    }
+                        ExamPages.PAGE_EXAMS.ordinal -> {
+                            ExamPageExams(
+                                renalFunction = uiState.renalFunction,
+                                genre = uiState.genre,
+                                hepaticTgo = uiState.hepaticTgo,
+                                hepaticTgp = uiState.hepaticTgp,
+                                hasFallHistory = uiState.hasFallHistory,
+                                hasFragile = uiState.hasFragile,
+                                onHasFragileChange = { onEvent(PatientEvent.UpdateFragile(it)) },
+                                onHasFallHistoryChange = { onEvent(PatientEvent.UpdateFallHistory(it)) },
+                            )
+                        }
 
-                    ExamPages.PAGE_MEDS.ordinal -> {
-                        ExamPageMeds(
-                            medList = uiState.medList,
-                            conditionsList = uiState.conditionsList,
-                            filteredMeds = filteredMeds,
-                            onSearch = onSearch,
-                            onSearchStateChange = { showTopBar = !it },
-                            onAdd = { onEvent(PatientEvent.AddMed(it)) },
-                            onRemove = { deleteMed = it },
-                            onFindAndAdd = onFindAndAdd,
-                        )
-                    }
+                        ExamPages.PAGE_CONDITIONS.ordinal -> {
+                            ExamPageConditions(
+                                conditionsList = uiState.conditionsList,
+                                onSearchStateChange = { showTopBar = !it },
+                                onAdd = { onEvent(PatientEvent.AddCondition(it)) },
+                                onRemove = { deleteDiasese = it },
+                            )
+                        }
 
-                    ExamPages.PAGE_PRESCRIPTION.ordinal -> {
-                        ExamPagePrescription(
-                            medList = uiState.medList,
-                            filteredMeds = filteredMeds,
-                            onSearch = onSearch,
-                            onSearchStateChange = { showTopBar = !it },
-                            onAdd = { onEvent(PatientEvent.AddMed(it)) },
-                            onRemove = { deletePrescription = it },
-                            suggestionMedList = suggestionMedList,
-                            onSuggestionMedClassChange = onSuggestionMedClassChange,
-                        )
+                        ExamPages.PAGE_MEDS.ordinal -> {
+                            ExamPageMeds(
+                                medList = uiState.medList,
+                                conditionsList = uiState.conditionsList,
+                                filteredMeds = filteredMeds,
+                                onSearch = onSearch,
+                                onSearchStateChange = { showTopBar = !it },
+                                onAdd = { onEvent(PatientEvent.AddMed(it)) },
+                                onRemove = { deleteMed = it },
+                                onFindAndAdd = onFindAndAdd,
+                            )
+                        }
+
+                        ExamPages.PAGE_PRESCRIPTION.ordinal -> {
+                            ExamPagePrescription(
+                                medList = uiState.medList,
+                                filteredMeds = filteredMeds,
+                                onSearch = onSearch,
+                                onSearchStateChange = { showTopBar = !it },
+                                onAdd = { onEvent(PatientEvent.AddMed(it)) },
+                                onRemove = { deletePrescription = it },
+                                suggestionMedList = suggestionMedList,
+                                onSuggestionMedClassChange = onSuggestionMedClassChange,
+                            )
+                        }
                     }
                 }
             }
@@ -298,12 +317,12 @@ fun ExamMenu(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Row(
+        LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            ExamPages.entries.forEach { page ->
+            items(items = ExamPages.entries) { page ->
                 val current = page.ordinal == currentPage
                 val color = if (current) MaterialTheme.colorScheme.primary else Color.Transparent
                 val size = when (page) {

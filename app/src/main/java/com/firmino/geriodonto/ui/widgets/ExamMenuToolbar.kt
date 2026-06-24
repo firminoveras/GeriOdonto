@@ -83,14 +83,20 @@ fun BoxScope.ExamMenuToolbar(
                 currentSelection = settingsState.accentColor,
                 symbolName = "colors",
                 options = SettingsRepository.AccentColor.entries,
-                onSelect = { name -> onEvent(MenuEvent.AccentColorChange(SettingsRepository.AccentColor.valueOf(name))) },
+                onSelect = { name ->
+                    val item = SettingsRepository.AccentColor.entries.firstOrNull { it.label == name }
+                    if (item != null) onEvent(MenuEvent.AccentColorChange(item))
+                },
             ),
             ConfigUiWrapper(
                 menuType = ActiveSettingMenu.PALETTE,
                 currentSelection = settingsState.palette,
                 symbolName = "palette",
                 options = SettingsRepository.Palette.entries,
-                onSelect = { name -> onEvent(MenuEvent.PaletteChange(SettingsRepository.Palette.valueOf(name))) },
+                onSelect = { name ->
+                    val item = SettingsRepository.Palette.entries.firstOrNull { it.label == name }
+                    if (item != null) onEvent(MenuEvent.PaletteChange(item))
+                },
             ),
 
             ConfigUiWrapper(
@@ -98,14 +104,20 @@ fun BoxScope.ExamMenuToolbar(
                 currentSelection = settingsState.oledMode,
                 symbolName = "contrast_circle",
                 options = SettingsRepository.OledMode.entries,
-                onSelect = { name -> onEvent(MenuEvent.OledModeChange(SettingsRepository.OledMode.valueOf(name))) },
+                onSelect = { name ->
+                    val item = SettingsRepository.OledMode.entries.firstOrNull { it.label == name }
+                    if (item != null) onEvent(MenuEvent.OledModeChange(item))
+                },
             ),
             ConfigUiWrapper(
                 menuType = ActiveSettingMenu.LIGHT_MODE,
                 currentSelection = settingsState.lightMode,
                 symbolName = "dark_mode",
                 options = SettingsRepository.LightMode.entries,
-                onSelect = { name -> onEvent(MenuEvent.LightModeChange(SettingsRepository.LightMode.valueOf(name))) },
+                onSelect = { name ->
+                    val item = SettingsRepository.LightMode.entries.firstOrNull { it.label == name }
+                    if (item != null) onEvent(MenuEvent.LightModeChange(item))
+                },
             ),
         )
     }
