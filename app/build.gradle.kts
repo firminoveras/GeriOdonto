@@ -15,8 +15,8 @@ android {
         applicationId = "com.firmino.geriodonto"
         minSdk = 24
         targetSdk = 37
-        versionCode = 5
-        versionName = "0.5 (Beta)"
+        versionCode = 6
+        versionName = "0.6 (Beta)"
     }
 
     buildTypes {

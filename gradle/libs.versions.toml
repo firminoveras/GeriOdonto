@@ -1,5 +1,5 @@
 [versions]
-agp = "9.4.0-alpha01"
+agp = "9.4.0-alpha02"
 coreKtx = "1.19.0"
 gson = "2.14.0"
 hiltAndroid = "2.59.2"

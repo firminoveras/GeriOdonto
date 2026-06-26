@@ -22,6 +22,7 @@ import androidx.core.net.toUri
 import com.firmino.geriodonto.companions.MaterialSymbol
 import com.firmino.geriodonto.ui.widgets.SheetHeader
 import com.firmino.geriodonto.ui.widgets.textBoxTiple
+import com.firmino.geriodonto.ui.widgets.textParagraph
 import com.firmino.geriodonto.ui.widgets.textTitle
 
 @Composable
@@ -64,16 +65,14 @@ fun InfoSheet() {
                 context = context,
             )
 
-          //TODO: Revisar essas informações
-          //textTitle("Informações")
-          //textParagraph("O aplicativo GeriOdonto foi desenvolvido por Firmino Veras e servirá como base operacional e ferramenta de suporte para o trabalho de pós-graduação de Eugênio. Esta pesquisa científica e plataforma digital estão sendo conduzidas e vinculadas institucionalmente junto à XXXX, unindo a inovação tecnológica aplicada à Odontogeriatria com o rigor acadêmico.")
+            textTitle("Informações do Projeto")
+            textParagraph("O GeriOdonto é a plataforma digital de suporte para operacionalizar a pesquisa científica intitulada Impactos das prescrições inadequadas de medicamentos em Odontogeriatria.")
+            textParagraph("O projeto de pesquisa é de autoria de Eugênio Pacelli Ferreira Passos, Marina Nogueira Brasileiro Veras e Islania Giselia Albuquerque Araújo. Aplicativo desenvolvido para dispositivos móveis Android por José Firmino Veras Neto.")
 
             item {
                 Button(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, "https://github.com/firminoveras".toUri()))
-                    },
+                    onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, "https://github.com/firminoveras".toUri())) },
                     content = {
                         MaterialSymbol(iconName = "deployed_code", color = MaterialTheme.colorScheme.onPrimary)
                         Spacer(Modifier.width(8.dp))

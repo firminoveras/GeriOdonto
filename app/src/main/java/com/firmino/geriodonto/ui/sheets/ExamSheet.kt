@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,10 +35,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.firmino.geriodonto.companions.MaterialSymbol
@@ -81,8 +82,6 @@ fun ExamSheet(
     val pagerState = rememberPagerState { ExamPages.entries.size }
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
-    val localWindowsInfo = LocalWindowInfo.current
-    val screenWidthDp = localWindowsInfo.containerDpSize.width
 
     var showTopBar by remember { mutableStateOf(true) }
     var showMenuBar by remember { mutableStateOf(true) }
@@ -167,7 +166,8 @@ fun ExamSheet(
         )
     }
 
-    Box {
+    BoxWithConstraints {
+        val boxWidth = maxWidth
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -212,11 +212,11 @@ fun ExamSheet(
                     MaterialSymbol(
                         modifier = Modifier
                             .align(Alignment.Center)
+                            .alpha(.2f)
                             .padding(top = 64.dp),
                         iconName = ExamPages.entries[index].symbolName,
-                        size = screenWidthDp - 24.dp,
-                        filled = true,
-                        colorFilled = MaterialTheme.colorScheme.surfaceContainerLow.darken(1.02f),
+                        size = boxWidth - 24.dp,
+                        color= MaterialTheme.colorScheme.surfaceContainerLow.darken(1.02f),
                     )
 
                     when (index) {
@@ -284,7 +284,7 @@ fun ExamSheet(
         ExtendedFloatingActionButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(horizontal = 12.dp, vertical = 26.dp),
+                .padding(horizontal = 12.dp, vertical = 12.dp),
             onClick = { onInteractionButtonClick() },
             text = { Text("Interações") },
             expanded = uiState.interactions.isNotEmpty(),

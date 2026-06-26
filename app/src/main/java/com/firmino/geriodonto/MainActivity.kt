@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.firmino.geriodonto.companions.PocketAlert
@@ -220,7 +221,7 @@ fun Menu(
 ) {
     var medDataVersion by remember { mutableStateOf("") }
 
-    Box(Modifier.fillMaxSize()) {
+    Box(Modifier.fillMaxSize().padding(bottom = 12.dp)) {
         ExamMenuLogo(medDataVersion)
         when (seedingState) {
             is SeedingState.Idle -> {

@@ -64,69 +64,47 @@ fun MaterialSymbol(
         color = if (filled) colorFilled else color,
     )
 }
+
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun MaterialSymbol(
     iconName: String,
     modifier: Modifier = Modifier,
     size: Dp,
-    filled: Boolean = false,
-    weight: Float = 400f,
-    grad: Float = 0f,
     color: Color = MaterialTheme.colorScheme.onSurface,
-    colorFilled: Color = MaterialTheme.colorScheme.primary,
 ) {
-    val animatedFill by animateFloatAsState(
-        targetValue = if (filled) 1f else 0f,
-        animationSpec = tween(durationMillis = 300),
+    val fontFamily = FontFamily(
+        Font(
+            resId = R.font.material_symbols,
+            variationSettings = FontVariation.Settings(
+                FontVariation.Setting("FILL", 1f),
+                FontVariation.Setting("wght", 400f),
+                FontVariation.Setting("GRAD", 0f),
+            ),
+        ),
     )
 
-    val roundedFill = remember(animatedFill) {
-        (round(animatedFill * 100f) / 100f).coerceIn(0f, 1f)
-    }
-
-    // Criamos a fonte com as variações necessárias
-    val fontFamily = remember(roundedFill, weight, grad) {
-        FontFamily(
-            Font(
-                resId = R.font.material_symbols,
-                variationSettings = FontVariation.Settings(
-                    FontVariation.Setting("FILL", roundedFill),
-                    FontVariation.Setting("wght", weight),
-                    FontVariation.Setting("GRAD", grad),
-                )
-            )
-        )
-    }
-
-    // O TextMeasurer calcula o posicionamento perfeito do caractere no Canvas
     val textMeasurer = rememberTextMeasurer()
     val density = LocalDensity.current
-
-    // Converte o tamanho em Dp para pixels para o desenho do texto
     val fontSizeSp = with(density) { size.toSp() }
-    val tintColor = if (filled) colorFilled else color
-
     val textLayoutResult = remember(iconName, fontFamily, fontSizeSp) {
         textMeasurer.measure(
             text = iconName,
             style = TextStyle(
                 fontFamily = fontFamily,
                 fontSize = fontSizeSp,
-                color = tintColor
-            )
+                color = color,
+            ),
         )
     }
 
-    // Usamos o Canvas aplicando o Modifier que dita o tamanho exato em Dp
     Canvas(modifier = modifier.size(size)) {
-        // Centraliza o ícone caso o tamanho do layout do texto divirja do Canvas
         val x = (size.toPx() - textLayoutResult.size.width) / 2f
         val y = (size.toPx() - textLayoutResult.size.height) / 2f
 
         drawText(
             textLayoutResult = textLayoutResult,
-            topLeft = Offset(x, y)
+            topLeft = Offset(x, y),
         )
     }
 }
