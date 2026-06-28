@@ -16,10 +16,10 @@
       </SelectionState>
       <SelectionState runConfigName="main">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-06-26T17:04:35.694084573Z">
+        <DropdownSelection timestamp="2026-06-28T15:58:17.595280667Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=/home/noctalia/.config/android_user/avd/Pixel_10_Pro.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=/home/noctalia/.config/android_user/avd/Resizable.avd" />
             </handle>
           </Target>
         </DropdownSelection>
