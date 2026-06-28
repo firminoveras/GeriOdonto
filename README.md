@@ -1,6 +1,6 @@
 # GeriOdonto
 
-![Logo](/media/icon.png)
+<img alt="Logo" height="300" src="/media/icon.png" width="300"/>
 
 ![Android](https://img.shields.io/badge/Platform-Android-3DDC84?style=flat-square&logo=android&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/Language-Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white)
